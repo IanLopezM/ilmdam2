@@ -29,7 +29,7 @@ public class M9_uf1_act2 {
                 System.out.println("\nAlgorisme DESede:");
 		byte [] encoded3=keygenKeyGeneration3(112).getEncoded();
 		
-		for (int k=0; k<encoded2.length; k++) {
+		for (int k=0; k<encoded3.length; k++) {
 			System.out.println(Integer.toBinaryString(encoded2[k] & 0xFF).replace(' ', '0')+ "-"+ encoded2[k]);
 		}
 		
