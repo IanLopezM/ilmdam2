@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package m9_uf1_act2;
 
 import java.security.NoSuchAlgorithmException;
@@ -27,7 +22,7 @@ public class M9_uf1_act2 {
 		}
                 
                 System.out.println("\nAlgorisme DESede:");
-		byte [] encoded3=keygenKeyGeneration3(112).getEncoded();
+		byte [] encoded3=keygenKeyGeneration3(168).getEncoded();
 		
 		for (int k=0; k<encoded3.length; k++) {
 			System.out.println(Integer.toBinaryString(encoded3[k] & 0xFF).replace(' ', '0')+ "-"+ encoded3[k]);
