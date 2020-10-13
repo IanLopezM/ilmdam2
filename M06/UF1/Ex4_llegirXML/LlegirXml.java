@@ -7,7 +7,6 @@ package llegirxml;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,7 +39,21 @@ public class LlegirXml {
         NodeList list = nodeArrel.getChildNodes();
         
         for(int i = 0; i < list.getLength(); i++){
-            //System.out.println(list.);
+            Node nodeRow = list.item(i);
+            System.out.println("Nom del node: " + nodeRow.getNodeName());
+            
+            System.out.println("Noms dels nodes fills i els seus continguts");
+            for(int j = 0; j < nodeRow.getChildNodes().getLength(); j++){
+                Node nodeRowChild = nodeRow.getChildNodes().item(j);
+                System.out.println("Nom del node fill: " + nodeRowChild.getNodeName() + "   Contingut: "+ nodeRowChild.getTextContent());
+            }
+            
+            System.out.println("Noms dels atributs i els seus continguts");
+            for(int k = 0; k < nodeRow.getAttributes().getLength();k++){
+                Node nodeRowAtt = nodeRow.getAttributes().item(k);
+                System.out.println("Nom de l atribut: " + nodeRowAtt.getNodeName() + "   Contingut: " + nodeRowAtt.getTextContent());
+            }
+            System.out.println("\n");
         }
         
     }
