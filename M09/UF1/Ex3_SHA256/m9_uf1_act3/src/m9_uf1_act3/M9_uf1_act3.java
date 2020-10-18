@@ -3,6 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+/*
+* File: M9_uf1_act3.java 
+* Author: Ian Lopez 
+* Date: 18-10-2020
+* Description: Activitat 3 Practica UF1 
+*/
 package m9_uf1_act3;
 
 import java.security.MessageDigest;
@@ -20,8 +27,6 @@ public class M9_uf1_act3 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        
-        System.out.println("hola");
         
         byte[] encoded = passwordKeyGeneration("hola", 128).getEncoded();
         
