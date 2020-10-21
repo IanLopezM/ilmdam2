@@ -36,6 +36,7 @@ public class M6_uf1_act5 {
      * @throws javax.xml.parsers.ParserConfigurationException
      * @throws org.xml.sax.SAXException
      * @throws java.io.IOException
+     * @throws javax.xml.transform.TransformerConfigurationException
      */
     public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerConfigurationException, TransformerException{
         // TODO code application logic here
@@ -75,10 +76,14 @@ public class M6_uf1_act5 {
             Element nodecognom2 = doc.createElement("cognom2");
             Element nodenota = doc.createElement("notaFinal");
             
+            newEl.setAttribute("id", id);
+            newEl.setIdAttribute("id", true);
+            
             nodenom.appendChild(doc.createTextNode(nom));
             nodecognom1.appendChild(doc.createTextNode(cognom1));
             nodecognom2.appendChild(doc.createTextNode(cognom2));
             nodenota.appendChild(doc.createTextNode(nota));
+            
             
             newEl.appendChild(nodenom);
             newEl.appendChild(nodecognom1);
@@ -86,16 +91,30 @@ public class M6_uf1_act5 {
             newEl.appendChild(nodenota);
             
             nodeArrel.appendChild(newEl);
+        } else if (menu == 2) {
+            String idAlumno;
+            System.out.println("Quin es l alumne que vols modificar?");
+            idAlumno = sc.next();
+            Element elementoAhora = doc.getElementById(idAlumno);
+            System.out.println("Quin node vols modificar:");
+            String nodo = sc.next();
+            System.out.println("Nou nom per al node");
+            String nouNom = sc.next();
             
+            NodeList nodosAhora = elementoAhora.getChildNodes();
+            
+            for (int i = 0; i < nodosAhora.getLength(); i++) {
+		if (nodosAhora.item(i).getNodeName().equals(nodo)) {
+                    nodosAhora.item(i).setTextContent(nouNom);
+                }
+            }
+        }
+        
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
             Result output = new StreamResult(new File("F:\\dam\\m06\\uf1\\ex05\\alumnesnew.xml"));
             Source input = new DOMSource(doc);
 
             transformer.transform(input, output);
-            
-        }
-        
-        
     }
     
 }
