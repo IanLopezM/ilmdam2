@@ -3,103 +3,149 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ex03persones;
-
+package m9_uf1_act4;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Scanner;
+import javax.crypto.BadPaddingException;
 
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 /**
  *
- * @author Alumne
+ * @author ianlo
  */
-public class CercarFitxerAleatori {
+public class M9_uf1_act4 {
+    /**
+     * @param args the command line arguments
+     * @throws java.io.IOException
+     */
     public static void main(String[] args) throws IOException {
-        
-        File fitxer = new File("C:\\Users\\Alumne\\Downloads\\persones.txt");
-	RandomAccessFile aleatoriFile = new RandomAccessFile(fitxer, "r");
-        
+	//declarem les variables
         Scanner sc = new Scanner(System.in);
+	String clau, arxiu;
+        int kSize = 256; //podría ser 128 o 192 pero he escollit 256
         
-        int apuntador = 0, telf, id, seleccio, menu;
-        char nom[] = new char[20], dni[] = new char[9], cognom[] = new char[20], correu[] = new char[30], aux;
-        String menul = "";
-        int menun = 0;
+        //demanem la clau i la paraula/es a encriptar
+	System.out.print("Introdueix la paraula clau: ");
+	clau = sc.nextLine();
+	System.out.print("Introdueix l arxiu que vols encriptar i desencriptar: ");
+	arxiu = sc.nextLine();
+
+	//Generem la clau amb la size especificara
+	SecretKey sKey = passwordKeyGeneration(clau, kSize);
+
+	//Agafem la paraula a encriptar, la transformem en bytes 
+        //i cridem a la funció per a encriptar encryptData(sKey, data
+	byte[] data;
+        File fitxer = new File(arxiu);
+        data = Files.readAllBytes(fitxer.toPath());
+	byte[] encryptData;
+        encryptData = encryptData(sKey, data);
+
+        //Ara la desencriptem utilitzant la clau generada 
+        //i el texte encriptat anteriorment
+	byte[] decryptData;
+        decryptData = decryptData(sKey, encryptData);
+
+	//Mostrem per pantalla el texte encriptat i el desencriptat
+	String encripta;
+        encripta = new String(encryptData);
+	System.out.println("L arxiu encriptat: " + encripta);
+	String desencripta;
+        desencripta = new String(decryptData);
+	System.out.println("La paraula desencriptada: " + desencripta);
         
-        System.out.println("Cercar per el nom 1");
-        System.out.println("Cercar per el dni 2");
-        System.out.println("Cercar per el cognom 3");
-        System.out.println("Cercar per el correu 4");
-        System.out.println("Cercar per el telf 5");
+        //Dividim la ruta per a poder afegir el nom correcte a l arxiu
+        String[] partes = arxiu.split("\\.");
+        String parte0 = partes[0];
+        String parte1 = partes[1];
         
-        menu = sc.nextInt();
-        sc.nextLine();
-        
-        if(menu == 1){
-            menul = sc.nextLine();
-        } else if(menu == 2){
-            menul = sc.next();
-        } else if(menu == 3){
-            menul = sc.next();
-        } else if(menu == 4){
-            menul = sc.next();
-        } else if(menu == 5){
-            menun = sc.nextInt();
+        //afegim el texte encriptat a l arxiu _X
+        try{
+            File file = new File(parte0 + "_X." + parte1);
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(encripta);
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception ex) {
+            System.out.println("Hi ha hagut un error");
         }
         
-        for (;;) {
-            aleatoriFile.seek(apuntador);//Apuntar a l'inici de cada llibre al fitxer
-	//Llegeix ID
-		id = aleatoriFile.readInt();
-			//Llegeix Títol
-		for(int i = 0; i<nom.length; i++) {
-			aux = aleatoriFile.readChar();
-                        nom[i] = aux;
-		}
-		String noms = new String(nom);
-		//Llegeix ISBN
-		//Llegeix Autor
-		for(int i = 0; i<dni.length; i++) {
-                    aux = aleatoriFile.readChar();
-                    dni[i] = aux;
-		}
-		String dnis = new String(dni);
-		//Llegeix Editorial
-		for(int i = 0; i<cognom.length; i++) {
-			aux = aleatoriFile.readChar();
-                        cognom[i] = aux;
-		}
-		String cognoms = new String(cognom);
-                       
-                for(int i = 0; i<correu.length; i++) {
-			aux = aleatoriFile.readChar();
-			correu[i] = aux;
-		}
-		String correus = new String(correu);
-		//Llegeix Preu
-		telf = aleatoriFile.readInt();
-		//Sortida de les dades de cada llibre
-                if((noms.trim().toLowerCase().equals(menul.trim().toLowerCase())) || (dnis.trim().toLowerCase().equals(menul.trim().toLowerCase())) || (cognoms.trim().toLowerCase().equals(menul.trim().toLowerCase())) || (correus.trim().toLowerCase().equals(menul.trim().toLowerCase())) || (telf == menun)){
-                    System.out.println("ID: "+id+"\nNom: "+noms+"\nDNI: "+dnis+"\nCognom: "+cognoms+"\nCorreu: "+correus+"\nTelf: "+telf+"\n\n");
-                } 
-		
-                //S'ha de posicionar l'apuntador al següent llibre
-		apuntador += 166;
-		//Si coincideix on s'està apuntat amb el final del fitxer, sortim
-		if(aleatoriFile.getFilePointer()==aleatoriFile.length()) break;
-	}
-
-        
-        
-        
-        aleatoriFile.close();
-        
-        
-        
-        
-        
+        //afegim el texte desencriptat a l arxiu _Y
+        try{
+            File file1 = new File(parte0 + "_Y." + parte1);
+            FileWriter fileWriter1 = new FileWriter(file1);
+            fileWriter1.write(desencripta);
+            fileWriter1.flush();
+            fileWriter1.close();
+        } catch (Exception ex) {
+            System.out.println("Hi ha hagut un error");
+        }
     }
-    
-    
+
+    // Funcio que donas a la teoria
+    public static SecretKey passwordKeyGeneration(String text, int keySize) {
+	SecretKey sKey = null;
+        
+	if ((keySize == 128) || ( keySize == 192) || (keySize == 256)) {
+            try {
+                byte[] data = text.getBytes("UTF-8");
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] hash = md.digest(data);
+                byte[] key = Arrays.copyOf(hash, keySize/8);
+                sKey = new SecretKeySpec(key, "AES");
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                System.out.println("Error generant la clau: " + ex);
+            }
+	}
+        
+	return sKey;
+    }
+
+    // Metode per a poder encriptar
+    public static byte[] encryptData(SecretKey sKey, byte[] data) {
+	byte[] encryptedData = null;
+        
+	try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, sKey);
+            encryptedData = cipher.doFinal(data);
+	}catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            System.err.println("Error xifrant les dades: " + ex);
+	}
+        
+	return encryptedData;
+    }
+
+
+    // Metode per a poder desencriptar
+    public static byte[] decryptData(SecretKey sKey1, byte[] data) {
+        byte[] decryptedData = null;
+        
+        try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, sKey1);
+            decryptedData = cipher.doFinal(data);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            System.err.println("Error desxifrant les dades: " + ex);
+        }
+        
+        return decryptedData;
+    }
 }
