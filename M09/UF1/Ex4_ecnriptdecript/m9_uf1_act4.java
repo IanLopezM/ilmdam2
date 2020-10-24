@@ -1,347 +1,158 @@
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package m9_uf1_act4;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.security.InvalidKeyException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Base64;
 import java.util.Scanner;
+import javax.crypto.BadPaddingException;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+/**
+ *
+ * @author ianlo
+ */
+public class M9_uf1_act4 {
+    /**
+     * @param args the command line arguments
+     * @throws java.io.IOException
+     */
+    public static void main(String[] args) throws IOException {
+	//declarem les variables
+        Scanner sc = new Scanner(System.in);
+	String clau, paraulaEncriptada, arxiu;
+        int kSize = 256; //podría ser 128 o 192 pero he escollit 256
+        
+        //demanem la clau i la paraula/es a encriptar
+	System.out.print("Introdueix la paraula clau: ");
+	clau = sc.nextLine();
+	System.out.print("Introdueix l arxiu que vols encriptar i desencriptar: ");
+	arxiu = sc.nextLine();
+        
+        Path path = Paths.get(arxiu);
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
+	//Generem la clau amb la size especificara
+	SecretKey sKey = passwordKeyGeneration(clau, kSize);
 
-public class M6_uf1_act5 {
+	//Agafem la paraula a encriptar, la transformem en bytes 
+        //i cridem a la funció per a encriptar encryptData(sKey, data
+	byte[] data;
+        data = Files.readAllBytes(path);
+	byte[] encryptData;
+        encryptData = encryptData(sKey, data);
 
-    public static Scanner scan = new Scanner(System.in);
-    public static File file;
-    public static DocumentBuilderFactory dbFactory;
-    public static DocumentBuilder dBuilder;
-    public static Document doc;
-    public static Element nodeArrel;
+        //Ara la desencriptem utilitzant la clau generada 
+        //i el texte encriptat anteriorment
+	byte[] decryptData;
+        decryptData = decryptData(sKey, encryptData);
 
-    public static void main(String[] args) throws ParserConfigurationException, SAXException, IOException, TransformerException {
-
-        file = new File("E:\\dam\\m06\\uf1\\ex05\\alumnes.xml");
-        dbFactory = DocumentBuilderFactory.newInstance();
-        dBuilder = dbFactory.newDocumentBuilder();
-        doc = dBuilder.parse(file);
-        nodeArrel = doc.getDocumentElement();
-        boolean sortir = false;
-        int opcio;
-
-        while (!sortir) {
-            System.out.println("1-Afegir\n2.Modificar\n3.Eliminar\n"
-                    + "4.Mostrar XML\n5.Sortir");
-            opcio = scan.nextInt();
-            
-            if (opcio == 1) {
-                afegirElement();
-            } else if (opcio == 2) {
-                modificarElement();
-            } else if (opcio == 3) {
-                eliminarElement();
-            } else if (opcio == 4) {
-                String espai = "";
-                mostraInformacioNode(nodeArrel, espai);
-            } else if (opcio == 5) {
-                sortir = true;
-                while (true) {
-                    
-                    System.out.println("Vols guardar els canvis");
-                    System.out.println("1.Si 2.No");
-                    opcio = scan.nextInt();
-                    if (opcio == 1) {
-                        guardar();
-                    } else if (opcio == 2) {
-                        System.exit(0);
-                    }
-                }
-            }
+	//Mostrem per pantalla el texte encriptat i el desencriptat
+	String encripta;
+        encripta = new String(encryptData);
+	System.out.println("La paraula encriptada: " + encripta);
+	String desencripta;
+        desencripta = new String(decryptData);
+	System.out.println("La paraula desencriptada: " + desencripta);
+        
+        //dividim la path en abans i després del .
+        String[] partesPath = arxiu.split("\\.");
+        String parte0 = partesPath[0];
+        String parte1 = partesPath[1];
+        
+        //Creem l arxiu encriptat amb _X.
+        try{
+            File file = new File(parte0 + "_X." + parte1);
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter bw = new BufferedWriter(fw);
+            bw.write(encripta);
+            bw.close();
+            System.out.println("La informarcio encriptada s ha guardat a l arxiu " + file);
+        } catch (Exception ex) {
+            System.err.println("Hi ha hagut un error");
         }
+        //Creem l arxiu desencriptat amb _Y.
+        try{
+            File file1 = new File(parte0 + "_Y." + parte1);
+            FileWriter fw1 = new FileWriter(file1);
+            BufferedWriter bw1 = new BufferedWriter(fw1);
+            bw1.write(desencripta);
+            bw1.close();
+            System.out.println("La informarcio desencriptada s ha guardat a l arxiu " + file1);
+        } catch (Exception ex) {
+            System.err.println("Hi ha hagut un error");
+        }
+        
+        
     }
 
-    public static void afegirElement() {
+    // Funcio que donas a la teoria
+    public static SecretKey passwordKeyGeneration(String text, int keySize) {
+	SecretKey sKey = null;
         
-        boolean fin = false;
-        while (!fin) {
-            
-            System.out.println("Que vols afegir");
-            System.out.println("1.Element 2.Atribut");
-            int opcio = scan.nextInt();
-            
-            if (opcio == 1) {
-                
-                System.out.println("Introdueix les dades de l'alumne");
-                System.out.println("Introdueix un id");
-                String id = scan.next();
-                System.out.println("Introdueix un nom");
-                String nom = scan.next();
-                System.out.println("Introdueix el primer cognom");
-                String cognom1 = scan.next();
-                System.out.println("Introdueix el segon cognom");
-                String cognom2 = scan.next();
-                System.out.println("Introdueix la nota");
-                String nota = scan.next();
-                
-                Element elementNom = doc.createElement("nom");
-                elementNom.appendChild(doc.createTextNode(nom));
-                Element elementCognom1 = doc.createElement("cognom1");
-                elementCognom1.appendChild(doc.createTextNode(cognom1));
-                Element elementCognom2 = doc.createElement("cognom2");
-                elementCognom2.appendChild(doc.createTextNode(cognom2));
-                Element elementNota = doc.createElement("nota");
-                elementNota.appendChild(doc.createTextNode(nota));
-                Element element = doc.createElement("alumne");
-                nodeArrel.appendChild(element);
-                
-                element.setAttribute("id", id);
-                element.setIdAttribute("id", true);
-                element.appendChild(elementNom);
-                element.appendChild(elementCognom1);
-                element.appendChild(elementCognom2);
-                element.appendChild(elementNota);
-                
-                fin = true;
-            } else if (opcio == 2) {
-                opcio = 0;
-                while (!fin) {
-                    System.out.println("Introdueix el id del alumne");
-                    String id = scan.next();
-                    Element element = doc.getElementById(id);
-                    System.out.println("On vols afegir l'atribut");
-                    System.out.println("1.Element pare 2.Element fill");
-                    opcio = scan.nextInt();
-                    if (opcio == 1) {
-                        System.out.println("Introdueix un nom per l'atribut");
-                        String attrNom = scan.next();
-                        System.out.println("Introdueix un valor per l'atribut");
-                        String attrValor = scan.next();
-                        element.setAttribute(attrNom, attrValor);
-                        fin = true;
-                    } else if (opcio == 2) {
-                        for (int i = 0; i < element.getChildNodes().getLength(); i++) {
-                            if (element.getChildNodes().item(i).hasChildNodes()) {
-                                System.out.println("Vols introduir atribut per el element "
-                                        + element.getChildNodes().item(i).getNodeName());
-                                System.out.println("1.Si 2.No");
-                                opcio = scan.nextInt();
-                                if (opcio == 1) {
-                                    System.out.println("Introdueix un nom per l'atribut");
-                                    String attrNom = scan.next();
-                                    System.out.println("Introdueix un valor per l'atribut");
-                                    String attrValor = scan.next();
-                                    Element fill = (Element) element.getChildNodes().item(i);
-                                    fill.setAttribute(attrNom, attrValor);
-                                }
-                            }
-
-                        }
-                        fin = true;
-                    }
-                }
+	if ((keySize == 128) || ( keySize == 192) || (keySize == 256)) {
+            try {
+                byte[] data = text.getBytes("UTF-8");
+                MessageDigest md = MessageDigest.getInstance("SHA-256");
+                byte[] hash = md.digest(data);
+                byte[] key = Arrays.copyOf(hash, keySize/8);
+                sKey = new SecretKeySpec(key, "AES");
+            } catch (UnsupportedEncodingException | NoSuchAlgorithmException ex) {
+                System.out.println("Error generant la clau: " + ex);
             }
-        }
-
+	}
+        
+	return sKey;
     }
 
-    public static void modificarElement() {
-        boolean fin = false;
-        int opcio = 0;
+    // Metode per a poder encriptar
+    public static byte[] encryptData(SecretKey sKey, byte[] data) {
+	byte[] encryptedData = null;
         
-        while (!fin) {
-            
-            System.out.println("Introdueix el id de l'alumne a modificar");
-            String id = scan.next();
-            Node element = doc.getElementById(id);
-            System.out.println("Que vols modificar:");
-            System.out.println("1.Element 2.Atribut");
-            opcio = scan.nextInt();
-            
-            if (opcio == 1) {
-                while (element.hasChildNodes()) {
-                    
-                    element.removeChild(element.getFirstChild());
-                }
-                
-                System.out.println("Introdueix un nom");
-                String nom = scan.next();
-                System.out.println("Introdueix el primer cognom");
-                String cognom1 = scan.next();
-                System.out.println("Introdueix el segon cognom");
-                String cognom2 = scan.next();
-                System.out.println("Introdueix la nota");
-                String nota = scan.next();
-                
-                Node elementNom = doc.createElement("nom");
-                elementNom.appendChild(doc.createTextNode(nom));
-                Node elementCognom1 = doc.createElement("cognom1");
-                elementCognom1.appendChild(doc.createTextNode(cognom1));
-                Node elementCognom2 = doc.createElement("cognom2");
-                elementCognom2.appendChild(doc.createTextNode(cognom2));
-                Node elementNota = doc.createElement("nota");
-                elementNota.appendChild(doc.createTextNode(nota));
-                
-                element.appendChild(elementNom);
-                element.appendChild(elementCognom1);
-                element.appendChild(elementCognom2);
-                element.appendChild(elementNota);
-                fin = true;
-            } else if (opcio == 2) {
-                
-                opcio = 0;
-                while (!fin) {
-                    String nomAttr;
-                    String valorAttr;
-                    System.out.println("Quin element vols editar els atributs");
-                    System.out.println("1.Element pare 2.Element fill");
-                    opcio = scan.nextInt();
-                    if (opcio == 1) {
-                        for (int i = 0; i < element.getAttributes().getLength(); i++) {
-                            
-                            opcio = 0;
-                            Node atribut = element.getAttributes().item(i);
-                            System.out.println("Vols editar el atribut " + element.getAttributes().item(i).getNodeName());
-                            System.out.println("1.Si 2.No");
-                            opcio = scan.nextInt();
-                            if (opcio == 1) {
-                                
-                                System.out.println("Introdueix un valor");
-                                valorAttr = scan.next();
-                                atribut.setNodeValue(valorAttr);
-
-                            }
-                        }
-                        fin = true;
-                    } else if (opcio == 2) {
-                        for (int i = 0; i < element.getChildNodes().getLength(); i++) {
-                            if (element.getChildNodes().item(i).hasChildNodes()) {
-                                for (int j = 0; j < element.getChildNodes().item(i).getAttributes().getLength(); j++) {
-                                    
-                                    opcio = 0;
-                                    Node atribut = element.getChildNodes().item(i).getAttributes().item(j);
-                                    System.out.println("Vols modificar el atribut "
-                                            + element.getChildNodes().item(i).getAttributes().item(j).getNodeName()
-                                            + " al element " + element.getChildNodes().item(i).getNodeName());
-                                    System.out.println("1.Si 2.No");
-                                    opcio = scan.nextInt();
-                                    
-                                    if (opcio == 1) {
-                                        
-                                        System.out.println("Introdueix un valor");
-                                        valorAttr = scan.next();
-                                        atribut.setNodeValue(valorAttr);
-                                    }
-                                }
-                            }
-
-                        }
-                        fin = true;
-                    }
-                }
-            }
-        }
+	try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.ENCRYPT_MODE, sKey);
+            encryptedData = cipher.doFinal(data);
+	}catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            System.err.println("Error xifrant les dades: " + ex);
+	}
+        
+	return encryptedData;
     }
 
-    public static void eliminarElement() {
-        
-        boolean fin = false;
-        int opcio = 0;
-        
-        while (!fin) {
-            System.out.println("Introdueix el id de l'alumne");
-            String id = scan.next();
-            Element element = doc.getElementById(id);
-            System.out.println("Que vols eliminar");
-            System.out.println("1.Element 2.Atribut");
-            opcio = scan.nextInt();
-            
-            if (opcio == 1) {
-                nodeArrel.removeChild(element);
-                fin = true;
-            } else if (opcio == 2) {
-                
-                while (!fin) {
-                    
-                    opcio = 0;
-                    System.out.println("A quin element vols eliminar l'atribut");
-                    System.out.println("1.Element pare 2.Elements fills");
-                    opcio = scan.nextInt();
-                    
-                    if (opcio == 1) {
-                        if (element.hasAttributes()) {
-                            for (int i = 0; i < element.getAttributes().getLength(); i++) {
-                                
-                                opcio = 0;
-                                System.out.println("Vols eliminar l'atribut " + element.getAttributes().item(i).getNodeName());
-                                System.out.println("1.Si 2.No");
-                                opcio = scan.nextInt();
-                                if (opcio == 1) {
-                                    element.removeAttribute(element.getAttributes().item(i).getNodeName());
-                                }
-                            }
-                        }
-                        fin = true;
-                    } else if (opcio == 2) {
-                        for (int i = 0; i < element.getChildNodes().getLength(); i++) {
-                            if (element.getChildNodes().item(i).hasChildNodes()) {
-                                
-                                Element elementFill = (Element) element.getChildNodes().item(i);
-                                for (int j = 0; j < element.getChildNodes().item(i).getAttributes().getLength(); j++) {
-                                    
-                                    opcio = 0;
-                                    Node atribut = element.getChildNodes().item(i).getAttributes().item(j);
-                                    System.out.println("Vols eliminar l'atribut " + atribut.getNodeName()
-                                            + " de l'element " + elementFill.getNodeName());
-                                    System.out.println("1.Si 2.No");
-                                    opcio = scan.nextInt();
-                                    
-                                    if (opcio == 1) {
-                                        elementFill.removeAttribute(atribut.getNodeName());
-                                    }
-                                }
-                            }
-                        }
-                        fin = true;
-                    }
-                }
-                fin = true;
-            }
-        }
-    }
 
-    public static void guardar() throws TransformerException {
+    // Metode per a poder desencriptar
+    public static byte[] decryptData(SecretKey sKey1, byte[] data) {
+        byte[] encryptedData = null;
         
-        Transformer trans = TransformerFactory.newInstance().newTransformer();
-        StreamResult result = new StreamResult(new File("E:\\dam\\m06\\uf1\\ex05\\alumnesnew.xml"));
-        DOMSource source = new DOMSource(doc);
-        trans.transform(source, result);
-        System.exit(0);
-    }
-
-    public static void mostraInformacioNode(Node element, String espai) {
-        
-        System.out.println(espai + element.getNodeName());
-        System.out.println(espai + "  " + element.getFirstChild().getNodeValue());
-        
-        if (element.hasAttributes()) {
-            for (int i = 0; i < element.getAttributes().getLength(); i++) {
-                System.out.println(espai + element.getAttributes().item(i));
-            }
+        try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, sKey1);
+            encryptedData = cipher.doFinal(data);
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException ex) {
+            System.err.println("Error desxifrant les dades: " + ex);
         }
         
-        for (int i = 0; i < element.getChildNodes().getLength(); i++) {
-            if (element.getChildNodes().item(i).hasChildNodes()) {
-                mostraInformacioNode(element.getChildNodes().item(i), espai + "  ");
-            }
-        }
-        
-        System.out.println(espai + element.getNodeName());
+        return encryptedData;
     }
 }
