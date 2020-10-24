@@ -29,10 +29,12 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
-/**
- *
- * @author ianlo
- */
+/*
+* File: Ex4_encriptdecript.java 
+* Author: Ian Lopez Molina 
+* Date: 24-10-2020
+* Description: Activitat 4 Practica UF1 
+*/
 public class M9_uf1_act4 {
     /**
      * @param args the command line arguments
