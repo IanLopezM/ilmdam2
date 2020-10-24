@@ -102,9 +102,54 @@ public class M6_uf1_act5 {
 			element.appendChild(elementNota);
                         
                         fin1 = true;
+                    } else if(opcio == 2){
+                        opcio = 0;
+                        String id;
+                        while(!fin1){
+                            System.out.println("Quin es l id de l alumne");
+                            id = sc.next();
+                            Element element = doc.getElementById(id);
+                            System.out.println("On vols afegir l'atribut");
+                            System.out.println("Vols afegir l atribut a l "
+                                    + "Element pare(1) o Element fill(2)");
+                            opcio = sc.nextInt();
+                            
+                            if(opcio == 1){
+                                String attrNom, attrValor;
+                                System.out.println("Quin es el nom per l atribut");
+				attrNom = sc.next();
+				System.out.println("Quin es el valor per l atribut");
+				attrValor = sc.next();
+				element.setAttribute(attrNom, attrValor);
+				fin1 = true;
+                            } else if (opcio == 2) {
+                                for (int i = 0; i < element.getChildNodes().getLength(); i++) {
+                                    if (element.getChildNodes().item(i).hasChildNodes()) {
+					System.out.println("Vols introduir atribut per l element " 
+                                                + element.getChildNodes().item(i).getNodeName());
+					System.out.println("Si(1) No(2)");
+					opcio = sc.nextInt();
+					if (opcio == 1) {
+                                            String attrNom, attrValor;
+                                            System.out.println("Quin es el nom per l atribut");
+                                            attrNom = sc.next();
+                                            System.out.println("Quin es el valor per l atribut");
+                                            attrValor = sc.next();
+                                            Element fill = (Element) element.getChildNodes().item(i);
+                                            fill.setAttribute(attrNom, attrValor);
+					}
+                                    }
+				}
+				fin1 = true;
+                            }
+                        }
                     }
                 }
             }
+            
+            
+            
+            
             
         }
         
