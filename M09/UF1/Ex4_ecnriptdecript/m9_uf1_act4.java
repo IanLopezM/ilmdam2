@@ -75,10 +75,12 @@ public class M9_uf1_act4 {
         desencripta = new String(decryptData);
 	System.out.println("La paraula desencriptada: " + desencripta);
         
+        //dividim la path en abans i després del .
         String[] partesPath = arxiu.split("\\.");
         String parte0 = partesPath[0];
         String parte1 = partesPath[1];
         
+        //Creem l arxiu encriptat amb _X.
         try{
             File file = new File(parte0 + "_X." + parte1);
             FileWriter fw = new FileWriter(file);
@@ -89,7 +91,7 @@ public class M9_uf1_act4 {
         } catch (Exception ex) {
             System.err.println("Hi ha hagut un error");
         }
-        
+        //Creem l arxiu desencriptat amb _Y.
         try{
             File file1 = new File(parte0 + "_Y." + parte1);
             FileWriter fw1 = new FileWriter(file1);
