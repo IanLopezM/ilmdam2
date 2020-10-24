@@ -1,4 +1,3 @@
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -61,6 +60,7 @@ public class M6_uf1_act5 {
 
             } else if (opcio == 4) {
                 String espai = "";
+                mostraInformacioNode(nodeArrel, espai);
 
             } else if (opcio == 5) {
                 sortir = true;
@@ -300,6 +300,8 @@ public class M6_uf1_act5 {
                                     element.removeAttribute(element.getAttributes().item(i).getNodeName());
                                 }
                             }
+                        } else{
+                            System.out.println("No te atributs");
                         }
                         sortir = true;
                     } else if (opcio == 2) {
