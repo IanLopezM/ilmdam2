@@ -35,7 +35,7 @@ class Row {
         this._id = _id;
     }
 
-//    @XmlAttribute(name="_uuid")
+    @XmlAttribute(name="_uuid")
     public String getUuid() {
         return _uuid;
     }
@@ -44,7 +44,7 @@ class Row {
         this._uuid = _uuid;
     }
 
-//    @XmlAttribute(name="_position")
+    @XmlAttribute(name="_position")
     public String getPosition() {
         return _position;
     }
@@ -53,7 +53,7 @@ class Row {
         this._position = _position;
     }
 
-//    @XmlAttribute(name="_address")
+    @XmlAttribute(name="_address")
     public String getAddress() {
         return _address;
     }
