@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rows>
+    <row _id="row-mvai_6cu2~ijgv">
+        <address>https://analisi.transparenciacatalunya.cat/resource/_9qmy-ujbd/row-mvai_6cu2~ijgv</address>
+        <adre_a>Moll Gregal, 18</adre_a>
+        <codi_postal>12345</codi_postal>
+        <comarca>Baix Camp</comarca>
+        <modalitat>esports</modalitat>
+        <municipi>barcelona</municipi>
+        <nom>hola</nom>
+        <position>1</position>
+        <uuid>00000000-0000-0000-A01C-1DDE08356FD2</uuid>
+    </row>
+    <row _id="row-mvai_6cu2~ijgz">
+        <address>https://analisu.transparenciacatalunya.cat/resource/_9qmy-ujbd/row-mvai_6cu2~ijgv</address>
+        <adre_a>Moll Gregal, 19</adre_a>
+        <codi_postal>23456</codi_postal>
+        <comarca>Alt Camp</comarca>
+        <modalitat>cuina</modalitat>
+        <municipi>tarragona</municipi>
+        <nom>adios</nom>
+        <position>2</position>
+        <uuid>00000000-1111-0000-A01C-1DDE08356FD2</uuid>
+    </row>
+    <row _id="row-mvai_6cu2~ijgb">
+        <address>https://analiso.transparenciacatalunya.cat/resource/_9qmy-ujbd/row-mvai_6cu2~ijgv</address>
+        <adre_a>Moll Gregal, 20</adre_a>
+        <codi_postal>34567</codi_postal>
+        <comarca>Valls</comarca>
+        <modalitat>poblacions</modalitat>
+        <municipi>girona</municipi>
+        <nom>hasta mañana</nom>
+        <position>3</position>
+        <uuid>00000000-2222-0000-A01C-1DDE08356FD2</uuid>
+    </row>
+</rows>
