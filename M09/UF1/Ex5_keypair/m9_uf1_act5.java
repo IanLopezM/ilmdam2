@@ -9,6 +9,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Scanner;
 import javax.crypto.Cipher;
 
 /**
@@ -22,9 +23,16 @@ public class M9_uf1_act5 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Scanner sc = new Scanner(System.in);
+        int kSize = 512;
+        String frasePerEncriptar;
+        KeyPair clausPuPr;
+        
+        clausPuPr = randomGenerate(512);
+        
     }
     
-    public KeyPair randomGenerate(int longuitudClau) {
+    public static KeyPair randomGenerate(int longuitudClau) {
         KeyPair keys = null;
         try {
             KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
@@ -37,7 +45,7 @@ public class M9_uf1_act5 {
         return keys;
     }
 
-    public byte[] encryptData(byte[] data, PublicKey pub) {
+    public static byte[] encryptData(byte[] data, PublicKey pub) {
         byte[] encryptedData = null;
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
@@ -50,7 +58,7 @@ public class M9_uf1_act5 {
         return encryptedData;
     }
     
-    public byte[] decryptData(byte[] data, PrivateKey pub) {
+    public static byte[] decryptData(byte[] data, PrivateKey pub) {
         byte[] decryptData = null;
         try {
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
