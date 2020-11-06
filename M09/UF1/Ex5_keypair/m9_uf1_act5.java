@@ -32,8 +32,8 @@ public class M9_uf1_act5 {
         
         System.out.println("Quina es la frase a encriptar?");
         frasePerEncriptar = sc.nextLine();
-        
-        clausPuPr = randomGenerate(512);
+        long startTime = System.currentTimeMillis();
+        clausPuPr = randomGenerate(kSize);
         clauPr = clausPuPr.getPrivate();
         clauPu = clausPuPr.getPublic();
         
@@ -48,7 +48,8 @@ public class M9_uf1_act5 {
         
         byte[] deData;
         deData = decryptData(enData, clauPr);
-        
+        long endTime = System.currentTimeMillis() - startTime;
+        System.out.println(endTime);
         fraseEncriptada = new String(enData);
         fraseDesencriptada = new String(deData);
         
