@@ -27,8 +27,16 @@ public class M9_uf1_act5 {
         int kSize = 512;
         String frasePerEncriptar;
         KeyPair clausPuPr;
+        PrivateKey clauPr;
+        PublicKey clauPu;
+        
+        System.out.println("Quina es la frase a encriptar?");
+        frasePerEncriptar = sc.nextLine();
         
         clausPuPr = randomGenerate(512);
+        clauPr = clausPuPr.getPrivate();
+        clauPu = clausPuPr.getPublic();
+        
         
     }
     
