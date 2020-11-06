@@ -5,6 +5,10 @@
  */
 package m9_uf1_act6;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
@@ -16,7 +20,7 @@ import java.security.PublicKey;
  */
 public class Generacio {
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int kSize = 512;
         KeyPair parellDeClaus;
         PrivateKey clauPrivada;
@@ -26,6 +30,8 @@ public class Generacio {
         clauPrivada = parellDeClaus.getPrivate();
         clauPublica = parellDeClaus.getPublic();
         
+        ArxiuClauPublica(clauPublica);
+        ArxiuClauPrivada(clauPrivada);
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
@@ -40,5 +46,29 @@ public class Generacio {
         }
         return keys;
     }
+    
+    public static void ArxiuClauPublica(PublicKey pub) throws IOException{  
+        byte[] data = pub.getEncoded();
+        String strData = new String(data);
+        File file = new File("clauPublica");
+        FileWriter fw = new FileWriter(file);
+        try (BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(strData);
+        }
+        System.out.println("Arxiu amb clau publica creat");
+    }
+    
+    public static void ArxiuClauPrivada(PrivateKey priv) throws IOException{  
+        byte[] data = priv.getEncoded();
+        String strData = new String(data);
+        File file = new File("clauPRIVADA");
+        FileWriter fw = new FileWriter(file);
+        try (BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(strData);
+        }
+        System.out.println("Arxiu amb clau privada creat");
+    }
+    
 }
+
 
