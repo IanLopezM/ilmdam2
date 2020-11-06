@@ -37,7 +37,7 @@ public class M9_uf1_act5 {
         clauPr = clausPuPr.getPrivate();
         clauPu = clausPuPr.getPublic();
         
-        System.out.println("Aquest es el codi sense encriptar" + 
+        System.out.println("Aquesta es la frase sense encriptar: " + 
                 frasePerEncriptar);
         
         byte[] data;
@@ -49,6 +49,14 @@ public class M9_uf1_act5 {
         byte[] deData;
         deData = decryptData(enData, clauPr);
         
+        fraseEncriptada = new String(enData);
+        fraseDesencriptada = new String(deData);
+        
+        System.out.println("Aquesta es la frase encriptada: " +
+                fraseEncriptada);
+        
+        System.out.println("Aquesta es la frase desencriptada: " + 
+                fraseDesencriptada);
         
     }
     
