@@ -25,7 +25,7 @@ public class M9_uf1_act5 {
         // TODO code application logic here
         Scanner sc = new Scanner(System.in);
         int kSize = 512;
-        String frasePerEncriptar;
+        String frasePerEncriptar, fraseEncriptada, fraseDesencriptada;
         KeyPair clausPuPr;
         PrivateKey clauPr;
         PublicKey clauPu;
@@ -36,6 +36,18 @@ public class M9_uf1_act5 {
         clausPuPr = randomGenerate(512);
         clauPr = clausPuPr.getPrivate();
         clauPu = clausPuPr.getPublic();
+        
+        System.out.println("Aquest es el codi sense encriptar" + 
+                frasePerEncriptar);
+        
+        byte[] data;
+        data = frasePerEncriptar.getBytes();
+        
+        byte[] enData;
+        enData = encryptData(data, clauPu);
+        
+        byte[] deData;
+        deData = decryptData(enData, clauPr);
         
         
     }
