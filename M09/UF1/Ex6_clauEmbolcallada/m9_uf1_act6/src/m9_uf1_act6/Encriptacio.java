@@ -23,12 +23,14 @@ import javax.crypto.SecretKey;
  */
 public class Encriptacio {
     
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) throws NoSuchAlgorithmException, 
+            InvalidKeyException, NoSuchPaddingException, 
+            IllegalBlockSizeException, BadPaddingException {
         Scanner sc = new Scanner(System.in);
         String arxiuPublica, textePerPantalla;
         Path pathArxiuPublica;
         SecretKey clauSimetrica;
-        byte[] dataTextePerPantalla;
+        byte[] dataTextePerPantalla, encriptedDataTextePerPantalla;
         
         System.out.println("Digues el nom de l arxiu de la clau publica");
         arxiuPublica = sc.nextLine();
@@ -40,6 +42,8 @@ public class Encriptacio {
         textePerPantalla = sc.nextLine();
         dataTextePerPantalla = textePerPantalla.getBytes();
         
+        encriptedDataTextePerPantalla = encryptData(clauSimetrica, 
+                dataTextePerPantalla);
     }
     
     public static SecretKey keyGenerator() throws NoSuchAlgorithmException{
