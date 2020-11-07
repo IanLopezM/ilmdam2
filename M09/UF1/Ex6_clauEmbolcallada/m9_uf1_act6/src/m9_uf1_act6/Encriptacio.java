@@ -56,18 +56,18 @@ public class Encriptacio {
         
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 
-// Clean public key information
+
         String publicKeyContent = new String(dataPublica);
         publicKeyContent = publicKeyContent
         .replace("—-BEGIN RSA PUBLIC KEY—-", "")
         .replace("—-END RSA PUBLIC KEY—-", "")
         .replace("\n", "");
 
-// Get all bytes decoded from the public key content
+
         byte[] publicKeyDecoded = Base64.getDecoder()
         .decode(publicKeyContent);
 
-// Generate the public key object from bytes
+
         X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyDecoded);
         PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
         
