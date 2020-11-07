@@ -5,10 +5,23 @@
  */
 package m9_uf1_act6;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
+import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.spec.EncodedKeySpec;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
 import java.util.Scanner;
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -16,6 +29,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
+import sun.misc.BASE64Decoder;
 
 /**
  *
@@ -25,25 +39,53 @@ public class Encriptacio {
     
     public static void main(String[] args) throws NoSuchAlgorithmException, 
             InvalidKeyException, NoSuchPaddingException, 
-            IllegalBlockSizeException, BadPaddingException {
+            IllegalBlockSizeException, BadPaddingException, IOException, 
+            InvalidKeySpecException, Exception {
+        
         Scanner sc = new Scanner(System.in);
         String arxiuPublica, textePerPantalla;
-        Path pathArxiuPublica;
+        File filePublica;
+        PublicKey clauArxiuPublica;
         SecretKey clauSimetrica;
-        byte[] dataTextePerPantalla, encriptedDataTextePerPantalla;
+        byte[] dataTextePerPantalla, encriptedDataTextePerPantalla, 
+                clauSimetricaBytes, clauSimetricaEncriptada, dataPublica;
         
         System.out.println("Digues el nom de l arxiu de la clau publica");
         arxiuPublica = sc.nextLine();
-        pathArxiuPublica = Paths.get(arxiuPublica);
+        dataPublica = Files.readAllBytes(Paths.get(arxiuPublica));
+        
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+
+// Clean public key information
+        String publicKeyContent = new String(dataPublica);
+        publicKeyContent = publicKeyContent
+        .replace("—-BEGIN RSA PUBLIC KEY—-", "")
+        .replace("—-END RSA PUBLIC KEY—-", "")
+        .replace("\n", "");
+
+// Get all bytes decoded from the public key content
+        byte[] publicKeyDecoded = Base64.getDecoder()
+        .decode(publicKeyContent);
+
+// Generate the public key object from bytes
+        X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyDecoded);
+        PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
         
         clauSimetrica = keyGenerator();
-       
+        clauSimetricaBytes = clauSimetrica.getEncoded();
+        
         System.out.println("Quin es el texte que vols encriptar?");
         textePerPantalla = sc.nextLine();
         dataTextePerPantalla = textePerPantalla.getBytes();
         
         encriptedDataTextePerPantalla = encryptData(clauSimetrica, 
                 dataTextePerPantalla);
+        
+        
+        
+        //clauSimetricaEncriptada = encryptData(clauSimetricaBytes, 
+        //        pathArxiuPublica);
+        
     }
     
     public static SecretKey keyGenerator() throws NoSuchAlgorithmException{
@@ -76,5 +118,20 @@ public class Encriptacio {
         
 	return encryptedData;
     }
+    
+    public static byte[] encryptData(byte[] data, PublicKey pub) {
+        byte[] encryptedData = null;
+        try {
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding","SunJCE");
+            cipher.init(Cipher.ENCRYPT_MODE, pub);
+            encryptedData = cipher.doFinal(data);
+        }
+        catch (Exception ex) {
+            System.err.println("Error xifrant: " + ex);
+        }
+        return encryptedData;
+    }
+
+    
     
 }
