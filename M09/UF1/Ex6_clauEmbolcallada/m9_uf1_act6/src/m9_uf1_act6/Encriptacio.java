@@ -48,28 +48,24 @@ public class Encriptacio {
         PublicKey clauArxiuPublica;
         SecretKey clauSimetrica;
         byte[] dataTextePerPantalla, encriptedDataTextePerPantalla, 
-                clauSimetricaBytes, clauSimetricaEncriptada, dataPublica;
+                clauSimetricaBytes, clauSimetricaEncriptada, dataPublica,
+                publicKeyDecoded;
+        X509EncodedKeySpec publicKeySpec;
         
         System.out.println("Digues el nom de l arxiu de la clau publica");
         arxiuPublica = sc.nextLine();
         dataPublica = Files.readAllBytes(Paths.get(arxiuPublica));
         
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-
         String publicKeyContent = new String(dataPublica);
         publicKeyContent = publicKeyContent
         .replace("—-BEGIN RSA PUBLIC KEY—-", "")
         .replace("—-END RSA PUBLIC KEY—-", "")
         .replace("\n", "");
-
-
-        byte[] publicKeyDecoded = Base64.getDecoder()
+        publicKeyDecoded = Base64.getDecoder()
         .decode(publicKeyContent);
-
-
-        X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyDecoded);
-        PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
+        publicKeySpec = new X509EncodedKeySpec(publicKeyDecoded);
+        clauArxiuPublica = keyFactory.generatePublic(publicKeySpec);
         
         clauSimetrica = keyGenerator();
         clauSimetricaBytes = clauSimetrica.getEncoded();
