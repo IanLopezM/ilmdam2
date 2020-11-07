@@ -13,6 +13,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.Base64;
 
 /**
  *
@@ -48,25 +49,35 @@ public class Generacio {
     }
     
     public static void ArxiuClauPublica(PublicKey pub) throws IOException{  
-        byte[] data = pub.getEncoded();
-        String strData = new String(data);
-        File file = new File("clauPublica");
-        FileWriter fw = new FileWriter(file);
-        try (BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write(strData);
+       Base64.Encoder encoder = Base64.getEncoder();
+        try (FileWriter out = new FileWriter("clauPublica")) {
+            out.write("—-BEGIN RSA PUBLIC KEY—-");
+            out.write("\n");
+
+            out.write(encoder.encodeToString(pub.getEncoded()));
+            out.write("\n");
+
+            out.write("—-END RSA PUBLIC KEY—-");
+            out.write("\n");
+        } catch (IOException ex) {
+            System.out.println("Arxiu amb clau publica no creat");
         }
-        System.out.println("Arxiu amb clau publica creat");
     }
     
     public static void ArxiuClauPrivada(PrivateKey priv) throws IOException{  
-        byte[] data = priv.getEncoded();
-        String strData = new String(data);
-        File file = new File("clauPRIVADA");
-        FileWriter fw = new FileWriter(file);
-        try (BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write(strData);
+        Base64.Encoder encoder = Base64.getEncoder();
+        try (FileWriter out = new FileWriter("clauPRIVADA")) {
+            out.write("—-BEGIN RSA PRIVATE KEY—-");
+            out.write("\n");
+
+            out.write(encoder.encodeToString(priv.getEncoded()));
+            out.write("\n");
+
+            out.write("—-END RSA PRIVATE KEY—-");
+            out.write("\n");
+        } catch (IOException ex) {
+            System.out.println("Arxiu amb clau privada no creat");
         }
-        System.out.println("Arxiu amb clau privada creat");
     }
     
 }
