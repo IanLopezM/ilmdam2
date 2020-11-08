@@ -75,7 +75,7 @@ public class Encriptacio {
         encriptedDataTextePerPantalla = encryptData(clauSimetrica, 
                 dataTextePerPantalla);
 
-        System.out.println(new String (clauSimetricaBytes));
+        //System.out.println(new String (clauSimetricaBytes));
         
         clauSimetricaEncriptada = encryptData(clauSimetricaBytes, 
                 clauArxiuPublica);
