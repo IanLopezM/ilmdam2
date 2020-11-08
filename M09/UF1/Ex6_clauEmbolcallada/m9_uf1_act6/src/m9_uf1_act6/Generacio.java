@@ -59,6 +59,7 @@ public class Generacio {
 
             out.write("—-END RSA PUBLIC KEY—-");
             out.write("\n");
+            out.close();
         } catch (IOException ex) {
             System.out.println("Arxiu amb clau publica no creat");
         }
@@ -75,11 +76,10 @@ public class Generacio {
 
             out.write("—-END RSA PRIVATE KEY—-");
             out.write("\n");
+            out.close();
         } catch (IOException ex) {
             System.out.println("Arxiu amb clau privada no creat");
         }
     }
     
 }
-
-
