@@ -5,13 +5,16 @@
  */
 package m9_uf1_act6;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
@@ -72,8 +75,12 @@ public class Encriptacio {
         encriptedDataTextePerPantalla = encryptData(clauSimetrica, 
                 dataTextePerPantalla);
 
+        System.out.println(new String (clauSimetricaBytes));
+        
         clauSimetricaEncriptada = encryptData(clauSimetricaBytes, 
                 clauArxiuPublica);
+        
+        //System.out.println(new String (clauSimetricaEncriptada));
         
         arxiuClauEncriptada(clauSimetricaEncriptada);
         arxiuMissatgeEncriptat(encriptedDataTextePerPantalla);
@@ -124,26 +131,22 @@ public class Encriptacio {
     }
 
     public static void arxiuClauEncriptada(byte[] data){
-        String strData = new String(data);
         try{
-            File file1 = new File("ZZZ_clau_encriptada");
-            FileWriter fw1 = new FileWriter(file1);
-            BufferedWriter bw1 = new BufferedWriter(fw1);
-            bw1.write(strData);
-            bw1.close();
+            BufferedOutputStream bos = new BufferedOutputStream
+            (new FileOutputStream("ZZZ_clau_encriptada"));
+            bos.write(data);
+            bos.flush();
         } catch (Exception ex) {
             System.err.println("Hi ha hagut un error");
         }
     }
     
     public static void arxiuMissatgeEncriptat(byte[] data){
-        String strData = new String(data);
         try{
-            File file1 = new File("ZZZ_missatge_encriptat");
-            FileWriter fw1 = new FileWriter(file1);
-            BufferedWriter bw1 = new BufferedWriter(fw1);
-            bw1.write(strData);
-            bw1.close();
+            BufferedOutputStream bos = new BufferedOutputStream
+            (new FileOutputStream("ZZZ_missatge_encriptat"));
+            bos.write(data);
+            bos.flush();
         } catch (Exception ex) {
             System.err.println("Hi ha hagut un error");
         }
