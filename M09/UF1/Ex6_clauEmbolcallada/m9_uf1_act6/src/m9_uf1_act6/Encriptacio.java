@@ -5,21 +5,17 @@
  */
 package m9_uf1_act6;
 
-import java.io.DataInputStream;
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
-import java.security.PrivateKey;
 import java.security.PublicKey;
-import java.security.spec.EncodedKeySpec;
 import java.security.spec.InvalidKeySpecException;
-import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Scanner;
@@ -29,7 +25,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import sun.misc.BASE64Decoder;
 
 /**
  *
@@ -76,12 +71,12 @@ public class Encriptacio {
         
         encriptedDataTextePerPantalla = encryptData(clauSimetrica, 
                 dataTextePerPantalla);
+
+        clauSimetricaEncriptada = encryptData(clauSimetricaBytes, 
+                clauArxiuPublica);
         
-        
-        
-        //clauSimetricaEncriptada = encryptData(clauSimetricaBytes, 
-        //        pathArxiuPublica);
-        
+        arxiuClauEncriptada(clauSimetricaEncriptada);
+        arxiuMissatgeEncriptat(encriptedDataTextePerPantalla);
     }
     
     public static SecretKey keyGenerator() throws NoSuchAlgorithmException{
@@ -128,6 +123,29 @@ public class Encriptacio {
         return encryptedData;
     }
 
+    public static void arxiuClauEncriptada(byte[] data){
+        String strData = new String(data);
+        try{
+            File file1 = new File("ZZZ_clau_encriptada");
+            FileWriter fw1 = new FileWriter(file1);
+            BufferedWriter bw1 = new BufferedWriter(fw1);
+            bw1.write(strData);
+            bw1.close();
+        } catch (Exception ex) {
+            System.err.println("Hi ha hagut un error");
+        }
+    }
     
-    
+    public static void arxiuMissatgeEncriptat(byte[] data){
+        String strData = new String(data);
+        try{
+            File file1 = new File("ZZZ_missatge_encriptat");
+            FileWriter fw1 = new FileWriter(file1);
+            BufferedWriter bw1 = new BufferedWriter(fw1);
+            bw1.write(strData);
+            bw1.close();
+        } catch (Exception ex) {
+            System.err.println("Hi ha hagut un error");
+        }
+    }
 }
