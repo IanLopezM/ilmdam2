@@ -8,13 +8,17 @@ package m9_uf1_act6;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.security.InvalidKeyException;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -25,14 +29,17 @@ import javax.crypto.spec.SecretKeySpec;
 public class Desencriptacio {
     
     public static void main(String[] args) throws NoSuchAlgorithmException, 
-            InvalidKeySpecException, IOException{
+            InvalidKeySpecException, IOException, InvalidKeyException, 
+            NoSuchPaddingException, IllegalBlockSizeException, 
+            BadPaddingException{
         KeyFactory keyFactory;
         PKCS8EncodedKeySpec privateKeySpec;
-        String privateKeyContent;
+        String privateKeyContent, resultado;
         PrivateKey privateKey;
         SecretKey secretKey;
         byte[] dataPrivada, dataArxiuEncriptat, dataSimetricaEncriptada,
-                privateKeyDecoded, dataDecryptKey;
+                privateKeyDecoded, dataDecryptKey, dataResultado;
+        
         dataPrivada = Files.readAllBytes(Paths.get("clauPRIVADA"));
 
         keyFactory= KeyFactory.getInstance("RSA");
@@ -56,7 +63,29 @@ public class Desencriptacio {
         secretKey = new SecretKeySpec(dataDecryptKey, 0, 
                  dataDecryptKey.length, "AES");
         
+        dataResultado = decryptData(secretKey, dataArxiuEncriptat);
         
+        resultado = new String(dataResultado);
+        
+        System.out.println("La frase desencriptada es: " + resultado);
+    }
+    
+    public static byte[] decryptData(SecretKey sKey, byte[] data) 
+            throws InvalidKeyException, NoSuchPaddingException, 
+            IllegalBlockSizeException, BadPaddingException {
+	byte[] decryptedData = null;
+        
+	try {
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, sKey);
+            decryptedData = cipher.doFinal(data);
+	}catch (NoSuchAlgorithmException | NoSuchPaddingException | 
+                InvalidKeyException | IllegalBlockSizeException |
+                BadPaddingException ex) {
+            System.err.println("Error xifrant les dades: " + ex);
+	}
+        
+	return decryptedData;
     }
     
     public static byte[] decryptData(byte[] data, PrivateKey priv) {
