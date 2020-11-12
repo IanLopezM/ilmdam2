@@ -23,7 +23,14 @@ import java.util.Scanner;
  */
 public class Notaria {
      
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException, 
+            NoSuchAlgorithmException, InvalidKeySpecException{
+        PublicKey clauArxiuPublica;
+        byte[] frase, firma;
+        
+        clauArxiuPublica = recuperarClauPublica();
+        frase = recuperarArxiu("missatge");
+        firma = recuperarArxiu("firma");
         
         System.out.println("");
     }
@@ -43,7 +50,8 @@ public class Notaria {
         return isValid;
     }
     
-    public static PublicKey recuperarClauPublica() throws IOException, NoSuchAlgorithmException, InvalidKeySpecException{   
+    public static PublicKey recuperarClauPublica() throws IOException, 
+            NoSuchAlgorithmException, InvalidKeySpecException{   
         Scanner sc = new Scanner(System.in);
         PublicKey clauArxiuPublica;
         X509EncodedKeySpec publicKeySpec;
@@ -66,6 +74,14 @@ public class Notaria {
         clauArxiuPublica = keyFactory.generatePublic(publicKeySpec);
         
         return clauArxiuPublica;
+    }
+    
+    public static byte[] recuperarArxiu(String nameData) throws IOException{
+        byte[] data;
+        
+        data = Files.readAllBytes(Paths.get(nameData));
+        
+        return data;
     }
     
 }
