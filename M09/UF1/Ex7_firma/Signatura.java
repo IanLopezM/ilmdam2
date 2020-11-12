@@ -5,11 +5,14 @@
  */
 package m9_uf1_act7;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Signature;
+import java.util.Base64;
 import java.util.Scanner;
 
 /**
@@ -66,5 +69,39 @@ public class Signatura {
             System.err.println("Error signant les dades: " + ex);
         }
         return signature;
+    }
+    
+    public static void ArxiuClauPublica(PublicKey pub) throws IOException{  
+       Base64.Encoder encoder = Base64.getEncoder();
+        try (FileWriter out = new FileWriter("clauPublica")) {
+            out.write("—-BEGIN RSA PUBLIC KEY—-");
+            out.write("\n");
+
+            out.write(encoder.encodeToString(pub.getEncoded()));
+            out.write("\n");
+
+            out.write("—-END RSA PUBLIC KEY—-");
+            out.write("\n");
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Arxiu amb clau publica no creat");
+        }
+    }
+    
+    public static void ArxiuClauPrivada(PrivateKey priv) throws IOException{  
+        Base64.Encoder encoder = Base64.getEncoder();
+        try (FileWriter out = new FileWriter("clauPRIVADA")) {
+            out.write("—-BEGIN RSA PRIVATE KEY—-");
+            out.write("\n");
+
+            out.write(encoder.encodeToString(priv.getEncoded()));
+            out.write("\n");
+
+            out.write("—-END RSA PRIVATE KEY—-");
+            out.write("\n");
+            out.close();
+        } catch (IOException ex) {
+            System.out.println("Arxiu amb clau privada no creat");
+        }
     }
 }
