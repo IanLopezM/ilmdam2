@@ -53,8 +53,8 @@ public class Signatura {
         ArxiuBytes(dataFraseFirmada, "firma");
         
         System.out.println("Signant el missatge... OK");
-        System.out.println("Generant arxiu firma");
-        System.out.println("Generant arxiu frase");
+        System.out.println("Generant arxiu firma... OK");
+        System.out.println("Generant arxiu frase... OK");
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
@@ -125,8 +125,6 @@ public class Signatura {
         } catch (IOException ex) {
             System.out.println("Arxiu no creat");
         }
-        
-        
         
     }
 }
