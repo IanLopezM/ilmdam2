@@ -9,6 +9,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.util.Scanner;
 
 /**
@@ -32,6 +33,12 @@ public class Signatura {
         clausPuPr = randomGenerate(kSize);
         clauPublica = clausPuPr.getPublic();
         clauPrivada = clausPuPr.getPrivate();
+        
+        System.out.println("Frase a encriptar:");
+        frase = sc.nextLine();
+        
+        
+        
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
@@ -45,5 +52,19 @@ public class Signatura {
             System.err.println("Generador no disponible.");
         }
         return keys;
+    }
+    
+    public byte[] signData(byte[] data, PrivateKey priv) {
+        byte[] signature = null;
+        try {
+            Signature signer = Signature.getInstance("SHA1withRSA");
+            signer.initSign(priv);
+            signer.update(data);
+            signature = signer.sign();
+        }
+        catch (Exception ex) {
+            System.err.println("Error signant les dades: " + ex);
+        }
+        return signature;
     }
 }
