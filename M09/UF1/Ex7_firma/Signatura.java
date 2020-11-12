@@ -5,6 +5,7 @@
  */
 package m9_uf1_act7;
 
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.security.KeyPair;
@@ -30,7 +31,7 @@ public class Signatura {
         PublicKey clauPublica;
         PrivateKey clauPrivada;
         String frase;
-        byte[] dataFrase, fraseFirmada;
+        byte[] dataFrase, dataFraseFirmada;
         int kSize = 512;
         Scanner sc = new Scanner(System.in);
         
@@ -42,10 +43,12 @@ public class Signatura {
         frase = sc.nextLine();
         dataFrase = frase.getBytes();
         
-        fraseFirmada = signData(dataFrase, clauPrivada);
+        dataFraseFirmada = signData(dataFrase, clauPrivada);
         
         ArxiuClauPublica(clauPublica);
         ArxiuClauPrivada(clauPrivada);
+        ArxiuBytes(dataFrase, "missatge");
+        ArxiuBytes(dataFraseFirmada, "firma");
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
@@ -107,5 +110,17 @@ public class Signatura {
         } catch (IOException ex) {
             System.out.println("Arxiu amb clau privada no creat");
         }
+    }
+    
+    public static void ArxiuBytes(byte[] data, String nameData){
+        try(FileOutputStream fos = new FileOutputStream(nameData)){
+            fos.write(data);
+            fos.close();
+        } catch (IOException ex) {
+            System.out.println("Arxiu no creat");
+        }
+        
+        
+        
     }
 }
