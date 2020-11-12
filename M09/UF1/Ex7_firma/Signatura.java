@@ -38,8 +38,10 @@ public class Signatura {
         clausPuPr = randomGenerate(kSize);
         clauPublica = clausPuPr.getPublic();
         clauPrivada = clausPuPr.getPrivate();
+        System.out.println("Generant claus publiques i privades"
+                + "(arxius clauPublica i clauPRIVADA)... OK");
         
-        System.out.println("Frase a encriptar:");
+        System.out.println("Introdueix el missatge a signar:");
         frase = sc.nextLine();
         dataFrase = frase.getBytes();
         
@@ -49,6 +51,10 @@ public class Signatura {
         ArxiuClauPrivada(clauPrivada);
         ArxiuBytes(dataFrase, "missatge");
         ArxiuBytes(dataFraseFirmada, "firma");
+        
+        System.out.println("Signant el missatge... OK");
+        System.out.println("Generant arxiu firma");
+        System.out.println("Generant arxiu frase");
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
