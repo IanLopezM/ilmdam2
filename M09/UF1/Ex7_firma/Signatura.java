@@ -5,6 +5,10 @@
  */
 package m9_uf1_act7;
 
+import java.security.KeyPair;
+import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.util.Scanner;
 
 /**
@@ -18,10 +22,28 @@ public class Signatura {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+        KeyPair clausPuPr;
+        PublicKey clauPublica;
+        PrivateKey clauPrivada;
         String frase;
+        int kSize = 512;
         Scanner sc = new Scanner(System.in);
         
+        clausPuPr = randomGenerate(kSize);
+        clauPublica = clausPuPr.getPublic();
+        clauPrivada = clausPuPr.getPrivate();
     }
     
+    public static KeyPair randomGenerate(int longuitudClau) {
+        KeyPair keys = null;
+        try {
+            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+            keyGen.initialize(longuitudClau);
+            keys = keyGen.genKeyPair();
+        }
+        catch (Exception ex) {
+            System.err.println("Generador no disponible.");
+        }
+        return keys;
+    }
 }
