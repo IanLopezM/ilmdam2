@@ -24,12 +24,13 @@ public class Signatura {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         KeyPair clausPuPr;
         PublicKey clauPublica;
         PrivateKey clauPrivada;
         String frase;
+        byte[] dataFrase, fraseFirmada;
         int kSize = 512;
         Scanner sc = new Scanner(System.in);
         
@@ -39,9 +40,12 @@ public class Signatura {
         
         System.out.println("Frase a encriptar:");
         frase = sc.nextLine();
+        dataFrase = frase.getBytes();
         
+        fraseFirmada = signData(dataFrase, clauPrivada);
         
-        
+        ArxiuClauPublica(clauPublica);
+        ArxiuClauPrivada(clauPrivada);
     }
     
     public static KeyPair randomGenerate(int longuitudClau) {
@@ -57,7 +61,7 @@ public class Signatura {
         return keys;
     }
     
-    public byte[] signData(byte[] data, PrivateKey priv) {
+    public static byte[] signData(byte[] data, PrivateKey priv) {
         byte[] signature = null;
         try {
             Signature signer = Signature.getInstance("SHA1withRSA");
