@@ -27,12 +27,15 @@ public class Notaria {
             NoSuchAlgorithmException, InvalidKeySpecException{
         PublicKey clauArxiuPublica;
         byte[] frase, firma;
+        boolean isValid;
+        String resultado;
         
         clauArxiuPublica = recuperarClauPublica();
         frase = recuperarArxiu("missatge");
         firma = recuperarArxiu("firma");
-        
-        System.out.println("");
+        isValid = validateSignature(frase, firma, clauArxiuPublica);
+        resultado = isValid(isValid); 
+        System.out.println(resultado);
     }
     
     public static boolean validateSignature(byte[] data, byte[] signature, 
@@ -82,6 +85,18 @@ public class Notaria {
         data = Files.readAllBytes(Paths.get(nameData));
         
         return data;
+    }
+    
+    public static String isValid(boolean isValid){
+        String resultado = null;
+    
+        if(isValid){
+            resultado = "Comprovant signatura de l arxiu missatge... OK";
+        } else{
+            resultado = "Comprovant signatura de l arxiu missatge... ERROR";
+        }
+        
+        return resultado;
     }
     
 }
