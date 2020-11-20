@@ -66,7 +66,7 @@ public class Activitat8 {
         }
         
         seguir = true;
-        
+        System.out.println("Introdueix el primer vehicle");
         while(seguir == true){
             System.out.println("Marca");
             marca = sc.nextLine();
@@ -104,22 +104,12 @@ public class Activitat8 {
             System.out.println("LListar Propietaris 1\nLlistar Vehicles 2");
             menu = sc.nextInt();
             if(menu == 1){
-                TypedQuery<Propietaris> query =
-                    em.createQuery("SELECT p FROM Propietaris p", Propietaris.class);
-                List<Propietaris> results = query.getResultList();
-                for (Propietaris p : results) {
-                    System.out.println(p);
-                }
+                returnPropietaris(em);
             } else {
-                TypedQuery<Vehicles> query =
-                    em.createQuery("SELECT v FROM Vehicles v", Vehicles.class);
-                List<Vehicles> results = query.getResultList();
-                for (Vehicles v : results) {
-                    System.out.println(v);
-                }
+                returnVehicles(em);
             }
             
-            System.out.println("Vols continuar?");
+            System.out.println("Vols continuar? SI:1 / NO:0");
             seSigue = sc.nextInt();
             sc.nextLine();
             
@@ -128,10 +118,26 @@ public class Activitat8 {
             } else {
                 seguir = false;
             }
-            
         }
-        
-        
+    }
+    
+    public static void returnPropietaris(EntityManager em){
+        TypedQuery<Propietaris> query =
+        em.createQuery("SELECT p FROM Propietaris p", Propietaris.class);
+        List<Propietaris> results = query.getResultList();
+        for (Propietaris p : results) {
+            System.out.println(p);
+        }
+    
+    }
+    
+    public static void returnVehicles(EntityManager em){
+        TypedQuery<Vehicles> query =
+        em.createQuery("SELECT v FROM Vehicles v", Vehicles.class);
+        List<Vehicles> results = query.getResultList();
+        for (Vehicles v : results) {
+            System.out.println(v);
+        }
     }
     
 }
