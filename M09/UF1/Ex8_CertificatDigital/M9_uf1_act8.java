@@ -52,24 +52,28 @@ public class M9_uf1_act8 {
         Enumeration<String> aliasllaves = ks.aliases();
         
         
-        
         while(aliasllaves.hasMoreElements()) {
             
             aliasllavevuelta = aliasllaves.nextElement();
             System.out.print("Entry name: " + aliasllavevuelta + 
-                    "\t" + "Algorithm: " + ks.getKey(aliasllavevuelta, 
-                            arrayContrasenya).getAlgorithm() + "\t");
+                    "\t\t" + "Algorithm: " + ks.getKey(aliasllavevuelta, 
+                            arrayContrasenya).getAlgorithm() + "\t\t");
+            
             arrayEncoded = ks.getKey(aliasllavevuelta,arrayContrasenya)
                     .getEncoded();
-            System.out.print("Key Size: " + arrayEncoded.length + " bytes \t");
+            System.out.print("Key Size: " + arrayEncoded.length + 
+                    " bytes \t\t");
+            
             if (ks.getCertificateChain(aliasllavevuelta) == null){
                 System.out.print("Certificat Expiry: No te certificat");
             } else {
                 System.out.print("Certificat Expiry: " + ( (X509Certificate) 
                         ks.getCertificate(aliasllavevuelta)).getNotAfter());
             }
-            System.out.print("Last Modified: " + 
+            
+            System.out.print("\t\tLast Modified: " + 
                     ks.getCreationDate(aliasllavevuelta));
+            
             System.out.println("");
         }
         
