@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.util.Enumeration;
 import java.util.Scanner;
@@ -31,14 +32,14 @@ public class M9_uf1_act8 {
      */
     public static void main(String[] args) throws KeyStoreException, 
             FileNotFoundException, IOException, NoSuchAlgorithmException,
-            CertificateException{
+            CertificateException, UnrecoverableKeyException{
         // TODO code application logic here
         
         //declaració de variables
         KeyStore ks = KeyStore.getInstance("JCEKS");
         Scanner sc = new Scanner(System.in);
         FileInputStream fis = new FileInputStream("E:/dam/m09/uf1/act8/llavesianlopez");
-        String contrasenya = "123456";
+        String contrasenya = "123456", aliasllavevuelta;
         char[] arrayContrasenya = contrasenya.toCharArray();
     
         //carreguem la keystore
@@ -46,6 +47,21 @@ public class M9_uf1_act8 {
         
         //Creem una enumeració de string que conté els noms dels alias
         Enumeration<String> aliasllaves = ks.aliases();
+        
+        while(aliasllaves.hasMoreElements()) {
+            
+            aliasllavevuelta = aliasllaves.nextElement();
+            System.out.println("Entry name: " + aliasllavevuelta + 
+                    "\t" + "Algorithm: " + ks.getKey(aliasllavevuelta, 
+                            arrayContrasenya).getAlgorithm() + "\t");
+            System.out.println("Key Size: " + ks.getKey(aliasllavevuelta,
+                    arrayContrasenya).getEncoded() + " bytes");
+            
+            
+        }
+        
+        
+        
     }
     
 }
