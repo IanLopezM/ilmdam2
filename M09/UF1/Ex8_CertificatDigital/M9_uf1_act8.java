@@ -13,6 +13,8 @@ import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import static java.time.Clock.system;
 import java.util.Enumeration;
 import java.util.Scanner;
 
@@ -49,20 +51,27 @@ public class M9_uf1_act8 {
         //Creem una enumeració de string que conté els noms dels alias
         Enumeration<String> aliasllaves = ks.aliases();
         
+        
+        
         while(aliasllaves.hasMoreElements()) {
             
             aliasllavevuelta = aliasllaves.nextElement();
-            System.out.println("Entry name: " + aliasllavevuelta + 
+            System.out.print("Entry name: " + aliasllavevuelta + 
                     "\t" + "Algorithm: " + ks.getKey(aliasllavevuelta, 
                             arrayContrasenya).getAlgorithm() + "\t");
             arrayEncoded = ks.getKey(aliasllavevuelta,arrayContrasenya)
                     .getEncoded();
-            System.out.println("Key Size: " + arrayEncoded.length + " bytes");
-            
-            
+            System.out.print("Key Size: " + arrayEncoded.length + " bytes \t");
+            if (ks.getCertificateChain(aliasllavevuelta) == null){
+                System.out.print("Certificat Expiry: No te certificat");
+            } else {
+                System.out.print("Certificat Expiry: " + ( (X509Certificate) 
+                        ks.getCertificate(aliasllavevuelta)).getNotAfter());
+            }
+            System.out.print("Last Modified: " + 
+                    ks.getCreationDate(aliasllavevuelta));
+            System.out.println("");
         }
-        
-        
         
     }
     
