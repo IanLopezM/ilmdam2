@@ -5,17 +5,24 @@
  */
 package m9_uf1_act8;
 
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+
+
 /**
  *
- * @author Alumne
+ * @author ianlo
  */
 public class M9_uf1_act8 {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws KeyStoreException{
         // TODO code application logic here
+        
+        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
     }
     
 }
+
