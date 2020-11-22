@@ -12,6 +12,7 @@ import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 
@@ -34,13 +35,17 @@ public class M9_uf1_act8 {
         // TODO code application logic here
         
         //declaració de variables
-        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
+        KeyStore ks = KeyStore.getInstance("JCEKS");
         Scanner sc = new Scanner(System.in);
         FileInputStream fis = new FileInputStream("E:/dam/m09/uf1/act8/llavesianlopez");
         String contrasenya = "123456";
         char[] arrayContrasenya = contrasenya.toCharArray();
     
+        //carreguem la keystore
         ks.load(fis, arrayContrasenya);
+        
+        //Creem una enumeració de string que conté els noms dels alias
+        Enumeration<String> aliasllaves = ks.aliases();
     }
     
 }
