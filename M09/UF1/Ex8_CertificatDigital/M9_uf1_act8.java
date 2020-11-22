@@ -41,6 +41,7 @@ public class M9_uf1_act8 {
         FileInputStream fis = new FileInputStream("E:/dam/m09/uf1/act8/llavesianlopez");
         String contrasenya = "123456", aliasllavevuelta;
         char[] arrayContrasenya = contrasenya.toCharArray();
+        byte[] arrayEncoded;
     
         //carreguem la keystore
         ks.load(fis, arrayContrasenya);
@@ -54,8 +55,9 @@ public class M9_uf1_act8 {
             System.out.println("Entry name: " + aliasllavevuelta + 
                     "\t" + "Algorithm: " + ks.getKey(aliasllavevuelta, 
                             arrayContrasenya).getAlgorithm() + "\t");
-            System.out.println("Key Size: " + ks.getKey(aliasllavevuelta,
-                    arrayContrasenya).getEncoded() + " bytes");
+            arrayEncoded = ks.getKey(aliasllavevuelta,arrayContrasenya)
+                    .getEncoded();
+            System.out.println("Key Size: " + arrayEncoded.length + " bytes");
             
             
         }
