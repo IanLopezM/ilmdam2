@@ -7,13 +7,16 @@ package m9_uf1_act8;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Key;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.security.spec.X509EncodedKeySpec;
 import static java.time.Clock.system;
 import java.util.Enumeration;
 import java.util.Scanner;
@@ -40,10 +43,15 @@ public class M9_uf1_act8 {
         //declaració de variables
         KeyStore ks = KeyStore.getInstance("JCEKS");
         Scanner sc = new Scanner(System.in);
-        FileInputStream fis = new FileInputStream("E:/dam/m09/uf1/act8/llavesianlopez");
-        String contrasenya = "123456", aliasllavevuelta;
+        FileInputStream fis;
+        fis = new FileInputStream("E:/dam/m09/uf1/act8/llavesianlopez");
+        FileOutputStream fos;
+        String contrasenya = "123456", aliasllavevuelta, llaveaexportar;
         char[] arrayContrasenya = contrasenya.toCharArray();
         byte[] arrayEncoded;
+        int llaveALlevarse = 0;
+        X509EncodedKeySpec x509EncodedKeySpec;
+        Key llaveexportar;
     
         //carreguem la keystore
         ks.load(fis, arrayContrasenya);
@@ -77,6 +85,21 @@ public class M9_uf1_act8 {
             System.out.println("");
         }
         
+        System.out.println("Quina clau vols exportar?");
+        Enumeration<String> aliasllaves2 = ks.aliases();
+            llaveaexportar = sc.nextLine();
+            while(aliasllaves2.hasMoreElements() && llaveALlevarse == 0){
+                aliasllavevuelta = aliasllaves2.nextElement();
+                if(aliasllavevuelta.equals(llaveaexportar.trim())){
+                    llaveexportar = ks.getKey(aliasllavevuelta, 
+                            arrayContrasenya);
+                    x509EncodedKeySpec = new X509EncodedKeySpec(llaveexportar
+                            .getEncoded());
+                    fos = new FileOutputStream("E:/dam/m09/uf1/act8/" 
+                            + aliasllavevuelta + "_clau.cer");
+                    System.out.println("Creado");
+                }
+            }
     }
     
 }
