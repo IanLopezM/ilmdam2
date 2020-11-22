@@ -97,7 +97,7 @@ public class M9_uf1_act8 {
                             .getEncoded());
                     fos = new FileOutputStream("E:/dam/m09/uf1/act8/" 
                             + aliasllavevuelta + "_clau.cer");
-                    System.out.println("Creado");
+                    System.out.println("Creat");
                 }
             }
     }
