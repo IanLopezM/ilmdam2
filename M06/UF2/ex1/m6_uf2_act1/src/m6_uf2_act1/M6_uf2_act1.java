@@ -16,6 +16,12 @@ public class M6_uf2_act1 {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        
+        Scanner sc = new Scanner(System.in);
+        
+        Connection connection = null;
+        Class.forName("com.mysql.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/m06_uf2_act1", "root", "");
     }
     
 }
