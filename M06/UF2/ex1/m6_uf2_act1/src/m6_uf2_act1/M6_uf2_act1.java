@@ -8,14 +8,13 @@ package m6_uf2_act1;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 /**
  *
  * @author ianlo
  */
 public class M6_uf2_act1 {
-
+    Connection connection = null;
     /**
      * @return 
      * @throws java.lang.ClassNotFoundException
@@ -23,7 +22,7 @@ public class M6_uf2_act1 {
      */
     public Connection conexion() throws ClassNotFoundException, SQLException{
                 
-        Connection connection = null;
+        
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/",
                 "root", "");
