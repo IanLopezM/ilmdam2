@@ -5,6 +5,11 @@
  */
 package m6_uf2_act1;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Scanner;
+
 /**
  *
  * @author ianlo
@@ -12,16 +17,18 @@ package m6_uf2_act1;
 public class M6_uf2_act1 {
 
     /**
-     * @param args the command line arguments
+     * @return 
+     * @throws java.lang.ClassNotFoundException
+     * @throws java.sql.SQLException
      */
-    public static void main(String[] args) {
-        // TODO code application logic here
-        
-        Scanner sc = new Scanner(System.in);
-        
+    public Connection conexion() throws ClassNotFoundException, SQLException{
+                
         Connection connection = null;
-        Class.forName("com.mysql.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/m06_uf2_act1", "root", "");
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/",
+                "root", "");
+        
+        return connection;
     }
-    
+   
 }
