@@ -32,7 +32,10 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButtonConectar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
+        jButtonEliminar = new javax.swing.JButton();
+        jButtonInserir = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -41,41 +44,81 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonConectar.setText("Conecta a la base de dades");
-        jButtonConectar.setToolTipText("");
-        jButtonConectar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonModificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonModificar.setText("Modificar");
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonConectarActionPerformed(evt);
+                jButtonModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonConectar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, -1, -1));
+        jPanel1.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 90, 110, 50));
+
+        jButtonEliminar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 90, 110, 50));
+
+        jButtonInserir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonInserir.setText("Inserir");
+        jButtonInserir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonInserir, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 110, 50));
+
+        jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonSalir.setText("X");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConectarActionPerformed
-        M6_uf2_act1 conn = new M6_uf2_act1();
-        try {
-            conn.conexion();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(M6_uf2_act1_frame.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(M6_uf2_act1_frame.class.getName())
-                    .log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_jButtonConectarActionPerformed
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_ModificarMenu menuModificar = new M6_uf2_act1_ModificarMenu();
+        menuModificar.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
+    private void jButtonInserirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_InserirMenu menuInserir = new M6_uf2_act1_InserirMenu();
+        menuInserir.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonInserirActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_EliminarMenu menuEliminar = new M6_uf2_act1_EliminarMenu();
+        menuEliminar.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -113,7 +156,10 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonConectar;
+    private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonInserir;
+    private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
