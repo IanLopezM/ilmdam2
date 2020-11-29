@@ -29,15 +29,31 @@ public class M6_uf2_act1_EliminarMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButtonSalir = new javax.swing.JButton();
+        jButtonTorna = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setMaximumSize(new java.awt.Dimension(500, 250));
+        jPanel1.setMinimumSize(new java.awt.Dimension(500, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonSalir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jButtonSalir.setText("X");
+        jButtonSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSalirActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 20));
+
+        jButtonTorna.setText("←");
+        jButtonTorna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTornaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonTorna, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -47,11 +63,23 @@ public class M6_uf2_act1_EliminarMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jButtonTornaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTornaActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_frame tornaFrame = new M6_uf2_act1_frame();
+        tornaFrame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonTornaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -90,6 +118,7 @@ public class M6_uf2_act1_EliminarMenu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonSalir;
+    private javax.swing.JButton jButtonTorna;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

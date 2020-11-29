@@ -29,11 +29,16 @@ public class M6_uf2_act1_InserirMenu extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButtonSallir = new javax.swing.JButton();
+        jButtonTornar = new javax.swing.JButton();
+        jButtonInserirAlumne = new javax.swing.JButton();
+        jButtonInserirPoblacio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 255, 204));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setMaximumSize(new java.awt.Dimension(500, 250));
+        jPanel1.setMinimumSize(new java.awt.Dimension(500, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonSallir.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -45,6 +50,31 @@ public class M6_uf2_act1_InserirMenu extends javax.swing.JFrame {
         });
         jPanel1.add(jButtonSallir, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, 40, 20));
 
+        jButtonTornar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jButtonTornar.setText("←");
+        jButtonTornar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTornarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonTornar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        jButtonInserirAlumne.setText("Alumne");
+        jButtonInserirAlumne.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirAlumneActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonInserirAlumne, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 110, 110, 50));
+
+        jButtonInserirPoblacio.setText("Població");
+        jButtonInserirPoblacio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonInserirPoblacioActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonInserirPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 110, 110, 50));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -53,7 +83,7 @@ public class M6_uf2_act1_InserirMenu extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         );
 
         pack();
@@ -61,7 +91,29 @@ public class M6_uf2_act1_InserirMenu extends javax.swing.JFrame {
 
     private void jButtonSallirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSallirActionPerformed
         // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jButtonSallirActionPerformed
+
+    private void jButtonTornarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTornarActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_frame tornaFrame = new M6_uf2_act1_frame();
+        tornaFrame.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonTornarActionPerformed
+
+    private void jButtonInserirPoblacioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirPoblacioActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_InserirMenuPoblacio inserirPoblacio = new M6_uf2_act1_InserirMenuPoblacio();
+        inserirPoblacio.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonInserirPoblacioActionPerformed
+
+    private void jButtonInserirAlumneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInserirAlumneActionPerformed
+        // TODO add your handling code here:
+        M6_uf2_act1_InserirMenuAlumne inserirAlumne = new M6_uf2_act1_InserirMenuAlumne();
+        inserirAlumne.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButtonInserirAlumneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -99,7 +151,10 @@ public class M6_uf2_act1_InserirMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonInserirAlumne;
+    private javax.swing.JButton jButtonInserirPoblacio;
     private javax.swing.JButton jButtonSallir;
+    private javax.swing.JButton jButtonTornar;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

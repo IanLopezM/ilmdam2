@@ -42,6 +42,9 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
         setForeground(new java.awt.Color(255, 255, 255));
 
         jPanel1.setBackground(new java.awt.Color(204, 255, 204));
+        jPanel1.setMaximumSize(new java.awt.Dimension(500, 250));
+        jPanel1.setMinimumSize(new java.awt.Dimension(500, 250));
+        jPanel1.setPreferredSize(new java.awt.Dimension(500, 250));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButtonModificar.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -88,7 +91,7 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -147,6 +150,8 @@ public class M6_uf2_act1_frame extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
