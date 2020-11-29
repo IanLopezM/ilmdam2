@@ -34,6 +34,8 @@ public class M6_uf2_act1_InserirMenuPoblacio extends javax.swing.JFrame {
         jLabelCodiPostal = new javax.swing.JLabel();
         jTextFieldPoblacio = new javax.swing.JTextField();
         jTextFieldCodiPostal = new javax.swing.JTextField();
+        jButtonGuarda = new javax.swing.JButton();
+        jButtonCancela = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -77,6 +79,17 @@ public class M6_uf2_act1_InserirMenuPoblacio extends javax.swing.JFrame {
         });
         jPanel1.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 140, -1));
 
+        jButtonGuarda.setText("Guarda");
+        jPanel1.add(jButtonGuarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 120, -1));
+
+        jButtonCancela.setText("Cancela");
+        jButtonCancela.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelaActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCancela, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 130, 120, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -107,6 +120,17 @@ public class M6_uf2_act1_InserirMenuPoblacio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCodiPostalActionPerformed
 
+    private void jButtonCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaActionPerformed
+        // TODO add your handling code here:
+        vaciar();
+    }//GEN-LAST:event_jButtonCancelaActionPerformed
+
+    public void vaciar(){
+        jTextFieldCodiPostal.setText("");
+        jTextFieldPoblacio.setText("");
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -145,6 +169,8 @@ public class M6_uf2_act1_InserirMenuPoblacio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCancela;
+    private javax.swing.JButton jButtonGuarda;
     private javax.swing.JLabel jLabelCodiPostal;
     private javax.swing.JLabel jLabelPoblacio;
     private javax.swing.JPanel jPanel1;

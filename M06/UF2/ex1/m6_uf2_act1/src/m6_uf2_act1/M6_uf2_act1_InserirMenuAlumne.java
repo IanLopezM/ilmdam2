@@ -50,7 +50,7 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         jButtonGuarda = new javax.swing.JButton();
         jTextFieldDni = new javax.swing.JTextField();
         jLabelNoExisteix = new javax.swing.JLabel();
-        jButtonCancelar = new javax.swing.JButton();
+        jButtonCancela = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -138,7 +138,7 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
                 jButtonGuardaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonGuarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jPanel1.add(jButtonGuarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 130, -1));
 
         jTextFieldDni.setBackground(new java.awt.Color(255, 255, 204));
         jPanel1.add(jTextFieldDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, -1));
@@ -147,13 +147,13 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         jLabelNoExisteix.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 190, 310, -1));
 
-        jButtonCancelar.setText("Cancelar");
-        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancela.setText("Cancelar");
+        jButtonCancela.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelarActionPerformed(evt);
+                jButtonCancelaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, -1));
+        jPanel1.add(jButtonCancela, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, 130, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -208,6 +208,7 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
                     stmtInsert = connexio.conexion().createStatement();
                     stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
                             + jTextFieldAdrecaPostal.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCodiPostal.getText() + ")");
+                    jLabelNoExisteix.setText("");
                 } else {
                     jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
                 }
@@ -222,10 +223,10 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         vaciar();
     }//GEN-LAST:event_jButtonGuardaActionPerformed
 
-    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+    private void jButtonCancelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaActionPerformed
         // TODO add your handling code here:
         vaciar();
-    }//GEN-LAST:event_jButtonCancelarActionPerformed
+    }//GEN-LAST:event_jButtonCancelaActionPerformed
 
     public void vaciar(){
         jTextFieldAdrecaPostal.setText("");
@@ -274,7 +275,7 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancela;
     private javax.swing.JButton jButtonGuarda;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonTorna;
