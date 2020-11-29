@@ -14,20 +14,20 @@ import java.sql.SQLException;
  * @author ianlo
  */
 public class M6_uf2_act1 {
-    Connection connection = null;
+    
     /**
      * @return 
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      */
     public Connection conexion() throws ClassNotFoundException, SQLException{
-                
+        Connection connection = null; 
         
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/",
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/m06_uf2_act1",
                 "root", "");
         
         return connection;
     }
-   
+    
 }

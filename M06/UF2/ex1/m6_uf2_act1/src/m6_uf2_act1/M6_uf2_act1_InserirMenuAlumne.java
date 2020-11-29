@@ -5,6 +5,12 @@
  */
 package m6_uf2_act1;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author ianlo
@@ -32,17 +38,19 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         jButtonTorna = new javax.swing.JButton();
         jLabelDni = new javax.swing.JLabel();
         jTextFieldNom = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        jTextFieldAdrecaPostal = new javax.swing.JTextField();
+        jTextFieldNaixement = new javax.swing.JTextField();
+        jTextFieldCodiPostal = new javax.swing.JTextField();
+        jTextFieldSexe = new javax.swing.JTextField();
         jLabelNom = new javax.swing.JLabel();
         jLabelNaixement = new javax.swing.JLabel();
         jLabelAdrecaPostal = new javax.swing.JLabel();
         jLabelSexe = new javax.swing.JLabel();
         jLabelCodiPostal = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jTextField2 = new javax.swing.JTextField();
+        jButtonGuarda = new javax.swing.JButton();
+        jTextFieldDni = new javax.swing.JTextField();
+        jLabelNoExisteix = new javax.swing.JLabel();
+        jButtonCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -72,68 +80,80 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         jLabelDni.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelDni.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelDni.setText("DNI");
-        jPanel1.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 90, 20));
+        jPanel1.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 160, 20));
 
         jTextFieldNom.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel1.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 140, -1));
+        jPanel1.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 140, -1));
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldAdrecaPostal.setBackground(new java.awt.Color(255, 255, 204));
+        jTextFieldAdrecaPostal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                jTextFieldAdrecaPostalActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 140, -1));
+        jPanel1.add(jTextFieldAdrecaPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 100, 140, -1));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 204));
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        jTextFieldNaixement.setBackground(new java.awt.Color(255, 255, 204));
+        jTextFieldNaixement.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                jTextFieldNaixementActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 140, -1));
+        jPanel1.add(jTextFieldNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 70, 140, -1));
 
-        jTextField5.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel1.add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, 140, -1));
+        jTextFieldCodiPostal.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 140, -1));
 
-        jTextField6.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel1.add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 140, -1));
+        jTextFieldSexe.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.add(jTextFieldSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 140, -1));
 
         jLabelNom.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelNom.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelNom.setText("Nom");
-        jPanel1.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 90, 20));
+        jPanel1.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 160, 20));
 
         jLabelNaixement.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelNaixement.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelNaixement.setText("Naixement");
-        jPanel1.add(jLabelNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 90, 20));
+        jLabelNaixement.setText("Naixement (yyyy-mm-dd)");
+        jPanel1.add(jLabelNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 160, 20));
 
         jLabelAdrecaPostal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelAdrecaPostal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelAdrecaPostal.setText("Adreça Postal");
-        jPanel1.add(jLabelAdrecaPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 90, 20));
+        jPanel1.add(jLabelAdrecaPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 100, 160, 20));
 
         jLabelSexe.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelSexe.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabelSexe.setText("Sexe");
-        jPanel1.add(jLabelSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 90, 20));
+        jLabelSexe.setText("Sexe (H/M)");
+        jPanel1.add(jLabelSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 160, 20));
 
         jLabelCodiPostal.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabelCodiPostal.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabelCodiPostal.setText("Codi Postal");
-        jPanel1.add(jLabelCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 90, 20));
+        jPanel1.add(jLabelCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 160, 160, 20));
 
-        jButton1.setText("Guardar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuarda.setText("Guardar");
+        jButtonGuarda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonGuardaActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
+        jPanel1.add(jButtonGuarda, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, -1, -1));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 204));
-        jPanel1.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 140, -1));
+        jTextFieldDni.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel1.add(jTextFieldDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 140, -1));
+
+        jLabelNoExisteix.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabelNoExisteix.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(104, 190, 310, -1));
+
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 210, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,19 +181,62 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_jButtonTornaActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextFieldAdrecaPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAdrecaPostalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextFieldAdrecaPostalActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void jTextFieldNaixementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNaixementActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_jTextFieldNaixementActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonGuardaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardaActionPerformed
         // TODO add your handling code here:
+        ResultSet comparaStmt;
+        Statement stmt = null;
+        Statement stmtInsert = null;
+        M6_uf2_act1 connexio = new M6_uf2_act1();
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+        if (!jTextFieldNom.getText().equals("") && !jTextFieldDni.getText().equals("") && !jTextFieldNaixement.getText().equals("") && !jTextFieldAdrecaPostal.getText().equals("")
+                && !jTextFieldSexe.getText().equals("") && !jTextFieldCodiPostal.getText().equals("")){
+            try {
+            
+                connexio.conexion();
+                stmt = connexio.conexion().createStatement();
+                comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCodiPostal.getText() + "'");
 
+                if(comparaStmt.next()){
+                    stmtInsert = connexio.conexion().createStatement();
+                    stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
+                            + jTextFieldAdrecaPostal.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCodiPostal.getText() + ")");
+                } else {
+                    jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
+                }
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(M6_uf2_act1_InserirMenuAlumne.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(M6_uf2_act1_InserirMenuAlumne.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            jLabelNoExisteix.setText("Falten camps per omplir");
+        }
+        vaciar();
+    }//GEN-LAST:event_jButtonGuardaActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        // TODO add your handling code here:
+        vaciar();
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    public void vaciar(){
+        jTextFieldAdrecaPostal.setText("");
+        jTextFieldCodiPostal.setText("");
+        jTextFieldDni.setText("");
+        jTextFieldNaixement.setText("");
+        jTextFieldNom.setText("");
+        jTextFieldSexe.setText("");
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -211,21 +274,23 @@ public class M6_uf2_act1_InserirMenuAlumne extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonGuarda;
     private javax.swing.JButton jButtonSalir;
     private javax.swing.JButton jButtonTorna;
     private javax.swing.JLabel jLabelAdrecaPostal;
     private javax.swing.JLabel jLabelCodiPostal;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelNaixement;
+    private javax.swing.JLabel jLabelNoExisteix;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
+    private javax.swing.JTextField jTextFieldAdrecaPostal;
+    private javax.swing.JTextField jTextFieldCodiPostal;
+    private javax.swing.JTextField jTextFieldDni;
+    private javax.swing.JTextField jTextFieldNaixement;
     private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldSexe;
     // End of variables declaration//GEN-END:variables
 }
