@@ -30,6 +30,19 @@ public class menu extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabelNom = new javax.swing.JLabel();
+        jLabelDni = new javax.swing.JLabel();
+        jLabelNaixement = new javax.swing.JLabel();
+        jLabelAP = new javax.swing.JLabel();
+        jLabelSexe = new javax.swing.JLabel();
+        jLabelCP = new javax.swing.JLabel();
+        jTextFieldNom = new javax.swing.JTextField();
+        jTextFieldDni = new javax.swing.JTextField();
+        jTextFieldNaixement = new javax.swing.JTextField();
+        jTextFieldAP = new javax.swing.JTextField();
+        jTextFieldSexe = new javax.swing.JTextField();
+        jTextFieldCP = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -38,15 +51,76 @@ public class menu extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
 
+        jPanel4.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Registre"));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelNom.setText("Nom");
+        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, 62, -1));
+
+        jLabelDni.setText("Dni");
+        jPanel4.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 62, -1));
+
+        jLabelNaixement.setText("Naixement");
+        jPanel4.add(jLabelNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 106, -1, -1));
+
+        jLabelAP.setText("Adeça Postal");
+        jPanel4.add(jLabelAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 144, -1, -1));
+
+        jLabelSexe.setText("Sexe");
+        jPanel4.add(jLabelSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 182, 62, -1));
+
+        jLabelCP.setText("Codi Postal");
+        jPanel4.add(jLabelCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 223, 62, -1));
+
+        jTextFieldNom.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel4.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 27, 130, -1));
+
+        jTextFieldDni.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldDni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldDniActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextFieldDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 65, 130, -1));
+
+        jTextFieldNaixement.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel4.add(jTextFieldNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 103, 130, -1));
+
+        jTextFieldAP.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldAP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldAPActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextFieldAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 141, 130, -1));
+
+        jTextFieldSexe.setBackground(new java.awt.Color(255, 204, 153));
+        jPanel4.add(jTextFieldSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 179, 130, -1));
+
+        jTextFieldCP.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldCP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCPActionPerformed(evt);
+            }
+        });
+        jPanel4.add(jTextFieldCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 217, 130, -1));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(535, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
@@ -61,7 +135,7 @@ public class menu extends javax.swing.JFrame {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 432, Short.MAX_VALUE)
+            .addGap(0, 461, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
@@ -75,8 +149,8 @@ public class menu extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 40, Short.MAX_VALUE)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 460, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(jTabbedPane1))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -92,6 +166,18 @@ public class menu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTextFieldDniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldDniActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldDniActionPerformed
+
+    private void jTextFieldAPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldAPActionPerformed
+
+    private void jTextFieldCPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCPActionPerformed
 
     /**
      * @param args the command line arguments
@@ -129,9 +215,22 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelAP;
+    private javax.swing.JLabel jLabelCP;
+    private javax.swing.JLabel jLabelDni;
+    private javax.swing.JLabel jLabelNaixement;
+    private javax.swing.JLabel jLabelNom;
+    private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField jTextFieldAP;
+    private javax.swing.JTextField jTextFieldCP;
+    private javax.swing.JTextField jTextFieldDni;
+    private javax.swing.JTextField jTextFieldNaixement;
+    private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldSexe;
     // End of variables declaration//GEN-END:variables
 }
