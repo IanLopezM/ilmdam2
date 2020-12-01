@@ -47,6 +47,7 @@ public class menu extends javax.swing.JFrame {
         jTextFieldSexe = new javax.swing.JTextField();
         jTextFieldCP = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
+        jLabelNoExisteix = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,6 +122,9 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
+        jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
+        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 250, -1));
+
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
@@ -186,6 +190,9 @@ public class menu extends javax.swing.JFrame {
                     stmtInsert = connexio.conexion().createStatement();
                     stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
                             + jTextFieldAP.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCP.getText() + ")");
+                    jLabelNoExisteix.setText("");
+                } else {
+                    jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
                 }
                 
             } catch (Exception e){
@@ -237,6 +244,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelNaixement;
+    private javax.swing.JLabel jLabelNoExisteix;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
