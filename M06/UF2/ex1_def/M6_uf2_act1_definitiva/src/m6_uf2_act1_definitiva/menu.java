@@ -182,6 +182,12 @@ public class menu extends javax.swing.JFrame {
                 stmt = connexio.conexion().createStatement();
                 comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
             
+                if(comparaStmt.next()){
+                    stmtInsert = connexio.conexion().createStatement();
+                    stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
+                            + jTextFieldAP.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCP.getText() + ")");
+                }
+                
             } catch (Exception e){
             
             }
