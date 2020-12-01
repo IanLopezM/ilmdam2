@@ -5,6 +5,9 @@
  */
 package m6_uf2_act1_definitiva;
 
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 /**
  *
  * @author Alumne
@@ -43,6 +46,7 @@ public class menu extends javax.swing.JFrame {
         jTextFieldAP = new javax.swing.JTextField();
         jTextFieldSexe = new javax.swing.JTextField();
         jTextFieldCP = new javax.swing.JTextField();
+        jButtonGuardar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -50,6 +54,7 @@ public class menu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Registre"));
@@ -106,38 +111,20 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel4.add(jTextFieldCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 217, 130, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(535, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(200, Short.MAX_VALUE))
-        );
+        jPanel2.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 250, 250));
+
+        jButtonGuardar.setText("Guardar");
+        jButtonGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 795, Short.MAX_VALUE)
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 461, Short.MAX_VALUE)
-        );
-
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -179,6 +166,30 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCPActionPerformed
 
+    private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
+        // TODO add your handling code here:
+        ResultSet comparaStmt;
+        Statement stmt = null;
+        Statement stmtInsert = null;
+        M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
+        
+        if(!jTextFieldNom.equals("") && !jTextFieldDni.equals("") &&
+                !jTextFieldNaixement.equals("") && !jTextFieldAP.equals("") &&
+                !jTextFieldSexe.equals("") && jTextFieldCP.equals("")) {
+            
+            try {
+                connexio.conexion();
+                stmt = connexio.conexion().createStatement();
+                comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
+            
+            } catch (Exception e){
+            
+            }
+        
+        }
+        
+    }//GEN-LAST:event_jButtonGuardarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,6 +226,7 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonGuardar;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelDni;
