@@ -27,6 +27,7 @@ public class menu extends javax.swing.JFrame {
     public menu() throws ClassNotFoundException, SQLException {
         this.cn = connexio.conexion();
         initComponents();
+        mostrarTabla();
     }
 
     /**
@@ -58,6 +59,8 @@ public class menu extends javax.swing.JFrame {
         jLabelNoExisteix = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAlumnos = new javax.swing.JTable();
+        jButtonCancelaar = new javax.swing.JButton();
+        jButtonModificar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,7 +92,7 @@ public class menu extends javax.swing.JFrame {
         jPanel4.add(jLabelSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 182, 62, -1));
 
         jLabelCP.setText("Codi Postal");
-        jPanel4.add(jLabelCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 223, 62, -1));
+        jPanel4.add(jLabelCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 223, 80, -1));
 
         jTextFieldNom.setBackground(new java.awt.Color(255, 204, 153));
         jPanel4.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 27, 130, -1));
@@ -132,10 +135,10 @@ public class menu extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
+        jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 80, -1));
 
         jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
-        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 10));
+        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 20));
 
         jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -152,6 +155,17 @@ public class menu extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTableAlumnos);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 670, 250));
+
+        jButtonCancelaar.setText("Cancelar");
+        jButtonCancelaar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelaarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonCancelaar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 80, -1));
+
+        jButtonModificar.setText("Modificar");
+        jPanel2.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 80, -1));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -212,7 +226,22 @@ public class menu extends javax.swing.JFrame {
         String sql = "SELECT * FROM alumnes";
         Statement st;
         
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                model.addRow(datos);
+            }
+            jTableAlumnos.setModel(model);
+        } catch (Exception e) {
         
+        } 
         
     
     }
@@ -233,11 +262,11 @@ public class menu extends javax.swing.JFrame {
                 
             try {
                 
-                stmt = connexio.conexion().createStatement();
+                stmt = cn.createStatement();
                 comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
 
                 if(comparaStmt.next()){
-                    stmtInsert = connexio.conexion().createStatement();
+                    stmtInsert = cn.createStatement();
                     stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
                             + jTextFieldAP.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCP.getText() + ")");
                     jLabelNoExisteix.setText("");
@@ -245,8 +274,6 @@ public class menu extends javax.swing.JFrame {
                     jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
                 }
                 
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
                 Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -256,6 +283,11 @@ public class menu extends javax.swing.JFrame {
         vaciar();
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
+
+    private void jButtonCancelaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaarActionPerformed
+        // TODO add your handling code here:
+        vaciar();
+    }//GEN-LAST:event_jButtonCancelaarActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
@@ -309,7 +341,9 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancelaar;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelDni;
