@@ -329,12 +329,13 @@ public class menu extends javax.swing.JFrame {
             // TODO add your handling code here:
             
             PreparedStatement pps = cn.prepareStatement("UPDATE alumnes SET nom = '" + jTextFieldNom.getText() +
-                    "' ,dni = '" + jTextFieldDni.getText() + "', datanaixement = '" + jTextFieldNaixement.getText()
+                    "' ,dni = '" + jTextFieldDni.getText() + "', datanaixament = '" + jTextFieldNaixement.getText()
                     + "', adrecapostal = '" + jTextFieldAP.getText() + "', sexe = '" + jTextFieldSexe.getText() +
-                    "' codipostal  = " + jTextFieldCP.getText() + " WHERE dni = '" + jTextFieldBusca.getText() + "'");
+                    "' ,codipostal  = '" + jTextFieldCP.getText() + "' WHERE dni = '" + jTextFieldBusca.getText() + "'");
             pps.executeUpdate();
             jLabelNoExisteix.setText("Dades actualitzades");
             vaciar();
+            mostrarTabla();
         } catch (SQLException ex) {
             Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
