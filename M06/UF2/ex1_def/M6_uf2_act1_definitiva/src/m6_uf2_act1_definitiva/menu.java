@@ -61,6 +61,7 @@ public class menu extends javax.swing.JFrame {
         jTableAlumnos = new javax.swing.JTable();
         jButtonCancelaar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
+        jButtonActualitzar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -135,7 +136,7 @@ public class menu extends javax.swing.JFrame {
                 jButtonGuardarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 80, -1));
+        jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
 
         jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
         jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 20));
@@ -162,10 +163,18 @@ public class menu extends javax.swing.JFrame {
                 jButtonCancelaarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonCancelaar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 80, -1));
+        jPanel2.add(jButtonCancelaar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, -1));
 
         jButtonModificar.setText("Modificar");
-        jPanel2.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 80, -1));
+        jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, -1));
+
+        jButtonActualitzar.setText("Actualitzar");
+        jPanel2.add(jButtonActualitzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -289,6 +298,23 @@ public class menu extends javax.swing.JFrame {
         vaciar();
     }//GEN-LAST:event_jButtonCancelaarActionPerformed
 
+    private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
+        // TODO add your handling code here:
+        int row = jTableAlumnos.getSelectedRow();
+        
+        if ( row >= 0){
+            jTextFieldNom.setText(jTableAlumnos.getValueAt(row, 0).toString());
+            jTextFieldDni.setText(jTableAlumnos.getValueAt(row, 1).toString());
+            jTextFieldNaixement.setText(jTableAlumnos.getValueAt(row, 2).toString());
+            jTextFieldAP.setText(jTableAlumnos.getValueAt(row, 3).toString());
+            jTextFieldSexe.setText(jTableAlumnos.getValueAt(row, 4).toString());
+            jTextFieldCP.setText(jTableAlumnos.getValueAt(row, 5).toString());
+        } else {
+            jLabelNoExisteix.setText("No has sel·leccionat cap fila");
+        }
+        
+    }//GEN-LAST:event_jButtonModificarActionPerformed
+
     public void vaciar(){
         jTextFieldNom.setText("");
         jTextFieldDni.setText("");
@@ -341,6 +367,7 @@ public class menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonActualitzar;
     private javax.swing.JButton jButtonCancelaar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonModificar;
