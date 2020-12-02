@@ -6,6 +6,7 @@
 package m6_uf2_act1_definitiva;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -62,6 +63,7 @@ public class menu extends javax.swing.JFrame {
         jButtonCancelaar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonActualitzar = new javax.swing.JButton();
+        jTextFieldBusca = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -174,7 +176,13 @@ public class menu extends javax.swing.JFrame {
         jPanel2.add(jButtonModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, -1));
 
         jButtonActualitzar.setText("Actualitzar");
+        jButtonActualitzar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualitzarActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonActualitzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
+        jPanel2.add(jTextFieldBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(589, 260, 90, -1));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -303,6 +311,7 @@ public class menu extends javax.swing.JFrame {
         int row = jTableAlumnos.getSelectedRow();
         
         if ( row >= 0){
+            jTextFieldBusca.setText(jTableAlumnos.getValueAt(row, 1).toString());
             jTextFieldNom.setText(jTableAlumnos.getValueAt(row, 0).toString());
             jTextFieldDni.setText(jTableAlumnos.getValueAt(row, 1).toString());
             jTextFieldNaixement.setText(jTableAlumnos.getValueAt(row, 2).toString());
@@ -315,6 +324,22 @@ public class menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
+    private void jButtonActualitzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualitzarActionPerformed
+        try {
+            // TODO add your handling code here:
+            
+            PreparedStatement pps = cn.prepareStatement("UPDATE alumnes SET nom = '" + jTextFieldNom.getText() +
+                    "' ,dni = '" + jTextFieldDni.getText() + "', datanaixement = '" + jTextFieldNaixement.getText()
+                    + "', adrecapostal = '" + jTextFieldAP.getText() + "', sexe = '" + jTextFieldSexe.getText() +
+                    "' codipostal  = " + jTextFieldCP.getText() + " WHERE dni = '" + jTextFieldBusca.getText() + "'");
+            pps.executeUpdate();
+            jLabelNoExisteix.setText("Dades actualitzades");
+            vaciar();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButtonActualitzarActionPerformed
+
     public void vaciar(){
         jTextFieldNom.setText("");
         jTextFieldDni.setText("");
@@ -322,6 +347,7 @@ public class menu extends javax.swing.JFrame {
         jTextFieldAP.setText("");
         jTextFieldSexe.setText("");
         jTextFieldCP.setText("");
+        jTextFieldBusca.setText("");
     }
     
     
@@ -386,6 +412,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableAlumnos;
     private javax.swing.JTextField jTextFieldAP;
+    private javax.swing.JTextField jTextFieldBusca;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldDni;
     private javax.swing.JTextField jTextFieldNaixement;
