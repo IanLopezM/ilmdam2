@@ -20,11 +20,12 @@ import javax.swing.table.DefaultTableModel;
 public class menu extends javax.swing.JFrame {
 
     M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
-    Connection cn = connexio.conexion();
+    Connection cn;
     /**
      * Creates new form menu
      */
-    public menu() {
+    public menu() throws ClassNotFoundException, SQLException {
+        this.cn = connexio.conexion();
         initComponents();
     }
 
@@ -223,9 +224,6 @@ public class menu extends javax.swing.JFrame {
         Statement stmt = null;
         Statement stmtInsert = null; 
         
-        
-        
-        
         if(!jTextFieldNom.getText().equals("") && 
                 !jTextFieldDni.getText().equals("") && 
                 !jTextFieldNaixement.getText().equals("") && 
@@ -299,7 +297,13 @@ public class menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new menu().setVisible(true);
+                try {
+                    new menu().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

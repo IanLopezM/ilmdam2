@@ -5,9 +5,7 @@
  */
 package m6_uf2_act1_definitiva;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;  
 
 /**
  *
