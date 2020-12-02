@@ -304,6 +304,7 @@ public class menu extends javax.swing.JFrame {
     private void jButtonCancelaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaarActionPerformed
         // TODO add your handling code here:
         vaciar();
+        jButtonGuardar.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelaarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -322,23 +323,36 @@ public class menu extends javax.swing.JFrame {
             jLabelNoExisteix.setText("No has sel·leccionat cap fila");
         }
         
+        jButtonGuardar.setEnabled(false);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonActualitzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualitzarActionPerformed
+        ResultSet comparaStmt;
+        Statement stmt = null;
         try {
             // TODO add your handling code here:
             
-            PreparedStatement pps = cn.prepareStatement("UPDATE alumnes SET nom = '" + jTextFieldNom.getText() +
+            stmt = cn.createStatement();
+            comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
+            
+            if (comparaStmt.next()) {
+                PreparedStatement pps = cn.prepareStatement("UPDATE alumnes SET nom = '" + jTextFieldNom.getText() +
                     "' ,dni = '" + jTextFieldDni.getText() + "', datanaixament = '" + jTextFieldNaixement.getText()
                     + "', adrecapostal = '" + jTextFieldAP.getText() + "', sexe = '" + jTextFieldSexe.getText() +
                     "' ,codipostal  = '" + jTextFieldCP.getText() + "' WHERE dni = '" + jTextFieldBusca.getText() + "'");
-            pps.executeUpdate();
-            jLabelNoExisteix.setText("Dades actualitzades");
+                pps.executeUpdate();
+                jLabelNoExisteix.setText("Dades actualitzades");
+            } else {
+                jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
+            }
+            
             vaciar();
             mostrarTabla();
         } catch (SQLException ex) {
             Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        jButtonGuardar.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarActionPerformed
 
     public void vaciar(){
