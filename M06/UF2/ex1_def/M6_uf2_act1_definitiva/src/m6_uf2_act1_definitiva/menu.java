@@ -178,10 +178,15 @@ public class menu extends javax.swing.JFrame {
         Statement stmtInsert = null; 
         M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
         
-        if(!jTextFieldNom.equals("") && !jTextFieldDni.equals("") &&
-                !jTextFieldNaixement.equals("") && !jTextFieldAP.equals("") &&
-                !jTextFieldSexe.equals("") && jTextFieldCP.equals("")) {
-            
+        
+        
+        if(!jTextFieldNom.getText().equals("") && 
+                !jTextFieldDni.getText().equals("") && 
+                !jTextFieldNaixement.getText().equals("") && 
+                !jTextFieldAP.getText().equals("") && 
+                !jTextFieldSexe.getText().equals("") && 
+                jTextFieldCP.getText().equals("")) {
+                jTextFieldNom.setText("Hola ian");
             try {
                 connexio.conexion();
                 stmt = connexio.conexion().createStatement();
