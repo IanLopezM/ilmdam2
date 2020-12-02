@@ -298,7 +298,7 @@ public class menu extends javax.swing.JFrame {
             jLabelNoExisteix.setText("Falten camps per omplir");
         }
         vaciar();
-        
+        mostrarTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
     private void jButtonCancelaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaarActionPerformed
