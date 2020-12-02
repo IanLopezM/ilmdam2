@@ -175,7 +175,7 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
-        Statement stmtInsert = null;
+        Statement stmtInsert = null; 
         M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
         
         if(!jTextFieldNom.equals("") && !jTextFieldDni.equals("") &&
