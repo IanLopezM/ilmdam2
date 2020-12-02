@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -57,14 +58,14 @@ public class menu extends javax.swing.JFrame {
         jTextFieldSexe = new javax.swing.JTextField();
         jTextFieldCP = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
-        jLabelNoExisteix = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAlumnos = new javax.swing.JTable();
         jButtonCancelar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonActualitzar = new javax.swing.JButton();
-        jTextFieldBusca = new javax.swing.JTextField();
         jButtonEliminar = new javax.swing.JButton();
+        jLabelBusca = new javax.swing.JLabel();
+        jLabelNomdeDni = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,9 +141,6 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
 
-        jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
-        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 20));
-
         jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -157,7 +155,7 @@ public class menu extends javax.swing.JFrame {
         jTableAlumnos.setSelectionBackground(new java.awt.Color(255, 204, 103));
         jScrollPane1.setViewportView(jTableAlumnos);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 670, 250));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 670, 270));
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -182,7 +180,6 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButtonActualitzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
-        jPanel2.add(jTextFieldBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(589, 260, 90, -1));
 
         jButtonEliminar.setText("Eliminar");
         jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -191,6 +188,8 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jPanel2.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
+        jPanel2.add(jLabelBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 240, 80, 20));
+        jPanel2.add(jLabelNomdeDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 80, 20));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -294,16 +293,15 @@ public class menu extends javax.swing.JFrame {
                     stmtInsert = cn.createStatement();
                     stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
                             + jTextFieldAP.getText() + "','" + jTextFieldSexe.getText() + "'," + jTextFieldCP.getText() + ")");
-                    jLabelNoExisteix.setText("");
                 } else {
-                    jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
+                    JOptionPane.showMessageDialog(null, "Aquest codi postal no correspon a cap població");
                 }
                 
             } catch (SQLException ex) {
                 Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            jLabelNoExisteix.setText("Falten camps per omplir");
+            JOptionPane.showMessageDialog(null, "Falten camps per omplir");
         }
         vaciar();
         mostrarTabla();
@@ -313,6 +311,7 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         vaciar();
         jButtonGuardar.setEnabled(true);
+        jButtonEliminar.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
@@ -320,7 +319,8 @@ public class menu extends javax.swing.JFrame {
         int row = jTableAlumnos.getSelectedRow();
         
         if ( row >= 0){
-            jTextFieldBusca.setText(jTableAlumnos.getValueAt(row, 1).toString());
+            jLabelNomdeDni.setText("Nom de Dni:");
+            jLabelBusca.setText(jTableAlumnos.getValueAt(row, 1).toString());
             jTextFieldNom.setText(jTableAlumnos.getValueAt(row, 0).toString());
             jTextFieldDni.setText(jTableAlumnos.getValueAt(row, 1).toString());
             jTextFieldNaixement.setText(jTableAlumnos.getValueAt(row, 2).toString());
@@ -328,10 +328,11 @@ public class menu extends javax.swing.JFrame {
             jTextFieldSexe.setText(jTableAlumnos.getValueAt(row, 4).toString());
             jTextFieldCP.setText(jTableAlumnos.getValueAt(row, 5).toString());
         } else {
-            jLabelNoExisteix.setText("No has sel·leccionat cap fila");
+            JOptionPane.showMessageDialog(null, "No has sel·leccionat cap fila");
         }
         
         jButtonGuardar.setEnabled(false);
+        jButtonEliminar.setEnabled(false);
     }//GEN-LAST:event_jButtonModificarActionPerformed
 
     private void jButtonActualitzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualitzarActionPerformed
@@ -347,11 +348,12 @@ public class menu extends javax.swing.JFrame {
                 PreparedStatement pps = cn.prepareStatement("UPDATE alumnes SET nom = '" + jTextFieldNom.getText() +
                     "' ,dni = '" + jTextFieldDni.getText() + "', datanaixament = '" + jTextFieldNaixement.getText()
                     + "', adrecapostal = '" + jTextFieldAP.getText() + "', sexe = '" + jTextFieldSexe.getText() +
-                    "' ,codipostal  = '" + jTextFieldCP.getText() + "' WHERE dni = '" + jTextFieldBusca.getText() + "'");
+                    "' ,codipostal  = '" + jTextFieldCP.getText() + "' WHERE dni = '" + jLabelBusca.getText() + "'");
                 pps.executeUpdate();
-                jLabelNoExisteix.setText("Dades actualitzades");
+                JOptionPane.showMessageDialog(null, "Dades actualitzades");
+                
             } else {
-                jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
+                JOptionPane.showMessageDialog(null, "Aquest codi postal no correspon a cap població");
             }
             
             vaciar();
@@ -361,6 +363,7 @@ public class menu extends javax.swing.JFrame {
         }
         
         jButtonGuardar.setEnabled(true);
+        jButtonEliminar.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarActionPerformed
 
     private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
@@ -372,7 +375,9 @@ public class menu extends javax.swing.JFrame {
             try {
                 PreparedStatement pps = cn.prepareStatement("DELETE FROM alumnes WHERE dni = '" + value + "'");
                 pps.executeUpdate();
-                jLabelNoExisteix.setText("Dades esborrades");
+                JOptionPane.showMessageDialog(null, "Dades esborrades");
+                vaciar();
+                mostrarTabla();
             } catch (SQLException ex) {
                 Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -387,7 +392,8 @@ public class menu extends javax.swing.JFrame {
         jTextFieldAP.setText("");
         jTextFieldSexe.setText("");
         jTextFieldCP.setText("");
-        jTextFieldBusca.setText("");
+        jLabelBusca.setText("");
+        jLabelNomdeDni.setText("");
     }
     
     
@@ -439,11 +445,12 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAP;
+    private javax.swing.JLabel jLabelBusca;
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelNaixement;
-    private javax.swing.JLabel jLabelNoExisteix;
     private javax.swing.JLabel jLabelNom;
+    private javax.swing.JLabel jLabelNomdeDni;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -453,7 +460,6 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableAlumnos;
     private javax.swing.JTextField jTextFieldAP;
-    private javax.swing.JTextField jTextFieldBusca;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldDni;
     private javax.swing.JTextField jTextFieldNaixement;
