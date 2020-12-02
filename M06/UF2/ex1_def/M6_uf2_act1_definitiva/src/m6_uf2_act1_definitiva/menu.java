@@ -60,14 +60,14 @@ public class menu extends javax.swing.JFrame {
         jLabelNoExisteix = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableAlumnos = new javax.swing.JTable();
-        jButtonCancelaar = new javax.swing.JButton();
+        jButtonCancelar = new javax.swing.JButton();
         jButtonModificar = new javax.swing.JButton();
         jButtonActualitzar = new javax.swing.JButton();
         jTextFieldBusca = new javax.swing.JTextField();
+        jButtonEliminar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(700, 600));
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(700, 500));
@@ -159,13 +159,13 @@ public class menu extends javax.swing.JFrame {
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 670, 250));
 
-        jButtonCancelaar.setText("Cancelar");
-        jButtonCancelaar.addActionListener(new java.awt.event.ActionListener() {
+        jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCancelaarActionPerformed(evt);
+                jButtonCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButtonCancelaar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, -1));
+        jPanel2.add(jButtonCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, -1));
 
         jButtonModificar.setText("Modificar");
         jButtonModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,6 +183,14 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel2.add(jButtonActualitzar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
         jPanel2.add(jTextFieldBusca, new org.netbeans.lib.awtextra.AbsoluteConstraints(589, 260, 90, -1));
+
+        jButtonEliminar.setText("Eliminar");
+        jButtonEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -301,11 +309,11 @@ public class menu extends javax.swing.JFrame {
         mostrarTabla();
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
-    private void jButtonCancelaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelaarActionPerformed
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         // TODO add your handling code here:
         vaciar();
         jButtonGuardar.setEnabled(true);
-    }//GEN-LAST:event_jButtonCancelaarActionPerformed
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void jButtonModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarActionPerformed
         // TODO add your handling code here:
@@ -354,6 +362,23 @@ public class menu extends javax.swing.JFrame {
         
         jButtonGuardar.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarActionPerformed
+
+    private void jButtonEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarActionPerformed
+        // TODO add your handling code here:
+        int row = jTableAlumnos.getSelectedRow();
+        String value = jTableAlumnos.getValueAt(row, 1).toString();
+        
+        if (row >= 0) {
+            try {
+                PreparedStatement pps = cn.prepareStatement("DELETE FROM alumnes WHERE dni = '" + value + "'");
+                pps.executeUpdate();
+                jLabelNoExisteix.setText("Dades esborrades");
+            } catch (SQLException ex) {
+                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_jButtonEliminarActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
@@ -409,7 +434,8 @@ public class menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualitzar;
-    private javax.swing.JButton jButtonCancelaar;
+    private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAP;
