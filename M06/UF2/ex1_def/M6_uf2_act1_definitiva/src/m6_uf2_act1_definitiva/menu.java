@@ -185,7 +185,7 @@ public class menu extends javax.swing.JFrame {
                 !jTextFieldNaixement.getText().equals("") && 
                 !jTextFieldAP.getText().equals("") && 
                 !jTextFieldSexe.getText().equals("") && 
-                jTextFieldCP.getText().equals("")) {
+                !jTextFieldCP.getText().equals("")) {
                 jTextFieldNom.setText("Hola ian");
             try {
                 connexio.conexion();
@@ -209,6 +209,16 @@ public class menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
+    public void vaciar(){
+        jTextFieldNom.setText("");
+        jTextFieldDni.setText("");
+        jTextFieldNaixement.setText("");
+        jTextFieldAP.setText("");
+        jTextFieldSexe.setText("");
+        jTextFieldCP.setText("");
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
