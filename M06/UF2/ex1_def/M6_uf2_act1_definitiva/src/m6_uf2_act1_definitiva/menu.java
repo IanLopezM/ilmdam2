@@ -5,11 +5,13 @@
  */
 package m6_uf2_act1_definitiva;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +19,8 @@ import java.util.logging.Logger;
  */
 public class menu extends javax.swing.JFrame {
 
+    M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
+    Connection cn = connexio.conexion();
     /**
      * Creates new form menu
      */
@@ -51,6 +55,8 @@ public class menu extends javax.swing.JFrame {
         jTextFieldCP = new javax.swing.JTextField();
         jButtonGuardar = new javax.swing.JButton();
         jLabelNoExisteix = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableAlumnos = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,6 +136,22 @@ public class menu extends javax.swing.JFrame {
         jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
         jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 10));
 
+        jTableAlumnos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jTableAlumnos.setSelectionBackground(new java.awt.Color(255, 204, 103));
+        jScrollPane1.setViewportView(jTableAlumnos);
+
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 670, 250));
+
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
@@ -175,12 +197,32 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCPActionPerformed
 
+    public void mostrarTabla(){
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Nom");
+        model.addColumn("Dni");
+        model.addColumn("Naixement");
+        model.addColumn("Adreça Postal");
+        model.addColumn("Sexe");
+        model.addColumn("Codi Postal");
+        
+        jTableAlumnos.setModel(model);
+        String datos[] = new String[6];
+        String sql = "SELECT * FROM alumnes";
+        Statement st;
+        
+        
+        
+    
+    }
+    
+    
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
         Statement stmtInsert = null; 
-        M6_uf2_act1_definitiva connexio = new M6_uf2_act1_definitiva();
+        
         
         
         
@@ -192,7 +234,7 @@ public class menu extends javax.swing.JFrame {
                 !jTextFieldCP.getText().equals("")) {
                 
             try {
-                connexio.conexion();
+                
                 stmt = connexio.conexion().createStatement();
                 comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
 
@@ -275,7 +317,9 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable jTableAlumnos;
     private javax.swing.JTextField jTextFieldAP;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldDni;

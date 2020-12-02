@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author Alumne
  */
 public class M6_uf2_act1_definitiva {
-
+    Connection connection = null; 
     /**
      * @param args the command line arguments
      */
@@ -23,7 +23,7 @@ public class M6_uf2_act1_definitiva {
     }
     
     public Connection conexion() throws ClassNotFoundException, SQLException{
-        Connection connection = null; 
+        
         
         Class.forName("com.mysql.cj.jdbc.Driver");
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/m06_uf2_act1",
