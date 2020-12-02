@@ -6,7 +6,10 @@
 package m6_uf2_act1_definitiva;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -124,7 +127,7 @@ public class menu extends javax.swing.JFrame {
         jPanel2.add(jButtonGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, -1, -1));
 
         jLabelNoExisteix.setForeground(new java.awt.Color(255, 51, 51));
-        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 250, -1));
+        jPanel2.add(jLabelNoExisteix, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 340, 10));
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
@@ -186,12 +189,12 @@ public class menu extends javax.swing.JFrame {
                 !jTextFieldAP.getText().equals("") && 
                 !jTextFieldSexe.getText().equals("") && 
                 !jTextFieldCP.getText().equals("")) {
-                jTextFieldNom.setText("Hola ian");
+                
             try {
                 connexio.conexion();
                 stmt = connexio.conexion().createStatement();
                 comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
-            
+
                 if(comparaStmt.next()){
                     stmtInsert = connexio.conexion().createStatement();
                     stmtInsert.execute("INSERT INTO alumnes VALUES ('" + jTextFieldNom.getText() + "','" + jTextFieldDni.getText() + "','" + jTextFieldNaixement.getText() + "','" 
@@ -201,11 +204,15 @@ public class menu extends javax.swing.JFrame {
                     jLabelNoExisteix.setText("Aquest codi postal no correspon a cap població");
                 }
                 
-            } catch (Exception e){
-            
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-        
+        } else {
+            jLabelNoExisteix.setText("Falten camps per omplir");
         }
+        vaciar();
         
     }//GEN-LAST:event_jButtonGuardarActionPerformed
 
