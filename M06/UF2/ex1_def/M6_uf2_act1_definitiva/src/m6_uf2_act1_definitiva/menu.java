@@ -72,7 +72,7 @@ public class menu extends javax.swing.JFrame {
         jLabelPoblacio = new javax.swing.JLabel();
         jTextFieldCodiPostal = new javax.swing.JTextField();
         jTextFieldPoblacio = new javax.swing.JTextField();
-        jButtonGuardarAlumnes = new javax.swing.JButton();
+        jButtonGuardarPoblacions = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -220,13 +220,13 @@ public class menu extends javax.swing.JFrame {
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 250));
 
-        jButtonGuardarAlumnes.setText("Guardar");
-        jButtonGuardarAlumnes.addActionListener(new java.awt.event.ActionListener() {
+        jButtonGuardarPoblacions.setText("Guardar");
+        jButtonGuardarPoblacions.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonGuardarAlumnesActionPerformed(evt);
+                jButtonGuardarPoblacionsActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonGuardarAlumnes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
+        jPanel3.add(jButtonGuardarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -418,7 +418,7 @@ public class menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
-    private void jButtonGuardarAlumnesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarAlumnesActionPerformed
+    private void jButtonGuardarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarPoblacionsActionPerformed
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
@@ -445,7 +445,7 @@ public class menu extends javax.swing.JFrame {
         }
         vaciar();
         
-    }//GEN-LAST:event_jButtonGuardarAlumnesActionPerformed
+    }//GEN-LAST:event_jButtonGuardarPoblacionsActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
@@ -507,7 +507,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
-    private javax.swing.JButton jButtonGuardarAlumnes;
+    private javax.swing.JButton jButtonGuardarPoblacions;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelBusca;
