@@ -73,21 +73,22 @@ public class menu extends javax.swing.JFrame {
         jTextFieldCodiPostal = new javax.swing.JTextField();
         jTextFieldPoblacio = new javax.swing.JTextField();
         jButtonGuardarPoblacions = new javax.swing.JButton();
+        jButtonCancelarPoblacions = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(204, 204, 255));
         jPanel1.setMinimumSize(new java.awt.Dimension(700, 500));
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel2.setBackground(new java.awt.Color(255, 204, 153));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 204));
+        jPanel4.setBackground(new java.awt.Color(255, 204, 153));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Registre"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNom.setText("Nom");
-        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 60, -1));
+        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, 60, -1));
 
         jLabelDni.setText("Dni");
         jPanel4.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 62, -1));
@@ -104,10 +105,10 @@ public class menu extends javax.swing.JFrame {
         jLabelCP.setText("Codi Postal");
         jPanel4.add(jLabelCP, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 223, 80, -1));
 
-        jTextFieldNom.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldNom.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.add(jTextFieldNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 27, 130, -1));
 
-        jTextFieldDni.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldDni.setBackground(new java.awt.Color(255, 255, 204));
         jTextFieldDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldDniActionPerformed(evt);
@@ -115,10 +116,10 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel4.add(jTextFieldDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 65, 130, -1));
 
-        jTextFieldNaixement.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldNaixement.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.add(jTextFieldNaixement, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 103, 130, -1));
 
-        jTextFieldAP.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldAP.setBackground(new java.awt.Color(255, 255, 204));
         jTextFieldAP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldAPActionPerformed(evt);
@@ -126,10 +127,10 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel4.add(jTextFieldAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 141, 130, -1));
 
-        jTextFieldSexe.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldSexe.setBackground(new java.awt.Color(255, 255, 204));
         jPanel4.add(jTextFieldSexe, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 179, 130, -1));
 
-        jTextFieldCP.setBackground(new java.awt.Color(255, 204, 153));
+        jTextFieldCP.setBackground(new java.awt.Color(255, 255, 204));
         jTextFieldCP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCPActionPerformed(evt);
@@ -199,24 +200,24 @@ public class menu extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Alumnes", jPanel2);
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel3.setBackground(new java.awt.Color(255, 153, 153));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel5.setBackground(new java.awt.Color(255, 153, 153));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Registre"));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelCodiPostal.setText("Codi Postal");
-        jPanel5.add(jLabelCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+        jPanel5.add(jLabelCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, -1, -1));
 
         jLabelPoblacio.setText("Població");
-        jPanel5.add(jLabelPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel5.add(jLabelPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 70, -1, -1));
 
-        jTextFieldCodiPostal.setBackground(new java.awt.Color(255, 153, 153));
-        jPanel5.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, -1));
+        jTextFieldCodiPostal.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel5.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 27, 130, -1));
 
-        jTextFieldPoblacio.setBackground(new java.awt.Color(255, 153, 153));
-        jPanel5.add(jTextFieldPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, -1));
+        jTextFieldPoblacio.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel5.add(jTextFieldPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 65, 130, -1));
 
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 250));
 
@@ -227,6 +228,14 @@ public class menu extends javax.swing.JFrame {
             }
         });
         jPanel3.add(jButtonGuardarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
+
+        jButtonCancelarPoblacions.setText("Cancelar");
+        jButtonCancelarPoblacions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarPoblacionsActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonCancelarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, -1));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -447,6 +456,11 @@ public class menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonGuardarPoblacionsActionPerformed
 
+    private void jButtonCancelarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPoblacionsActionPerformed
+        // TODO add your handling code here:
+        vaciar();
+    }//GEN-LAST:event_jButtonCancelarPoblacionsActionPerformed
+
     public void vaciar(){
         jTextFieldNom.setText("");
         jTextFieldDni.setText("");
@@ -505,6 +519,7 @@ public class menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualitzar;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonCancelarPoblacions;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonGuardarPoblacions;
