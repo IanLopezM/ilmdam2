@@ -67,6 +67,12 @@ public class menu extends javax.swing.JFrame {
         jLabelBusca = new javax.swing.JLabel();
         jLabelNomdeDni = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
+        jPanel5 = new javax.swing.JPanel();
+        jLabelCodiPostal = new javax.swing.JLabel();
+        jLabelPoblacio = new javax.swing.JLabel();
+        jTextFieldCodiPostal = new javax.swing.JTextField();
+        jTextFieldPoblacio = new javax.swing.JTextField();
+        jButtonGuardarAlumnes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,7 +87,7 @@ public class menu extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNom.setText("Nom");
-        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 30, 62, -1));
+        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 62, -1));
 
         jLabelDni.setText("Dni");
         jPanel4.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 62, -1));
@@ -195,6 +201,29 @@ public class menu extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel5.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Registre"));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabelCodiPostal.setText("Codi Postal");
+        jPanel5.add(jLabelCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jLabelPoblacio.setText("Població");
+        jPanel5.add(jLabelPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+        jPanel5.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, -1));
+        jPanel5.add(jTextFieldPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, -1));
+
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 250, 250));
+
+        jButtonGuardarAlumnes.setText("Guardar");
+        jButtonGuardarAlumnes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonGuardarAlumnesActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonGuardarAlumnes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 100, -1));
+
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -385,6 +414,10 @@ public class menu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButtonEliminarActionPerformed
 
+    private void jButtonGuardarAlumnesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarAlumnesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGuardarAlumnesActionPerformed
+
     public void vaciar(){
         jTextFieldNom.setText("");
         jTextFieldDni.setText("");
@@ -443,27 +476,33 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonEliminar;
     private javax.swing.JButton jButtonGuardar;
+    private javax.swing.JButton jButtonGuardarAlumnes;
     private javax.swing.JButton jButtonModificar;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelBusca;
     private javax.swing.JLabel jLabelCP;
+    private javax.swing.JLabel jLabelCodiPostal;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelNaixement;
     private javax.swing.JLabel jLabelNom;
     private javax.swing.JLabel jLabelNomdeDni;
+    private javax.swing.JLabel jLabelPoblacio;
     private javax.swing.JLabel jLabelSexe;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableAlumnos;
     private javax.swing.JTextField jTextFieldAP;
     private javax.swing.JTextField jTextFieldCP;
+    private javax.swing.JTextField jTextFieldCodiPostal;
     private javax.swing.JTextField jTextFieldDni;
     private javax.swing.JTextField jTextFieldNaixement;
     private javax.swing.JTextField jTextFieldNom;
+    private javax.swing.JTextField jTextFieldPoblacio;
     private javax.swing.JTextField jTextFieldSexe;
     // End of variables declaration//GEN-END:variables
 }
