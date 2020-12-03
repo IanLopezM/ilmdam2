@@ -87,7 +87,7 @@ public class menu extends javax.swing.JFrame {
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabelNom.setText("Nom");
-        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 62, -1));
+        jPanel4.add(jLabelNom, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 60, -1));
 
         jLabelDni.setText("Dni");
         jPanel4.add(jLabelDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 68, 62, -1));
@@ -211,10 +211,14 @@ public class menu extends javax.swing.JFrame {
 
         jLabelPoblacio.setText("Població");
         jPanel5.add(jLabelPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
+
+        jTextFieldCodiPostal.setBackground(new java.awt.Color(255, 153, 153));
         jPanel5.add(jTextFieldCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 30, 130, -1));
+
+        jTextFieldPoblacio.setBackground(new java.awt.Color(255, 153, 153));
         jPanel5.add(jTextFieldPoblacio, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, 130, -1));
 
-        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 250, 250));
+        jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 250, 250));
 
         jButtonGuardarAlumnes.setText("Guardar");
         jButtonGuardarAlumnes.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +226,7 @@ public class menu extends javax.swing.JFrame {
                 jButtonGuardarAlumnesActionPerformed(evt);
             }
         });
-        jPanel3.add(jButtonGuardarAlumnes, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 100, -1));
+        jPanel3.add(jButtonGuardarAlumnes, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -230,7 +234,7 @@ public class menu extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 700, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -416,6 +420,31 @@ public class menu extends javax.swing.JFrame {
 
     private void jButtonGuardarAlumnesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarAlumnesActionPerformed
         // TODO add your handling code here:
+        ResultSet comparaStmt;
+        Statement stmt = null;
+        Statement stmtInsert = null; 
+        
+        if (!jTextFieldCodiPostal.getText().equals("") &&
+                !jTextFieldPoblacio.getText().equals("")) {
+            try {
+                stmt = cn.createStatement();
+                comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCodiPostal.getText() + "'");
+                
+                if(comparaStmt.next()){
+                    JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
+                } else {
+                    stmtInsert = cn.createStatement();
+                    stmtInsert.execute("INSERT INTO poblacions VALUES (" + jTextFieldCodiPostal.getText() + ",'" + jTextFieldPoblacio.getText() + ")");
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Falten camps per omplir");
+        }
+        vaciar();
+        
     }//GEN-LAST:event_jButtonGuardarAlumnesActionPerformed
 
     public void vaciar(){
@@ -427,6 +456,8 @@ public class menu extends javax.swing.JFrame {
         jTextFieldCP.setText("");
         jLabelBusca.setText("");
         jLabelNomdeDni.setText("");
+        jTextFieldCodiPostal.setText("");
+        jTextFieldPoblacio.setText("");
     }
     
     
