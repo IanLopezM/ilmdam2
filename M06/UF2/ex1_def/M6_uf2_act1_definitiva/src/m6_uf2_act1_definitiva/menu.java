@@ -551,6 +551,8 @@ public class menu extends javax.swing.JFrame {
 
     private void jButtonActualitzarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualitzarPoblacionsActionPerformed
         // TODO add your handling code here:
+        ResultSet comparaStmt;
+        Statement stmt = null;
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
 
     public void vaciar(){
