@@ -361,6 +361,7 @@ public class menu extends javax.swing.JFrame {
         model.addColumn("Codi Postal");
         model.addColumn("Població");
         
+        
         jTablePoblacions.setModel(model);
         String datos[] = new String[2];
         String sql = "SELECT * FROM poblacions";
