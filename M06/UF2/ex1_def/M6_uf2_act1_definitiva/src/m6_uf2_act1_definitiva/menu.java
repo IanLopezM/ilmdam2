@@ -30,6 +30,7 @@ public class menu extends javax.swing.JFrame {
         this.cn = connexio.conexion();
         initComponents();
         mostrarTabla();
+        mostrarTablaPoblacions();
     }
 
     /**
@@ -74,6 +75,9 @@ public class menu extends javax.swing.JFrame {
         jTextFieldPoblacio = new javax.swing.JTextField();
         jButtonGuardarPoblacions = new javax.swing.JButton();
         jButtonCancelarPoblacions = new javax.swing.JButton();
+        jButtonModificarPoblacions = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTablePoblacions = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -237,6 +241,29 @@ public class menu extends javax.swing.JFrame {
         });
         jPanel3.add(jButtonCancelarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 100, -1));
 
+        jButtonModificarPoblacions.setText("Modificar");
+        jButtonModificarPoblacions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonModificarPoblacionsActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButtonModificarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 100, -1));
+
+        jTablePoblacions.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane2.setViewportView(jTablePoblacions);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 670, 270));
+
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -309,6 +336,31 @@ public class menu extends javax.swing.JFrame {
         
         } 
         
+    
+    }
+    
+    public void mostrarTablaPoblacions() throws SQLException {
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Codi Postal");
+        model.addColumn("Població");
+        
+        jTablePoblacions.setModel(model);
+        String datos[] = new String[2];
+        String sql = "SELECT * FROM poblacions";
+        Statement st;
+        
+        try {
+            st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                model.addRow(datos);
+            }
+            jTablePoblacions.setModel(model);
+        } catch (Exception e) {
+        
+        }
     
     }
     
@@ -443,7 +495,7 @@ public class menu extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
                 } else {
                     stmtInsert = cn.createStatement();
-                    stmtInsert.execute("INSERT INTO poblacions VALUES (" + jTextFieldCodiPostal.getText() + ",'" + jTextFieldPoblacio.getText() + ")");
+                    stmtInsert.execute("INSERT INTO poblacions VALUES (" + jTextFieldCodiPostal.getText() + ",'" + jTextFieldPoblacio.getText() + "')");
                 }
                 
             } catch (SQLException ex) {
@@ -459,7 +511,21 @@ public class menu extends javax.swing.JFrame {
     private void jButtonCancelarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarPoblacionsActionPerformed
         // TODO add your handling code here:
         vaciar();
+        jButtonGuardarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarPoblacionsActionPerformed
+
+    private void jButtonModificarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPoblacionsActionPerformed
+        // TODO add your handling code here:
+        int row = jTablePoblacions.getSelectedRow();
+        
+        if (row >= 0) {
+            jTextFieldCodiPostal.setText(jTablePoblacions.getValueAt(row, 0).toString());
+            jTextFieldPoblacio.setText(jTablePoblacions.getValueAt(row, 1).toString());
+        } else {
+            JOptionPane.showMessageDialog(null, "No has sel·leccionat cap fila");
+        }
+        jButtonGuardarPoblacions.setEnabled(false);
+    }//GEN-LAST:event_jButtonModificarPoblacionsActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
@@ -524,6 +590,7 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonGuardarPoblacions;
     private javax.swing.JButton jButtonModificar;
+    private javax.swing.JButton jButtonModificarPoblacions;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelBusca;
     private javax.swing.JLabel jLabelCP;
@@ -540,8 +607,10 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableAlumnos;
+    private javax.swing.JTable jTablePoblacions;
     private javax.swing.JTextField jTextFieldAP;
     private javax.swing.JTextField jTextFieldCP;
     private javax.swing.JTextField jTextFieldCodiPostal;
