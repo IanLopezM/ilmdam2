@@ -553,6 +553,35 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
+        int dialogButton = 0;
+        JOptionPane.showConfirmDialog (null, "Es possible que s'esborrin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
+            if(dialogButton == JOptionPane.YES_OPTION) {
+                try {
+                    stmt = cn.createStatement();
+                    comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
+
+                    if (comparaStmt.next()) {
+                        JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
+                    } else {
+                        PreparedStatement pps = cn.prepareStatement("UPDATE poblacions SET codipostal = '" + jTextFieldCodiPostal.getText() + "', poblacio = '" 
+                                + jTextFieldPoblacio.getText() + "' WHERE codipostal = '" + jLabelBuscaCodiPostal.getText() + "'");
+                        pps.executeUpdate();
+                    }
+                    vaciar();
+                    mostrarTablaPoblacions();
+                    mostrarTabla();
+                } catch (SQLException ex) {
+                    Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(dialogButton == JOptionPane.NO_OPTION) {
+                  vaciar();
+            }
+              
+        
+        
+        jButtonGuardarPoblacions.setEnabled(true);
+        jButtonEliminarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
 
     public void vaciar(){
@@ -566,6 +595,8 @@ public class menu extends javax.swing.JFrame {
         jLabelNomdeDni.setText("");
         jTextFieldCodiPostal.setText("");
         jTextFieldPoblacio.setText("");
+        jLabelBuscaCodiPostal.setText("");
+        jLabelNomDeCodiPostal.setText("");
     }
     
     
