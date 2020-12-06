@@ -382,7 +382,6 @@ public class menu extends javax.swing.JFrame {
     
     }
     
-    
     private void jButtonGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGuardarActionPerformed
         // TODO add your handling code here:
         ResultSet comparaStmt;
