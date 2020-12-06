@@ -80,6 +80,8 @@ public class menu extends javax.swing.JFrame {
         jTablePoblacions = new javax.swing.JTable();
         jButtonActualitzarPoblacions = new javax.swing.JButton();
         jButtonEliminarPoblacions = new javax.swing.JButton();
+        jLabelBuscaCodiPostal = new javax.swing.JLabel();
+        jLabelNomDeCodiPostal = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -267,10 +269,17 @@ public class menu extends javax.swing.JFrame {
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 670, 270));
 
         jButtonActualitzarPoblacions.setText("Actualitzar");
+        jButtonActualitzarPoblacions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonActualitzarPoblacionsActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonActualitzarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
 
         jButtonEliminarPoblacions.setText("Eliminar");
         jPanel3.add(jButtonEliminarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
+        jPanel3.add(jLabelBuscaCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 240, 80, 20));
+        jPanel3.add(jLabelNomDeCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 80, 20));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -520,6 +529,7 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         vaciar();
         jButtonGuardarPoblacions.setEnabled(true);
+        jButtonEliminarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonCancelarPoblacionsActionPerformed
 
     private void jButtonModificarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonModificarPoblacionsActionPerformed
@@ -533,7 +543,12 @@ public class menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No has sel·leccionat cap fila");
         }
         jButtonGuardarPoblacions.setEnabled(false);
+        jButtonEliminarPoblacions.setEnabled(false);
     }//GEN-LAST:event_jButtonModificarPoblacionsActionPerformed
+
+    private void jButtonActualitzarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualitzarPoblacionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
@@ -603,11 +618,13 @@ public class menu extends javax.swing.JFrame {
     private javax.swing.JButton jButtonModificarPoblacions;
     private javax.swing.JLabel jLabelAP;
     private javax.swing.JLabel jLabelBusca;
+    private javax.swing.JLabel jLabelBuscaCodiPostal;
     private javax.swing.JLabel jLabelCP;
     private javax.swing.JLabel jLabelCodiPostal;
     private javax.swing.JLabel jLabelDni;
     private javax.swing.JLabel jLabelNaixement;
     private javax.swing.JLabel jLabelNom;
+    private javax.swing.JLabel jLabelNomDeCodiPostal;
     private javax.swing.JLabel jLabelNomdeDni;
     private javax.swing.JLabel jLabelPoblacio;
     private javax.swing.JLabel jLabelSexe;
