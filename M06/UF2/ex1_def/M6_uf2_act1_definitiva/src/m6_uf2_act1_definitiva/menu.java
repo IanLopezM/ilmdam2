@@ -553,9 +553,9 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
-        int dialogButton = 0;
+        int dialogButton = 1;
         JOptionPane.showConfirmDialog (null, "Es possible que es modifiquin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
-            if(dialogButton == JOptionPane.YES_OPTION) {
+            if(dialogButton == JOptionPane.YES_NO_OPTION) {
                 try {
                     stmt = cn.createStatement();
                     comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
@@ -566,6 +566,7 @@ public class menu extends javax.swing.JFrame {
                         PreparedStatement pps = cn.prepareStatement("UPDATE poblacions SET codipostal = '" + jTextFieldCodiPostal.getText() + "', poblacio = '" 
                                 + jTextFieldPoblacio.getText() + "' WHERE codipostal = '" + jLabelBuscaCodiPostal.getText() + "'");
                         pps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Dades actualitzades");
                     }
                     vaciar();
                     mostrarTablaPoblacions();
@@ -577,6 +578,7 @@ public class menu extends javax.swing.JFrame {
             if(dialogButton == JOptionPane.NO_OPTION) {
                   vaciar();
             }
+            
         jButtonGuardarPoblacions.setEnabled(true);
         jButtonEliminarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
