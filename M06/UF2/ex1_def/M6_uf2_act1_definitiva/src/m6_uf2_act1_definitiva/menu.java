@@ -554,7 +554,7 @@ public class menu extends javax.swing.JFrame {
         ResultSet comparaStmt;
         Statement stmt = null;
         int dialogButton = 0;
-        JOptionPane.showConfirmDialog (null, "Es possible que s'esborrin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
+        JOptionPane.showConfirmDialog (null, "Es possible que es modifiquin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_OPTION) {
                 try {
                     stmt = cn.createStatement();
@@ -577,9 +577,6 @@ public class menu extends javax.swing.JFrame {
             if(dialogButton == JOptionPane.NO_OPTION) {
                   vaciar();
             }
-              
-        
-        
         jButtonGuardarPoblacions.setEnabled(true);
         jButtonEliminarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
