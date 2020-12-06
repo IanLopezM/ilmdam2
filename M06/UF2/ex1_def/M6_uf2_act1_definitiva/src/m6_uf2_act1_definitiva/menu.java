@@ -78,6 +78,8 @@ public class menu extends javax.swing.JFrame {
         jButtonModificarPoblacions = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTablePoblacions = new javax.swing.JTable();
+        jButtonActualitzarPoblacions = new javax.swing.JButton();
+        jButtonEliminarPoblacions = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -263,6 +265,12 @@ public class menu extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTablePoblacions);
 
         jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 670, 270));
+
+        jButtonActualitzarPoblacions.setText("Actualitzar");
+        jPanel3.add(jButtonActualitzarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
+
+        jButtonEliminarPoblacions.setText("Eliminar");
+        jPanel3.add(jButtonEliminarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -584,9 +592,11 @@ public class menu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonActualitzar;
+    private javax.swing.JButton jButtonActualitzarPoblacions;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonCancelarPoblacions;
     private javax.swing.JButton jButtonEliminar;
+    private javax.swing.JButton jButtonEliminarPoblacions;
     private javax.swing.JButton jButtonGuardar;
     private javax.swing.JButton jButtonGuardarPoblacions;
     private javax.swing.JButton jButtonModificar;
