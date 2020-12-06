@@ -279,7 +279,7 @@ public class menu extends javax.swing.JFrame {
         jButtonEliminarPoblacions.setText("Eliminar");
         jPanel3.add(jButtonEliminarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
         jPanel3.add(jLabelBuscaCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 240, 80, 20));
-        jPanel3.add(jLabelNomDeCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 240, 80, 20));
+        jPanel3.add(jLabelNomDeCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 120, 20));
 
         jTabbedPane1.addTab("Poblacions", jPanel3);
 
@@ -538,6 +538,8 @@ public class menu extends javax.swing.JFrame {
         int row = jTablePoblacions.getSelectedRow();
         
         if (row >= 0) {
+            jLabelNomDeCodiPostal.setText("Nom de Codi Postal:");
+            jLabelBuscaCodiPostal.setText(jTablePoblacions.getValueAt(row, 0).toString());
             jTextFieldCodiPostal.setText(jTablePoblacions.getValueAt(row, 0).toString());
             jTextFieldPoblacio.setText(jTablePoblacions.getValueAt(row, 1).toString());
         } else {
