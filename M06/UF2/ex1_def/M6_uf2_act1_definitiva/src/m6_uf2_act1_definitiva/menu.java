@@ -277,6 +277,11 @@ public class menu extends javax.swing.JFrame {
         jPanel3.add(jButtonActualitzarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 170, 100, -1));
 
         jButtonEliminarPoblacions.setText("Eliminar");
+        jButtonEliminarPoblacions.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonEliminarPoblacionsActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButtonEliminarPoblacions, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, 100, -1));
         jPanel3.add(jLabelBuscaCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(594, 240, 80, 20));
         jPanel3.add(jLabelNomDeCodiPostal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, 120, 20));
@@ -581,6 +586,10 @@ public class menu extends javax.swing.JFrame {
         jButtonGuardarPoblacions.setEnabled(true);
         jButtonEliminarPoblacions.setEnabled(true);
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
+
+    private void jButtonEliminarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPoblacionsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEliminarPoblacionsActionPerformed
 
     public void vaciar(){
         jTextFieldNom.setText("");
