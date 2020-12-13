@@ -589,6 +589,27 @@ public class menu extends javax.swing.JFrame {
 
     private void jButtonEliminarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPoblacionsActionPerformed
         // TODO add your handling code here: 
+        int dialogButton = 1;
+        int row = jTablePoblacions.getSelectedRow();
+        String value = jTablePoblacions.getValueAt(row, 0).toString();
+        
+        JOptionPane.showConfirmDialog (null, "Es possible que s esborrin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
+            if(dialogButton == JOptionPane.YES_NO_OPTION) {
+                if (row >= 0) {
+                    try {
+                        PreparedStatement pps = cn.prepareStatement("DELETE FROM poblacions WHERE codipostal = " + value + "");
+                        pps.executeUpdate();
+                        JOptionPane.showMessageDialog(null, "Dades esborrades");
+                        vaciar();
+                        mostrarTabla();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+            }
+            if(dialogButton == JOptionPane.NO_OPTION) {
+                  vaciar();
+            }
     }//GEN-LAST:event_jButtonEliminarPoblacionsActionPerformed
 
     public void vaciar(){
