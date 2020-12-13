@@ -592,8 +592,8 @@ public class menu extends javax.swing.JFrame {
         int dialogButton = 1;
         int row = jTablePoblacions.getSelectedRow();
         String value = jTablePoblacions.getValueAt(row, 0).toString();
-        
-        JOptionPane.showConfirmDialog (null, "Es possible que s esborrin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
+         
+        JOptionPane.showConfirmDialog (null, "S esborraran " + dialogButton+ "alumnes, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_NO_OPTION) {
                 if (row >= 0) {
                     try {
