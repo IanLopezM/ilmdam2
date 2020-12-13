@@ -588,7 +588,7 @@ public class menu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
 
     private void jButtonEliminarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPoblacionsActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: 
     }//GEN-LAST:event_jButtonEliminarPoblacionsActionPerformed
 
     public void vaciar(){
