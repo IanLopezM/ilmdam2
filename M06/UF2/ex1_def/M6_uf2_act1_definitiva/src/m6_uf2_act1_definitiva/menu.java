@@ -589,9 +589,24 @@ public class menu extends javax.swing.JFrame {
 
     private void jButtonEliminarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPoblacionsActionPerformed
         // TODO add your handling code here: 
+        int count = 0;
+        Statement stmt;
+        ResultSet rs;
         int dialogButton = 1;
         int row = jTablePoblacions.getSelectedRow();
         String value = jTablePoblacions.getValueAt(row, 0).toString();
+        
+        try {
+            stmt = cn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM alumnes WHERE codipostal = " +
+                    value);
+            
+            while(rs.next()){
+                count++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
         JOptionPane.showConfirmDialog (null, "S esborraran " + dialogButton+ "alumnes, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_NO_OPTION) {
