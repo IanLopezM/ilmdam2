@@ -558,7 +558,25 @@ public class menu extends javax.swing.JFrame {
         ResultSet comparaStmt;
         Statement stmt = null;
         int dialogButton = 1;
-        JOptionPane.showConfirmDialog (null, "Es possible que es modifiquin alumnes associats a aquest codi postal, vols continuar?","WARNING", dialogButton);
+        int count = 0;
+        Statement stmt2;
+        ResultSet rs;
+        
+        try {
+            stmt = cn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM alumnes WHERE codipostal = " +
+                    jLabelBuscaCodiPostal.getText());
+            
+            while(rs.next()){
+                count++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        JOptionPane.showConfirmDialog (null, "Es modificaran " + count+ "alumnes, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_NO_OPTION) {
                 try {
                     stmt = cn.createStatement();
@@ -608,7 +626,7 @@ public class menu extends javax.swing.JFrame {
             Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
         }
          
-        JOptionPane.showConfirmDialog (null, "S esborraran " + dialogButton+ "alumnes, vols continuar?","WARNING", dialogButton);
+        JOptionPane.showConfirmDialog (null, "S esborraran " + count+ "alumnes, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_NO_OPTION) {
                 if (row >= 0) {
                     try {
