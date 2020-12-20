@@ -527,6 +527,11 @@ public class menu extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Falten camps per omplir");
         }
         vaciar();
+        try {
+            mostrarTablaPoblacions();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_jButtonGuardarPoblacionsActionPerformed
 
