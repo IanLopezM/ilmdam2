@@ -562,7 +562,7 @@ public class menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         ResultSet comparaStmt;
         Statement stmt = null;
-        int dialogButton = 1;
+        int dialogButton = 0;
         int count = 0;
         Statement stmt2;
         ResultSet rs;
@@ -581,17 +581,18 @@ public class menu extends javax.swing.JFrame {
         
         
         
-        JOptionPane.showConfirmDialog (null, "Es modificaran " + count+ "alumnes, vols continuar?","WARNING", dialogButton);
+        JOptionPane.showConfirmDialog (null, "Es modificaran " + count+ " alumnes, vols continuar?","WARNING", dialogButton);
             if(dialogButton == JOptionPane.YES_NO_OPTION) {
                 try {
                     stmt = cn.createStatement();
-                    comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = '" + jTextFieldCP.getText() + "'");
+                    comparaStmt = stmt.executeQuery("SELECT codipostal FROM poblacions WHERE codipostal = " + jTextFieldCodiPostal.getText() + "");
 
                     if (comparaStmt.next()) {
                         JOptionPane.showMessageDialog(null, "Aquest codi postal ja ha estat registrat");
                     } else {
-                        PreparedStatement pps = cn.prepareStatement("UPDATE poblacions SET codipostal = '" + jTextFieldCodiPostal.getText() + "', poblacio = '" 
-                                + jTextFieldPoblacio.getText() + "' WHERE codipostal = '" + jLabelBuscaCodiPostal.getText() + "'");
+                        
+                        PreparedStatement pps = cn.prepareStatement("UPDATE poblacions SET codipostal = " + jTextFieldCodiPostal.getText() + ", poblacio = '" 
+                                + jTextFieldPoblacio.getText() + "' WHERE codipostal = " + jLabelBuscaCodiPostal.getText() + "");
                         pps.executeUpdate();
                         JOptionPane.showMessageDialog(null, "Dades actualitzades");
                     }
@@ -603,6 +604,7 @@ public class menu extends javax.swing.JFrame {
                 }
             }
             if(dialogButton == JOptionPane.NO_OPTION) {
+                System.out.println("aqui entra");
                   vaciar();
             }
             
@@ -620,7 +622,7 @@ public class menu extends javax.swing.JFrame {
         int count = 0;
         Statement stmt;
         ResultSet rs;
-        int dialogButton = 1;
+        int dialogButton = 0;
         int row = jTablePoblacions.getSelectedRow();
         String value = jTablePoblacions.getValueAt(row, 0).toString();
         
