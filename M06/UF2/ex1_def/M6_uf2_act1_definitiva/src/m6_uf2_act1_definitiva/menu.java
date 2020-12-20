@@ -608,6 +608,11 @@ public class menu extends javax.swing.JFrame {
             
         jButtonGuardarPoblacions.setEnabled(true);
         jButtonEliminarPoblacions.setEnabled(true);
+        try {
+            mostrarTablaPoblacions();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonActualitzarPoblacionsActionPerformed
 
     private void jButtonEliminarPoblacionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarPoblacionsActionPerformed
@@ -648,6 +653,11 @@ public class menu extends javax.swing.JFrame {
             if(dialogButton == JOptionPane.NO_OPTION) {
                   vaciar();
             }
+        try {
+            mostrarTablaPoblacions();
+        } catch (SQLException ex) {
+            Logger.getLogger(menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButtonEliminarPoblacionsActionPerformed
 
     public void vaciar(){
