@@ -50,7 +50,7 @@ public class DVDStoreLang extends javax.swing.JFrame {
         Vector<String> tableHeaders = new Vector<String>();
         Vector tableData = new Vector();
         tableHeaders.add("ActorId"); 
-        tableHeaders.add("FirstName");
+        tableHeaders.add("FirstName"); 
         tableHeaders.add("LastName");
         tableHeaders.add("LastUpdated");
 
