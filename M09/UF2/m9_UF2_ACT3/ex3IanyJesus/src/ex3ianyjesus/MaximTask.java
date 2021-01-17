@@ -9,7 +9,7 @@ import java.util.concurrent.RecursiveTask;
  */
 public class MaximTask extends RecursiveTask<Short> {
 
-    private static final int LLINDAR = 10000000;
+    private static final int LLINDAR = 10000;
     private short[] arr;
     private int inici, fi;
     //Creamos un contador para saber el total de las vueltas
