@@ -16,7 +16,7 @@ public class Ex3IanyJesus {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        System.out.println(calculaFibonacci(35));
+        System.out.println(calculaFibonacci(32));
     }
     
     public static long calculaFibonacci(long numero) {
