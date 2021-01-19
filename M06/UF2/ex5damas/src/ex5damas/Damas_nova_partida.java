@@ -10,6 +10,11 @@ package ex5damas;
  * @author ianlo
  */
 public class Damas_nova_partida extends javax.swing.JFrame {
+    
+    boolean jugaX = true;
+    boolean jugaO = false;
+    int filaOrigen = -1;
+    int columnaOrigen = -1;
 
     /**
      * Creates new form damas_nova_partida
@@ -56,6 +61,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                 "1", "2", "3", "4", "5", "6", "7", "8"
             }
         ));
+        tblTablero.setRowHeight(32);
         jScrollPane1.setViewportView(tblTablero);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -68,18 +74,18 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                         .addGap(91, 91, 91)
                         .addComponent(btnSortir, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 415, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(39, 39, 39)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(51, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(btnSortir)
-                .addGap(65, 65, 65)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(72, Short.MAX_VALUE))
         );
 
         pack();
@@ -89,6 +95,20 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnSortirActionPerformed
 
+    private int obtenirFilaClicada(){
+        int fila = 0;
+        fila = tblTablero.getSelectedRow();
+        
+        return fila; 
+    }
+    
+    private int obtenirColumnaClicada(){
+        int columna = 0;
+        columna = tblTablero.getSelectedColumn();
+        
+        return columna;
+    }
+    
     /**
      * @param args the command line arguments
      */
