@@ -165,6 +165,21 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         return isOcupatContrari;
     }
     
+    public boolean OcupatPropi(int fila, int columna) {
+        boolean isOcupatPropi = false;
+        if((jugaX == true && EsX(fila, columna) == true)
+                || (jugaO == true && EsO(fila, columna) == true)){
+            isOcupatPropi  = true;
+        }
+        
+        return isOcupatPropi;
+    }
+    
+    public void mostraErrorMoviment() {
+        JOptionPane.showMessageDialog(null, "Moviment erroni", "Damas", 
+                JOptionPane.ERROR_MESSAGE);
+    
+    }
     
     
     /**
