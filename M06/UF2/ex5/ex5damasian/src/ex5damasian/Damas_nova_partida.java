@@ -5,6 +5,8 @@
  */
 package ex5damasian;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ianlo
@@ -132,6 +134,36 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         return iso;
     }
     
+    public void ActualitzaNouOrigen(){
+        filaOrigen = obtenirFilaClicada();
+        columnaOrigen = obtenirColumnaClicada();
+    
+    }
+    
+    public void mostraError(){
+        JOptionPane.showMessageDialog(null, "Error", "Damas", 
+                JOptionPane.ERROR_MESSAGE);
+    
+    }
+    
+    public boolean esBuit(int fila, int columna) {
+        boolean isBuit = false;
+        if(tablero.getValueAt(fila, columna).equals("")){
+            isBuit = true;
+        }
+        
+        return isBuit;
+    }
+    
+    public boolean OcupatContrari(int fila, int columna) {
+        boolean isOcupatContrari = false;
+        if((jugaX == true && EsO(fila, columna) == true)
+                || (jugaO == true && EsX(fila, columna) == true)){
+            isOcupatContrari = true;
+        }
+    
+        return isOcupatContrari;
+    }
     
     
     
