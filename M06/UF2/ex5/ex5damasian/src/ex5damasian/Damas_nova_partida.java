@@ -17,6 +17,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     boolean jugaO = false;
     int filaOrigen = -1;
     int columnaOrigen = -1;
+    int filaDesti = -1;
+    int columnaDesti = -1;
 
     
     
@@ -64,6 +66,11 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
             }
         ));
+        tablero.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableroMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablero);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -96,6 +103,36 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     private void btnSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortirActionPerformed
         dispose();
     }//GEN-LAST:event_btnSortirActionPerformed
+
+    private void tableroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableroMouseClicked
+        if(noHiHaOrigen()) {
+            if (jugaX && EsX(obtenirFilaClicada(), obtenirColumnaClicada())) {
+                ActualitzaNouOrigen(obtenirFilaClicada(), 
+                        obtenirColumnaClicada());
+            } else if (jugaO && EsO(obtenirFilaClicada(), 
+                    obtenirColumnaClicada())) { 
+                ActualitzaNouOrigen(obtenirFilaClicada(), 
+                        obtenirColumnaClicada());
+            } else {
+                mostraError();
+            }
+        } else {
+            if (movimentValid(obtenirFilaClicada(), obtenirColumnaClicada())) {
+                if (esBuit(obtenirFilaClicada(), obtenirColumnaClicada()) 
+                        || OcupatContrari(obtenirFilaClicada(), 
+                                obtenirColumnaClicada())) {
+                    mou(obtenirFilaClicada(), obtenirColumnaClicada());
+                } else if (OcupatPropi(obtenirFilaClicada(), 
+                                obtenirColumnaClicada())) {
+                    ActualitzaNouOrigen(obtenirFilaClicada(), 
+                            obtenirColumnaClicada());
+                } else {
+                    mostraErrorMoviment();
+                }
+            }
+        }
+    }//GEN-LAST:event_tableroMouseClicked
+                                   
 
     public int obtenirFilaClicada(){
     
@@ -134,9 +171,9 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         return iso;
     }
     
-    public void ActualitzaNouOrigen(){
-        filaOrigen = obtenirFilaClicada();
-        columnaOrigen = obtenirColumnaClicada();
+    public void ActualitzaNouOrigen(int fila, int columna){
+        filaOrigen = fila;
+        columnaOrigen = columna;
     
     }
     
@@ -144,6 +181,24 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Error", "Damas", 
                 JOptionPane.ERROR_MESSAGE);
     
+    }
+    
+    public boolean movimentValid(int fila, int columna) {
+        boolean esMovimentValid = false;
+        filaDesti = fila;
+        columnaDesti = columna;
+        int columnaCalcul = columnaDesti - columnaOrigen;
+        int filaCalcul =  filaDesti - filaOrigen;
+        
+        if(EsX(filaOrigen, columnaOrigen) && (columnaCalcul == 1) && (filaCalcul == 1) || 
+                (filaCalcul ==  -1)){
+            esMovimentValid = true;
+        } else if (EsO(filaOrigen, columnaOrigen) && (columnaCalcul == -1) && 
+                (filaCalcul == 1) || (filaCalcul ==  -1)) {
+            esMovimentValid = true;
+        }
+        
+        return esMovimentValid;
     }
     
     public boolean esBuit(int fila, int columna) {
@@ -163,6 +218,17 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         }
     
         return isOcupatContrari;
+    }
+    
+    public void mou(int fila, int columna) {
+    
+        tablero.setValueAt("", filaOrigen, columnaOrigen);
+        if (jugaX) {
+            tablero.setValueAt("X", fila, columna);
+        } else {
+            tablero.setValueAt("O", fila, columna);
+        }
+        
     }
     
     public boolean OcupatPropi(int fila, int columna) {
