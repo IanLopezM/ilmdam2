@@ -177,6 +177,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     public void mostraError(){
         JOptionPane.showMessageDialog(null, "Error", "Damas", 
                 JOptionPane.ERROR_MESSAGE);
+        filaOrigen = -1;
+        columnaOrigen = -1;
     }
     
     public boolean movimentValid(int fila, int columna) {
@@ -186,11 +188,11 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         int columnaCalcul = columnaDesti - columnaOrigen;
         int filaCalcul =  filaDesti - filaOrigen;
         
-        if(jugaX && (columnaCalcul == 1) && 
-                ((filaCalcul == 1) || (filaCalcul ==  -1))){
+        if(jugaX && (filaCalcul == -1) && 
+                ((columnaCalcul == 1) || (columnaCalcul ==  -1))){
             esMovimentValid = true;
-        } else if (jugaO && (columnaCalcul == -1) && 
-                ((filaCalcul == 1) || (filaCalcul ==  -1))) {
+        } else if (jugaO && (filaCalcul == 1) && 
+                ((columnaCalcul == 1) || (columnaCalcul ==  -1))) {
             esMovimentValid = true;
         }
         
@@ -221,8 +223,12 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         tablero.setValueAt("", filaOrigen, columnaOrigen);
         if (jugaX) {
             tablero.setValueAt("X", fila, columna);
+            filaOrigen = -1;
+            columnaOrigen = -1;
         } else {
             tablero.setValueAt("O", fila, columna);
+            filaOrigen = -1;
+            columnaOrigen = -1;
         }
         
     }
@@ -240,7 +246,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     public void mostraErrorMoviment() {
         JOptionPane.showMessageDialog(null, "Moviment erroni", "Damas", 
                 JOptionPane.ERROR_MESSAGE);
-    
+        filaOrigen = -1;
+        columnaOrigen = -1;
     }
     
     
