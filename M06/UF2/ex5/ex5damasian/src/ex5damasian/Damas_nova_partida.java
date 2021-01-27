@@ -122,6 +122,9 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                         || OcupatContrari(obtenirFilaClicada(), 
                                 obtenirColumnaClicada())) {
                     mou(obtenirFilaClicada(), obtenirColumnaClicada());
+                    filaOrigen = -1;
+                    columnaOrigen = -1;
+                    
                 } else if (OcupatPropi(obtenirFilaClicada(), 
                                 obtenirColumnaClicada())) {
                     ActualitzaNouOrigen(obtenirFilaClicada(), 
