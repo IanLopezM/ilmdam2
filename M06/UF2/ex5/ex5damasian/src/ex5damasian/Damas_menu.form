@@ -29,7 +29,7 @@
                   <Component id="btnCarregaUltimaPartida" min="-2" max="-2" attributes="0"/>
                   <Component id="btnNovaPartida" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="182" max="32767" attributes="0"/>
+              <EmptySpace pref="154" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -48,7 +48,7 @@
   <SubComponents>
     <Component class="javax.swing.JButton" name="btnNovaPartida">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton1"/>
+        <Property name="text" type="java.lang.String" value="Nova Partida"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNovaPartidaActionPerformed"/>
@@ -56,7 +56,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnCarregaUltimaPartida">
       <Properties>
-        <Property name="text" type="java.lang.String" value="jButton2"/>
+        <Property name="text" type="java.lang.String" value="carrega ultima"/>
       </Properties>
     </Component>
   </SubComponents>

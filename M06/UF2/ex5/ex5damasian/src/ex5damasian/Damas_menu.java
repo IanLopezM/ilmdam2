@@ -32,14 +32,14 @@ public class Damas_menu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnNovaPartida.setText("jButton1");
+        btnNovaPartida.setText("Nova Partida");
         btnNovaPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovaPartidaActionPerformed(evt);
             }
         });
 
-        btnCarregaUltimaPartida.setText("jButton2");
+        btnCarregaUltimaPartida.setText("carrega ultima");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,7 +50,7 @@ public class Damas_menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnCarregaUltimaPartida)
                     .addComponent(btnNovaPartida))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
