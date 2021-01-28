@@ -1,5 +1,5 @@
 package entity;
-// Generated 28/01/2021 16:44:19 by Hibernate Tools 4.3.1
+// Generated 28/01/2021 18:11:38 by Hibernate Tools 4.3.1
 
 
 
@@ -9,7 +9,7 @@ package entity;
 public class Movimiento  implements java.io.Serializable {
 
 
-     private int idMovimiento;
+     private Integer idMovimiento;
      private Partida partida;
      private int columnaOrigen;
      private int columnaDestino;
@@ -19,17 +19,7 @@ public class Movimiento  implements java.io.Serializable {
     public Movimiento() {
     }
 
-    public Movimiento(int idMovimiento, Partida partida, int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
-       this.idMovimiento = idMovimiento;
-       this.partida = partida;
-       this.columnaOrigen = columnaOrigen;
-       this.columnaDestino = columnaDestino;
-       this.filaOrigen = filaOrigen;
-       this.filaDestino = filaDestino;
-    }
-    
     public Movimiento(Partida partida, int columnaOrigen, int columnaDestino, int filaOrigen, int filaDestino) {
-       //this.idMovimiento = idMovimiento;
        this.partida = partida;
        this.columnaOrigen = columnaOrigen;
        this.columnaDestino = columnaDestino;
@@ -37,11 +27,11 @@ public class Movimiento  implements java.io.Serializable {
        this.filaDestino = filaDestino;
     }
    
-    public int getIdMovimiento() {
+    public Integer getIdMovimiento() {
         return this.idMovimiento;
     }
     
-    public void setIdMovimiento(int idMovimiento) {
+    public void setIdMovimiento(Integer idMovimiento) {
         this.idMovimiento = idMovimiento;
     }
     public Partida getPartida() {

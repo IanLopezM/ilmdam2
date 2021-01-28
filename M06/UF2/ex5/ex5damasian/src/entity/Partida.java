@@ -1,5 +1,5 @@
 package entity;
-// Generated 28/01/2021 16:44:19 by Hibernate Tools 4.3.1
+// Generated 28/01/2021 18:11:38 by Hibernate Tools 4.3.1
 
 
 import java.util.HashSet;
@@ -11,7 +11,7 @@ import java.util.Set;
 public class Partida  implements java.io.Serializable {
 
 
-     private int idPartida;
+     private Integer idPartida;
      private String ganador;
      private Set movimientos = new HashSet(0);
 
@@ -19,21 +19,20 @@ public class Partida  implements java.io.Serializable {
     }
 
 	
-    public Partida(int idPartida, String ganador) {
-        this.idPartida = idPartida;
+    public Partida(String ganador) {
         this.ganador = ganador;
     }
-    public Partida(int idPartida, String ganador, Set movimientos) {
-       this.idPartida = idPartida;
+    
+    public Partida(String ganador, Set movimientos) {
        this.ganador = ganador;
        this.movimientos = movimientos;
     }
    
-    public int getIdPartida() {
+    public Integer getIdPartida() {
         return this.idPartida;
     }
     
-    public void setIdPartida(int idPartida) {
+    public void setIdPartida(Integer idPartida) {
         this.idPartida = idPartida;
     }
     public String getGanador() {
