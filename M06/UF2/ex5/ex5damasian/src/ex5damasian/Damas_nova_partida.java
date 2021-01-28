@@ -5,7 +5,10 @@
  */
 package ex5damasian;
 
+import entity.Movimiento;
+import entity.Partida;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
@@ -19,6 +22,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int columnaOrigen = -1;
     int filaDesti = -1;
     int columnaDesti = -1;
+    Partida partida;
     
     /**
      * Creates new form Damas_nova_partida
@@ -243,7 +247,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             }
             checker = 0;
         }
-        //Movimiento movimiento = new Movimiento();
+        crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
     }
     
     public boolean OcupatPropi(int fila, int columna) {
@@ -285,9 +289,32 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     }
     
     public void crearPartida() {
+        partida = new Partida();
         
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+        
+        session.save(partida);
+        
+        session.getTransaction().commit();
+        session.close();
         
     }
+    
+    public void crearMovimiento(int columnaOrigen, int columnaDestino, 
+            int filaOrigen, int filaDestino) {
+        Movimiento movimiento = new Movimiento(partida, columnaOrigen, 
+                columnaDestino, filaOrigen, filaDestino);
+    
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+ 
+        session.save(movimiento);
+ 
+        session.getTransaction().commit();
+        session.close();
+    }
+    
     
     /**
      * @param args the command line arguments
