@@ -229,7 +229,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     
     public void mou(int fila, int columna) {
         int checker = 0;
-        crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
+        //crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
         tablero.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             tablero.setValueAt("O", fila, columna);
@@ -304,7 +304,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         session.close();
     }
     
-    public void crearMovimiento(int columnaOrigen, int columnaDestino, 
+    public static void crearMovimiento(int columnaOrigen, int columnaDestino, 
             int filaOrigen, int filaDestino) {
         Movimiento movimiento = new Movimiento(partida, columnaOrigen, 
                 columnaDestino, filaOrigen, filaDestino);
