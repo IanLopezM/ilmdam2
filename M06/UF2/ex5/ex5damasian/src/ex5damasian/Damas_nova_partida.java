@@ -8,8 +8,10 @@ package ex5damasian;
 import entity.Movimiento;
 import entity.Partida;
 import javax.swing.JOptionPane;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 /**
@@ -280,6 +282,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             Damas_menu damasM = new Damas_menu();
             damasM.setVisible(true);
             dispose();
+            crearPartida("X");
         } else if (EsO(fila, columna) && fila == 0) {
             jugaX = false; 
             jugaO = false;
@@ -288,20 +291,28 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             Damas_menu damasM = new Damas_menu();
             damasM.setVisible(true);
             dispose();
+            crearPartida("O");
         }
     }
     
-    public static void crearPartida(){
+    public static void crearPartida(String ganador){
         
-        partida = new Partida();
+        partida = new Partida(ganador);
         
         Session session = sf.openSession();
-        session.beginTransaction();
+        Transaction transaction = null;
         
-        session.save(partida);
+        try {
+            transaction = session.beginTransaction();
+            session.save(partida);
+            transaction.commit();
         
-        session.getTransaction().commit();
-        session.close();
+        } catch (HibernateException e) {
+            
+        } finally {
+            session.close();
+        }
+        
     }
     
     public static void crearMovimiento(int columnaOrigen, int columnaDestino, 
@@ -362,7 +373,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         
         }
         
-        crearPartida();
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
