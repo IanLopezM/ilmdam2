@@ -124,6 +124,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             if (movimentValid(fila, columna)) {
                 if (esBuit(fila, columna) || OcupatContrari(fila, columna)) {
                     mou(fila, columna);
+                    ganador(fila, columna);
                 } else if (OcupatPropi(fila, columna)) {
                     ActualitzaNouOrigen(fila, columna);
                 } 
@@ -263,6 +264,29 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         filaOrigen = -1;
         columnaOrigen = -1;
     }
+    
+    public void ganador(int fila, int columna) {
+        
+        if(EsX(fila, columna) && fila == 7) {
+            jugaX = false; 
+            jugaO = false;
+            JOptionPane.showMessageDialog(null, "Guanyen les X", "Damas", 
+                JOptionPane.OK_OPTION);
+            Damas_menu damasM = new Damas_menu();
+            damasM.setVisible(true);
+            dispose();
+        } else if (EsO(fila, columna) && fila == 0) {
+            jugaX = false; 
+            jugaO = false;
+            JOptionPane.showMessageDialog(null, "Guanyen les O", "Damas", 
+                JOptionPane.OK_OPTION);
+            Damas_menu damasM = new Damas_menu();
+            damasM.setVisible(true);
+            dispose();
+        }
+    
+    }
+    
     
     
     /**
