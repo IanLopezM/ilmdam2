@@ -121,7 +121,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             if (movimentValid(fila, columna)) {
                 if (esBuit(fila, columna) || OcupatContrari(fila, columna)) {
                     mou(fila, columna);
-                }  else if (OcupatPropi(fila, columna)) {
+                } else if (OcupatPropi(fila, columna)) {
                     ActualitzaNouOrigen(fila, columna);
                 } 
             } else {
@@ -219,16 +219,27 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     }
     
     public void mou(int fila, int columna) {
-    
-        tablero.setValueAt("", filaOrigen, columnaOrigen);
+        int checker = 0;
+        tablero.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaX) {
             tablero.setValueAt("X", fila, columna);
             filaOrigen = -1;
             columnaOrigen = -1;
+            if(checker == 0) {
+                checker = 1;
+                jugaX = false;
+                jugaO = true;
+            }
         } else {
             tablero.setValueAt("O", fila, columna);
             filaOrigen = -1;
             columnaOrigen = -1;
+            if(checker == 0) {
+                checker = 1;
+                jugaX = true;
+                jugaO = false;
+            }
+            checker = 0;
         }
         
     }
