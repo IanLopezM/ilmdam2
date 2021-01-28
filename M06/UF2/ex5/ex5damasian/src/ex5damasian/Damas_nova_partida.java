@@ -24,15 +24,14 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int columnaOrigen = -1;
     int filaDesti = -1;
     int columnaDesti = -1;
-    Partida partida;
     static SessionFactory sf;
-    
+    static Partida partida;
     /**
      * Creates new form Damas_nova_partida
      */
     public Damas_nova_partida() {
         initComponents();
-        crearPartida();
+        
     }
 
     /**
@@ -292,7 +291,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         }
     }
     
-    public void crearPartida() {
+    public static void crearPartida(){
+        
         partida = new Partida();
         
         Session session = sf.openSession();
@@ -302,7 +302,6 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         
         session.getTransaction().commit();
         session.close();
-        
     }
     
     public void crearMovimiento(int columnaOrigen, int columnaDestino, 
@@ -363,7 +362,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         
         }
         
-        
+        crearPartida();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
