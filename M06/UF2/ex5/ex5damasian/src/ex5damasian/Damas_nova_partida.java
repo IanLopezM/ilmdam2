@@ -245,7 +245,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             }
             checker = 0;
         }
-        
+        //Movimiento movimiento = new Movimiento();
     }
     
     public boolean OcupatPropi(int fila, int columna) {
