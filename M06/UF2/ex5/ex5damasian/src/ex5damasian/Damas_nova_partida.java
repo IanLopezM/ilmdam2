@@ -27,13 +27,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int filaDesti = -1;
     int columnaDesti = -1;
     Partida partida;
-    
-    SessionFactory sessionFactory;
- 
-  Configuration configuration = new Configuration();
-  configuration.configure("hibernate.cfg.xml");
-  ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-  sessionFactory = configuration.buildSessionFactory(serviceRegistry);
+    static SessionFactory sf;
     
     
     /**
@@ -303,7 +297,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     public void crearPartida() {
         partida = new Partida();
         
-        Session session = sessionFactory.openSession();
+        Session session = sf.openSession();
         session.beginTransaction();
         
         session.save(partida);
@@ -318,7 +312,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         Movimiento movimiento = new Movimiento(partida, columnaOrigen, 
                 columnaDestino, filaOrigen, filaDestino);
     
-        Session session = sessionFactory.openSession();
+        Session session = sf.openSession();
         session.beginTransaction();
  
         session.save(movimiento);
@@ -362,6 +356,14 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             }
         });
         
+        try {
+            Configuration conf = new Configuration();
+            sf = conf.configure("hibernate.cfg.xml").
+                    addAnnotatedClass(Movimiento.class)
+                    .addAnnotatedClass(Partida.class).buildSessionFactory();
+        } catch (Throwable ex) {
+        
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
