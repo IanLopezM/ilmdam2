@@ -11,8 +11,6 @@ import javax.swing.JOptionPane;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 /**
  *
@@ -29,12 +27,12 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     Partida partida;
     static SessionFactory sf;
     
-    
     /**
      * Creates new form Damas_nova_partida
      */
     public Damas_nova_partida() {
         initComponents();
+        crearPartida();
     }
 
     /**
@@ -232,6 +230,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     
     public void mou(int fila, int columna) {
         int checker = 0;
+        crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
         tablero.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             tablero.setValueAt("O", fila, columna);
@@ -253,7 +252,6 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             }
             checker = 0;
         }
-        crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
     }
     
     public boolean OcupatPropi(int fila, int columna) {
@@ -364,6 +362,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         } catch (Throwable ex) {
         
         }
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
