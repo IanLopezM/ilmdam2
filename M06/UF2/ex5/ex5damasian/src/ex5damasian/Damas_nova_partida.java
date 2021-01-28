@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class Damas_nova_partida extends javax.swing.JFrame {
 
-    boolean jugaX = true;
-    boolean jugaO = false;
+    boolean jugaX = false;
+    boolean jugaO = true;
     int filaOrigen = -1;
     int columnaOrigen = -1;
     int filaDesti = -1;
@@ -53,19 +53,22 @@ public class Damas_nova_partida extends javax.swing.JFrame {
 
         tablero.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"O", null, "O", null, "O", null, "O", null},
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, "X", null, "X", null, "X", null, "X"},
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
                 {null, "O", null, "O", null, "O", null, "O"},
                 {"O", null, "O", null, "O", null, "O", null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, "X", null, "X", null, "X", null, "X"},
-                {"X", null, "X", "", "X", "", "X", null},
-                {null, "X", null, "X", null, "X", null, "X"}
+                {null, "O", null, "O", null, "O", null, "O"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6", "Title 7", "Title 8"
+                " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "
             }
         ));
+        tablero.setRowHeight(32);
+        tablero.getTableHeader().setResizingAllowed(false);
+        tablero.getTableHeader().setReorderingAllowed(false);
         tablero.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tableroMouseClicked(evt);
@@ -83,18 +86,18 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                         .addGap(159, 159, 159)
                         .addComponent(btnSortir))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnSortir)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         pack();
@@ -188,10 +191,10 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         int columnaCalcul = columnaDesti - columnaOrigen;
         int filaCalcul =  filaDesti - filaOrigen;
         
-        if(jugaX && (filaCalcul == -1) && 
+        if(jugaO && (filaCalcul == -1) && 
                 ((columnaCalcul == 1) || (columnaCalcul ==  -1))){
             esMovimentValid = true;
-        } else if (jugaO && (filaCalcul == 1) && 
+        } else if (jugaX && (filaCalcul == 1) && 
                 ((columnaCalcul == 1) || (columnaCalcul ==  -1))) {
             esMovimentValid = true;
         }
@@ -221,23 +224,23 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     public void mou(int fila, int columna) {
         int checker = 0;
         tablero.setValueAt(null, filaOrigen, columnaOrigen);
-        if (jugaX) {
-            tablero.setValueAt("X", fila, columna);
-            filaOrigen = -1;
-            columnaOrigen = -1;
-            if(checker == 0) {
-                checker = 1;
-                jugaX = false;
-                jugaO = true;
-            }
-        } else {
+        if (jugaO) {
             tablero.setValueAt("O", fila, columna);
             filaOrigen = -1;
             columnaOrigen = -1;
             if(checker == 0) {
                 checker = 1;
-                jugaX = true;
                 jugaO = false;
+                jugaX = true;
+            }
+        } else {
+            tablero.setValueAt("X", fila, columna);
+            filaOrigen = -1;
+            columnaOrigen = -1;
+            if(checker == 0) {
+                checker = 1;
+                jugaO = true;
+                jugaX = false;
             }
             checker = 0;
         }
@@ -295,6 +298,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
                 new Damas_nova_partida().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
