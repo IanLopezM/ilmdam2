@@ -70,7 +70,7 @@ public class Movimiento  implements java.io.Serializable {
         this.filaDestino = filaDestino;
     }
 
-
+    
 
 
 }

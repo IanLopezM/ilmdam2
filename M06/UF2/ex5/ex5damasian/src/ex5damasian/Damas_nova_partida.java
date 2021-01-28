@@ -19,8 +19,6 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int columnaOrigen = -1;
     int filaDesti = -1;
     int columnaDesti = -1;
-
-    
     
     /**
      * Creates new form Damas_nova_partida
@@ -284,10 +282,12 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             damasM.setVisible(true);
             dispose();
         }
-    
     }
     
-    
+    public void crearPartida() {
+        
+        
+    }
     
     /**
      * @param args the command line arguments
