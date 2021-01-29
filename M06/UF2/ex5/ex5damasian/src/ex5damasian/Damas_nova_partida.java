@@ -373,6 +373,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         
         }
         
+        crearPartida("X");
         
     }
 
