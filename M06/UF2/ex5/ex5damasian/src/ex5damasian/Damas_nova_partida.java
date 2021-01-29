@@ -297,18 +297,17 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     
     public static void crearPartida(String ganador){
         
-        partida = new Partida(ganador);
-        
         Session session = sf.openSession();
         Transaction transaction = null;
+        partida.setGanador(ganador);
         
         try {
             transaction = session.beginTransaction();
-            session.save(partida);
+            session.saveOrUpdate(partida);
             transaction.commit();
         
         } catch (HibernateException e) {
-            
+            System.out.println(" a " + e);
         } finally {
             session.close();
         }
@@ -367,13 +366,14 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         try {
             Configuration conf = new Configuration();
             sf = conf.configure("hibernate.cfg.xml").
-                    addAnnotatedClass(Movimiento.class)
-                    .addAnnotatedClass(Partida.class).buildSessionFactory();
+                    addAnnotatedClass(Movimiento.class).
+                    addAnnotatedClass(Partida.class).
+                    buildSessionFactory();
         } catch (Throwable ex) {
         
         }
-        
-        crearPartida("X");
+        partida = new Partida("");
+        crearPartida("?");
         
     }
 
