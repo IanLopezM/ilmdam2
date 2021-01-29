@@ -319,8 +319,6 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     public static void crearMovimiento(int columnaOrigen, int columnaDestino, 
             int filaOrigen, int filaDestino) {
         
-        System.out.println("entra?");
-        
         movimiento = new Movimiento(partida, 
                 columnaOrigen, columnaDestino, filaOrigen, filaDestino);
     
@@ -338,7 +336,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             transaction.commit();
             
         } catch (HibernateException e) {
-            System.out.println(" a " + e);
+            System.out.println(" hola ian " + e);
         } finally {
             session.close();
         }
