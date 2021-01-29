@@ -28,6 +28,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int columnaDesti = -1;
     static SessionFactory sf;
     static Partida partida;
+    static Movimiento movimiento;
+    
     /**
      * Creates new form Damas_nova_partida
      */
@@ -231,7 +233,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     
     public void mou(int fila, int columna) {
         int checker = 0;
-        
+        crearMovimiento(columnaOrigen, columna, filaOrigen, fila);
         tablero.setValueAt(null, filaOrigen, columnaOrigen);
         if (jugaO) {
             tablero.setValueAt("O", fila, columna);
@@ -316,16 +318,31 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     
     public static void crearMovimiento(int columnaOrigen, int columnaDestino, 
             int filaOrigen, int filaDestino) {
-        Movimiento movimiento = new Movimiento(partida, columnaOrigen, 
-                columnaDestino, filaOrigen, filaDestino);
+        
+        System.out.println("entra?");
+        
+        movimiento = new Movimiento(partida, 
+                columnaOrigen, columnaDestino, filaOrigen, filaDestino);
     
         Session session = sf.openSession();
-        session.beginTransaction();
- 
-        session.save(movimiento);
- 
-        session.getTransaction().commit();
-        session.close();
+        Transaction transaction = null;
+        movimiento.setPartida(partida);
+        movimiento.setColumnaOrigen(columnaOrigen);
+        movimiento.setColumnaDestino(columnaDestino);
+        movimiento.setFilaOrigen(filaOrigen);
+        movimiento.setFilaDestino(filaDestino);
+        
+        try {
+            transaction = session.beginTransaction();
+            session.save(movimiento);
+            transaction.commit();
+            
+        } catch (HibernateException e) {
+            System.out.println(" a " + e);
+        } finally {
+            session.close();
+        }
+        
     }
     
     
