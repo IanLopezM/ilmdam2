@@ -8,6 +8,7 @@ package ex5damasian;
 import entity.Movimiento;
 import entity.Partida;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -83,7 +84,7 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         sf.openSession();
         
         String SQL_QUERY;
-        SQL_QUERY = "SELECT * FROM movimiento WHERE idPartida = MAX(idPartida)";
+        SQL_QUERY = "from Movimiento m where m.partida.idPartida = (select max(n.partida.idPartida) from Movimiento n)";
         
         Query query = sf.openSession().createQuery(SQL_QUERY);
         List list = query.list();
@@ -130,13 +131,15 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         try {
             Configuration conf = new Configuration();
             sf = conf.configure("hibernate.cfg.xml").
-                    addAnnotatedClass(Movimiento.class).
-                    addAnnotatedClass(Partida.class).
                     buildSessionFactory();
+            System.out.println("iaaaaaaaaaaaaan");
         } catch (Throwable ex) {
         
         }
         generarLista();
+        System.out.println("iaaan");
+        JOptionPane.showMessageDialog(null, "Moviment erroni", "Damas", 
+                JOptionPane.ERROR_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
