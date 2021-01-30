@@ -131,15 +131,17 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         try {
             Configuration conf = new Configuration();
             sf = conf.configure("hibernate.cfg.xml").
+                    addAnnotatedClass(Movimiento.class).
+                    addAnnotatedClass(Partida.class).
                     buildSessionFactory();
             System.out.println("iaaaaaaaaaaaaan");
+            
         } catch (Throwable ex) {
         
         }
+        
         generarLista();
         System.out.println("iaaan");
-        JOptionPane.showMessageDialog(null, "Moviment erroni", "Damas", 
-                JOptionPane.ERROR_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -77,8 +77,8 @@ public class Damas_menu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovaPartidaActionPerformed
 
     private void btnCarregaUltimaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregaUltimaPartidaActionPerformed
-        Damas_carrega_ultima damasC = new Damas_carrega_ultima();
-        damasC.setVisible(true);
+        Damas_carrega_ultima damas = new Damas_carrega_ultima();
+        damas.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCarregaUltimaPartidaActionPerformed
 
