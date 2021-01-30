@@ -26,6 +26,7 @@ import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
 import org.hibernate.StatelessSession;
 import org.hibernate.StatelessSessionBuilder;
+import org.hibernate.Transaction;
 import org.hibernate.TypeHelper;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.engine.spi.FilterDefinition;
@@ -42,12 +43,19 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
     static Session session;
     List list;
     Movimiento movimiento;
+    int movimientoC = 0;
     
     /**
      * Creates new form Damas_carrega_ultima
      */
     public Damas_carrega_ultima() {
         initComponents();
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            generarLista();
+        } catch (Throwable ex) {
+        
+        }
     }
 
     /**
@@ -80,6 +88,7 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
                 " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "
             }
         ));
+        jTable1.setRowHeight(32);
         jScrollPane1.setViewportView(jTable1);
 
         començaReproduccio.setText("Començar reproducció");
@@ -115,12 +124,7 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void començaReproduccioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_començaReproduccioActionPerformed
-        try {
-            generarLista();
-            moverFichas();
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Damas_carrega_ultima.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        movimientoCount(movimientoC);
     }//GEN-LAST:event_començaReproduccioActionPerformed
 
     public void generarLista(){
@@ -138,16 +142,38 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
     public void moverFichas() throws InterruptedException{
         for (int i = 0; i < list.size(); i++) {
             movimiento = (Movimiento) list.get(i);
+            System.out.println("ian");
             
-            jTable1.setValueAt(null, movimiento.getFilaOrigen(), 
-                    movimiento.getColumnaOrigen());
+            
             jTable1.setValueAt(
                     jTable1.getValueAt(movimiento.getFilaOrigen(), 
                             movimiento.getColumnaOrigen())
                     , movimiento.getFilaDestino(), movimiento.getColumnaDestino());
+            jTable1.setValueAt(null, movimiento.getFilaOrigen(), 
+                    movimiento.getColumnaOrigen());
             
+            //TimeUnit.SECONDS.sleep(1);
         }
     } 
+    
+    public void movimientoCount(int i){
+    
+        if (i < list.size()) {
+            movimiento = (Movimiento) list.get(i);
+
+
+            jTable1.setValueAt(
+                        jTable1.getValueAt(movimiento.getFilaOrigen(), 
+                                movimiento.getColumnaOrigen())
+                        , movimiento.getFilaDestino(), movimiento.getColumnaDestino());
+            jTable1.setValueAt(null, movimiento.getFilaOrigen(), 
+                    movimiento.getColumnaOrigen());
+
+
+                movimientoC++;
+        }
+    }
+    
     
     /**
      * @param args the command line arguments
@@ -182,13 +208,6 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
                 new Damas_carrega_ultima().setVisible(true);
             }
         });
-    
-        try {
-            session = NewHibernateUtil.getSessionFactory().openSession();
-            
-        } catch (Throwable ex) {
-        
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

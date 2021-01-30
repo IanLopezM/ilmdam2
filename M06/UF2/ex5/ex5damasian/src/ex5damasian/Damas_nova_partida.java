@@ -26,7 +26,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     int columnaOrigen = -1;
     int filaDesti = -1;
     int columnaDesti = -1;
-    static SessionFactory sf;
+    static Session session;
     static Partida partida;
     static Movimiento movimiento;
     
@@ -35,7 +35,8 @@ public class Damas_nova_partida extends javax.swing.JFrame {
      */
     public Damas_nova_partida() {
         initComponents();
-        
+        partida = new Partida("");
+        crearPartida("?");
     }
 
     /**
@@ -298,15 +299,13 @@ public class Damas_nova_partida extends javax.swing.JFrame {
     }
     
     public static void crearPartida(String ganador){
-        
-        Session session = sf.openSession();
-        Transaction transaction = null;
         partida.setGanador(ganador);
         
         try {
-            transaction = session.beginTransaction();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
             session.saveOrUpdate(partida);
-            transaction.commit();
+            session.getTransaction().commit();
         
         } catch (HibernateException e) {
             System.out.println(" a " + e);
@@ -322,8 +321,7 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         movimiento = new Movimiento(partida, 
                 columnaOrigen, columnaDestino, filaOrigen, filaDestino);
     
-        Session session = sf.openSession();
-        Transaction transaction = null;
+        
         movimiento.setPartida(partida);
         movimiento.setColumnaOrigen(columnaOrigen);
         movimiento.setColumnaDestino(columnaDestino);
@@ -331,9 +329,10 @@ public class Damas_nova_partida extends javax.swing.JFrame {
         movimiento.setFilaDestino(filaDestino);
         
         try {
-            transaction = session.beginTransaction();
-            session.save(movimiento);
-            transaction.commit();
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.persist(movimiento);
+            session.getTransaction().commit();
             
         } catch (HibernateException e) {
             System.out.println(" hola ian " + e);
@@ -378,17 +377,6 @@ public class Damas_nova_partida extends javax.swing.JFrame {
             }
         });
         
-        try {
-            Configuration conf = new Configuration();
-            sf = conf.configure("hibernate.cfg.xml").
-                    addAnnotatedClass(Movimiento.class).
-                    addAnnotatedClass(Partida.class).
-                    buildSessionFactory();
-        } catch (Throwable ex) {
-        
-        }
-        partida = new Partida("");
-        crearPartida("?");
         
     }
 
