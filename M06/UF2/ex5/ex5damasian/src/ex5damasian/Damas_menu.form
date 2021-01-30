@@ -58,6 +58,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="carrega ultima"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCarregaUltimaPartidaActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

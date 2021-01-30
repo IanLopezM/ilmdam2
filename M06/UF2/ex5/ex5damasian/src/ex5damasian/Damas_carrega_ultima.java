@@ -5,12 +5,21 @@
  */
 package ex5damasian;
 
+import entity.Movimiento;
+import entity.Partida;
+import java.util.List;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+
 /**
  *
  * @author ianlo
  */
 public class Damas_carrega_ultima extends javax.swing.JFrame {
 
+    static SessionFactory sf;
+    
     /**
      * Creates new form Damas_carrega_ultima
      */
@@ -27,22 +36,63 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, "X", null, "X", null, "X", null, "X"},
+                {"X", null, "X", null, "X", null, "X", null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, "O", null, "O", null, "O", null, "O"},
+                {"O", null, "O", null, "O", null, "O", null},
+                {null, "O", null, "O", null, "O", null, "O"}
+            },
+            new String [] {
+                " 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 "
+            }
+        ));
+        jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(15, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(14, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public static void generarLista(){
+    
+        sf.openSession();
+        
+        String SQL_QUERY;
+        SQL_QUERY = "SELECT * FROM movimiento WHERE idPartida = MAX(idPartida)";
+        
+        Query query = sf.openSession().createQuery(SQL_QUERY);
+        List list = query.list();
+        
+        sf.close();
+        
+        System.out.println("hola");
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -76,8 +126,21 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
                 new Damas_carrega_ultima().setVisible(true);
             }
         });
+        
+        try {
+            Configuration conf = new Configuration();
+            sf = conf.configure("hibernate.cfg.xml").
+                    addAnnotatedClass(Movimiento.class).
+                    addAnnotatedClass(Partida.class).
+                    buildSessionFactory();
+        } catch (Throwable ex) {
+        
+        }
+        generarLista();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

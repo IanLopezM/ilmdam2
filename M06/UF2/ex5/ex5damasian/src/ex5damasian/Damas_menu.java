@@ -40,6 +40,11 @@ public class Damas_menu extends javax.swing.JFrame {
         });
 
         btnCarregaUltimaPartida.setText("carrega ultima");
+        btnCarregaUltimaPartida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarregaUltimaPartidaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,6 +75,12 @@ public class Damas_menu extends javax.swing.JFrame {
         damas.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnNovaPartidaActionPerformed
+
+    private void btnCarregaUltimaPartidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarregaUltimaPartidaActionPerformed
+        Damas_carrega_ultima damasC = new Damas_carrega_ultima();
+        damasC.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCarregaUltimaPartidaActionPerformed
 
     /**
      * @param args the command line arguments
