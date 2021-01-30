@@ -7,11 +7,31 @@ package ex5damasian;
 
 import entity.Movimiento;
 import entity.Partida;
+import java.io.Serializable;
+import java.sql.Connection;
 import java.util.List;
-import javax.swing.JOptionPane;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import javax.naming.Reference;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Cache;
+import org.hibernate.HibernateException;
 import org.hibernate.Query;
+import org.hibernate.Session;
+import org.hibernate.SessionBuilder;
 import org.hibernate.SessionFactory;
+import org.hibernate.StatelessSession;
+import org.hibernate.StatelessSessionBuilder;
+import org.hibernate.TypeHelper;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.engine.spi.FilterDefinition;
+import org.hibernate.metadata.ClassMetadata;
+import org.hibernate.metadata.CollectionMetadata;
+import org.hibernate.stat.Statistics;
 
 /**
  *
@@ -19,7 +39,9 @@ import org.hibernate.cfg.Configuration;
  */
 public class Damas_carrega_ultima extends javax.swing.JFrame {
 
-    static SessionFactory sf;
+    static Session session;
+    List list;
+    Movimiento movimiento;
     
     /**
      * Creates new form Damas_carrega_ultima
@@ -39,6 +61,7 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        començaReproduccio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +82,13 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        començaReproduccio.setText("Començar reproducció");
+        començaReproduccio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                començaReproduccioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -67,32 +97,57 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
                 .addContainerGap(15, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addComponent(començaReproduccio)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(14, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(començaReproduccio))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    public static void generarLista(){
-    
-        sf.openSession();
+    private void començaReproduccioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_començaReproduccioActionPerformed
+        try {
+            generarLista();
+            moverFichas();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(Damas_carrega_ultima.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_començaReproduccioActionPerformed
+
+    public void generarLista(){
+        session.beginTransaction();
         
         String SQL_QUERY;
         SQL_QUERY = "from Movimiento m where m.partida.idPartida = (select max(n.partida.idPartida) from Movimiento n)";
         
-        Query query = sf.openSession().createQuery(SQL_QUERY);
-        List list = query.list();
+        Query query = session.createQuery(SQL_QUERY);
+        list = query.list();
+        session.getTransaction().commit();
         
-        sf.close();
-        
-        System.out.println("hola");
     }
+    
+    public void moverFichas() throws InterruptedException{
+        for (int i = 0; i < list.size(); i++) {
+            movimiento = (Movimiento) list.get(i);
+            
+            jTable1.setValueAt(null, movimiento.getFilaOrigen(), 
+                    movimiento.getColumnaOrigen());
+            jTable1.setValueAt(
+                    jTable1.getValueAt(movimiento.getFilaOrigen(), 
+                            movimiento.getColumnaOrigen())
+                    , movimiento.getFilaDestino(), movimiento.getColumnaDestino());
+            
+        }
+    } 
     
     /**
      * @param args the command line arguments
@@ -127,24 +182,17 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
                 new Damas_carrega_ultima().setVisible(true);
             }
         });
-        
+    
         try {
-            Configuration conf = new Configuration();
-            sf = conf.configure("hibernate.cfg.xml").
-                    addAnnotatedClass(Movimiento.class).
-                    addAnnotatedClass(Partida.class).
-                    buildSessionFactory();
-            System.out.println("iaaaaaaaaaaaaan");
+            session = NewHibernateUtil.getSessionFactory().openSession();
             
         } catch (Throwable ex) {
         
         }
-        
-        generarLista();
-        System.out.println("iaaan");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton començaReproduccio;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
