@@ -168,7 +168,7 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         
         Query query = session.createQuery(SQL_QUERY);
         list = query.list();
-        session.getTransaction().commit();
+        session.getTransaction().commit(); 
         
     }
     
