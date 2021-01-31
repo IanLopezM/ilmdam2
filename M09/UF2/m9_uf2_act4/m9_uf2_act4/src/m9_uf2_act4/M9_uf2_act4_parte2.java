@@ -73,9 +73,6 @@ public class M9_uf2_act4_parte2 {
         
         int grupBombollaOrdenat[] = new int[grupBombolla[0].grupBombolla.length 
                 * 4];
-        
-        
-        
     }
     
     public static int[] generaRand(int[] rand, int size){
