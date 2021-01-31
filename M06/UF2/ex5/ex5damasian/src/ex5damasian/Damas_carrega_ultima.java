@@ -172,23 +172,6 @@ public class Damas_carrega_ultima extends javax.swing.JFrame {
         
     }
     
-    public void moverFichas() throws InterruptedException{
-        for (int i = 0; i < list.size(); i++) {
-            movimiento = (Movimiento) list.get(i);
-            System.out.println("ian");
-            
-            
-            jTable1.setValueAt(
-                    jTable1.getValueAt(movimiento.getFilaOrigen(), 
-                            movimiento.getColumnaOrigen())
-                    , movimiento.getFilaDestino(), movimiento.getColumnaDestino());
-            jTable1.setValueAt(null, movimiento.getFilaOrigen(), 
-                    movimiento.getColumnaOrigen());
-            
-            //TimeUnit.SECONDS.sleep(1);
-        }
-    } 
-    
     public void movimientoCount(int i){
     
         if (i < list.size()) {
