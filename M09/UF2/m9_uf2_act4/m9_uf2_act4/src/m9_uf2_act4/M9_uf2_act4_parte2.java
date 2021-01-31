@@ -30,20 +30,20 @@ public class M9_uf2_act4_parte2 {
             int[] grupBombollaAux;
             
             for(i = 1; i < grupBombolla.length; i++){
-                for(j = 0; j < grupBombolla.length; j++){
-                    if(grupBombolla[j+1] < grupBombolla[j]){
+                for(j = 0; j < grupBombolla.length - i; j++){
+                    if(grupBombolla[j] > grupBombolla[j+1]){
                         grupBombollaAux = grupBombolla.clone();
                         grupAux = grupBombolla[j];
                         grupBombolla[j] = grupBombolla[j+1];
                         grupBombolla[j+1] = grupAux;
-                        System.out.println("El grup " + grup + " " + 
+                        System.out.println("El grup " + (grup + 1) + " " + 
                                 Arrays.toString(grupBombollaAux) + 
                                 " pasa a ser " +
                                 Arrays.toString(grupBombolla));
                     }
                 }
             }
-            System.out.println("L'array resultant es " + 
+            System.out.println("El grup resultant es " + 
                     Arrays.toString(grupBombolla));
         }
     }
@@ -52,8 +52,8 @@ public class M9_uf2_act4_parte2 {
     
     public static void main(String[] args) {
         
-        int size = 5;
-        int[] rand = new int[10];
+        int size = 8;
+        int[] rand = new int[20];
         int fils = 4;
         //quatre arrays per al grupbombolla
         GrupBombolla[] grupBombolla = new GrupBombolla[4];
@@ -73,6 +73,8 @@ public class M9_uf2_act4_parte2 {
         
         int grupBombollaOrdenat[] = new int[grupBombolla[0].grupBombolla.length 
                 * 4];
+        
+        ordenaBombolla(grupBombollaOrdenat, grupBombolla);
     }
     
     public static int[] generaRand(int[] rand, int size){
@@ -109,24 +111,24 @@ public class M9_uf2_act4_parte2 {
     }
     
     public static void ordenaBombolla(int[] grupBombollaOrdenat,
-            GrupBombolla[] grupBombolla, int[] grupContador) {
+            GrupBombolla[] grupBombolla) {
         int i, auxiliar;
         for(i = 0; i < grupBombollaOrdenat.length; i++) {
             auxiliar = menorQue(
                     grupBombolla[0].grupBombolla[grupContador[0]],
                     grupBombolla[1].grupBombolla[grupContador[1]],
                     grupBombolla[2].grupBombolla[grupContador[2]],
-                    grupBombolla[3].grupBombolla[grupContador[3]],
-                    grupContador);
+                    grupBombolla[3].grupBombolla[grupContador[3]]);
             grupBombollaOrdenat[i] = auxiliar;
-            System.out.println(Arrays.toString(grupContador) + "\t-\t");
+            System.out.println(Arrays.toString(grupContador) + "-");
         }
-        System.out.println(Arrays.toString(grupBombollaOrdenat) + "\t");
+        System.out.println("El grup ordenat final es" + 
+                Arrays.toString(grupBombollaOrdenat) + "\t");
     }
     
     
     private static int menorQue(int grupBombolla0, int grupBombolla1, 
-            int grupBombolla2, int grupBombolla3, int[] grupContador) {
+            int grupBombolla2, int grupBombolla3) {
         int[] test = {grupBombolla0, grupBombolla1, 
             grupBombolla2, grupBombolla3};
         boolean check = false;
