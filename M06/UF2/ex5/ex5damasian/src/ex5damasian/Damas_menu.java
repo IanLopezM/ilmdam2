@@ -29,20 +29,28 @@ public class Damas_menu extends javax.swing.JFrame {
 
         btnNovaPartida = new javax.swing.JButton();
         btnCarregaUltimaPartida = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnNovaPartida.setText("Nova Partida");
+        btnNovaPartida.setText("Nueva Partida");
         btnNovaPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovaPartidaActionPerformed(evt);
             }
         });
 
-        btnCarregaUltimaPartida.setText("carrega ultima");
+        btnCarregaUltimaPartida.setText("Carga Ultima Partida");
         btnCarregaUltimaPartida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCarregaUltimaPartidaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Busca Cualquier Partida");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
             }
         });
 
@@ -51,20 +59,23 @@ public class Damas_menu extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnCarregaUltimaPartida)
-                    .addComponent(btnNovaPartida))
-                .addContainerGap(160, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                    .addComponent(btnCarregaUltimaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnNovaPartida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(btnNovaPartida)
-                .addGap(90, 90, 90)
+                .addGap(18, 18, 18)
                 .addComponent(btnCarregaUltimaPartida)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(67, Short.MAX_VALUE))
         );
 
         pack();
@@ -81,6 +92,12 @@ public class Damas_menu extends javax.swing.JFrame {
         damas.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCarregaUltimaPartidaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Damas_carrega_qualsevol damas = new Damas_carrega_qualsevol();
+        damas.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,5 +137,6 @@ public class Damas_menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCarregaUltimaPartida;
     private javax.swing.JButton btnNovaPartida;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }
