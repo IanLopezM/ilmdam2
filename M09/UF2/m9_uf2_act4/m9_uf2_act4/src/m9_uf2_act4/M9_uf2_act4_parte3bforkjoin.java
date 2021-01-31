@@ -26,7 +26,6 @@ public class M9_uf2_act4_parte3bforkjoin extends RecursiveTask<Long>{
         if (num2 == 0) {
             return num1;
         } else {
-            // q, p % q
             M9_uf2_act4_parte3bforkjoin aux = 
                     new M9_uf2_act4_parte3bforkjoin(num2, num1%num2);
             aux.fork();
