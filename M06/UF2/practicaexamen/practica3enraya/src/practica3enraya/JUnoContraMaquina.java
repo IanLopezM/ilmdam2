@@ -5,8 +5,11 @@
  */
 package practica3enraya;
 
+import entity.Movimiento;
+import entity.Partida;
 import java.awt.Color;
 import javax.swing.JOptionPane;
+import org.hibernate.Session;
 
 /**
  *
@@ -18,6 +21,9 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
     boolean jugaO = false;
     int contador = 0;
     boolean ganador = false;
+    
+    Session session;
+    Partida partida;
 
     /**
      * Creates new form JUnoContraMaquina
@@ -27,6 +33,8 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
         jTable1.setGridColor(Color.black);
         jTable1.setShowGrid(true);
         jTable1.setDefaultEditor(Object.class, null);
+        partida = new Partida("?");
+        nPartida("?");
     }
 
     /**
@@ -98,7 +106,6 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
                     if (jugaO && !ganador) {
                         MueveMaquina();
                         CompruebaGanador();
-
                         jugaO = false;
                         jugaX = true;
                     }
@@ -184,7 +191,7 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
 
     private void Ompleix(int fila, int columna) {
         jTable1.setValueAt("X", fila, columna);
-        
+        nMovimiento("X", fila, columna);
         contador++;
     }
 
@@ -215,6 +222,7 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
             JMenu tresenraya = new JMenu();
             tresenraya.setVisible(true);
             ganador = true;
+            nPartida("X");
             dispose();
         } else if ((jTable1.getValueAt(0, 0) == "O" && jTable1.getValueAt(0, 1) == "O" && jTable1.getValueAt(0, 2) == "O") ||
                 (jTable1.getValueAt(1, 0) == "O" && jTable1.getValueAt(1, 1) == "O" && jTable1.getValueAt(1, 2) == "O") ||
@@ -229,6 +237,7 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
             JMenu tresenraya = new JMenu();
             tresenraya.setVisible(true);
             ganador = true;
+            nPartida("O");
             dispose();
         }
     }
@@ -242,11 +251,38 @@ public class JUnoContraMaquina extends javax.swing.JFrame {
             columna = (int) (Math.random()*3);
             if (jTable1.getValueAt(fila, columna) == null) {
                 jTable1.setValueAt("O", fila, columna);
+                nMovimiento("O", fila, columna);
                 puesta = 1;
             }
         }
         
         
+    }
+    
+    private void nPartida(String ganador){
+        partida.setGanador(ganador);
+        
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.saveOrUpdate(partida);
+            session.getTransaction().commit();
+        } finally {
+            session.close();
+        }
+    }
+    
+    private void nMovimiento(String turnode, int fila, int columna){
+        Movimiento movimiento = new Movimiento(partida, turnode, fila, columna);
+        
+        try {
+            session = NewHibernateUtil.getSessionFactory().openSession();
+            session.beginTransaction();
+            session.save(movimiento);
+            session.getTransaction().commit();
+        } finally {
+            session.close();
+        }
     }
     
 }
