@@ -41,6 +41,11 @@ public class JMenu extends javax.swing.JFrame {
         });
 
         btn1contramaquina.setText("1 contra maquina");
+        btn1contramaquina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn1contramaquinaActionPerformed(evt);
+            }
+        });
 
         btnCargaCualquiera.setText("Carga cualquier partida");
 
@@ -76,6 +81,12 @@ public class JMenu extends javax.swing.JFrame {
         tresenraya.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn1contra1ActionPerformed
+
+    private void btn1contramaquinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn1contramaquinaActionPerformed
+        JUnoContraMaquina tresenraya = new JUnoContraMaquina();
+        tresenraya.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btn1contramaquinaActionPerformed
 
     /**
      * @param args the command line arguments

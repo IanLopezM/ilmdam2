@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author ianlo
  */
-public class JUnoContraUno extends javax.swing.JFrame {
+public class JUnoContraMaquina extends javax.swing.JFrame {
     
     boolean jugaX = true;
     boolean jugaO = false;
@@ -20,9 +20,9 @@ public class JUnoContraUno extends javax.swing.JFrame {
     boolean ganador = false;
 
     /**
-     * Creates new form UnoContraUno
+     * Creates new form JUnoContraMaquina
      */
-    public JUnoContraUno() {
+    public JUnoContraMaquina() {
         initComponents();
         jTable1.setGridColor(Color.black);
         jTable1.setShowGrid(true);
@@ -88,25 +88,20 @@ public class JUnoContraUno extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int fila = obtenirFilaClicada();
         int columna = obtenirColumnaClicada();
-        int checker = 0;
         
         if (NoEstaComplert()) {
             if(jugaX && EsNull(fila, columna)) {
-                if(checker == 0){
                     Ompleix(fila, columna);
                     CompruebaGanador();
-                    checker = 1;
                     jugaO = true;
                     jugaX = false;
-                }
-            } else if(jugaO && EsNull(fila, columna)) {
-                if(checker == 0){ 
-                    Ompleix(fila, columna);
-                    CompruebaGanador();
-                    checker = 1;
-                    jugaO = false;
-                    jugaX = true;
-                }
+                    if (jugaO && !ganador) {
+                        MueveMaquina();
+                        CompruebaGanador();
+
+                        jugaO = false;
+                        jugaX = true;
+                    }
             } else {
                 MuestraError();
             }
@@ -133,21 +128,20 @@ public class JUnoContraUno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JUnoContraUno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JUnoContraMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JUnoContraUno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JUnoContraMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JUnoContraUno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JUnoContraMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JUnoContraUno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JUnoContraMaquina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JUnoContraUno().setVisible(true);
+                new JUnoContraMaquina().setVisible(true);
             }
         });
     }
@@ -171,7 +165,8 @@ public class JUnoContraUno extends javax.swing.JFrame {
 
     private boolean NoEstaComplert() {
         boolean noComplert = false;
-        if (contador != 9) {
+        
+        if (contador != 5) {
             noComplert = true;
         }
         
@@ -188,11 +183,8 @@ public class JUnoContraUno extends javax.swing.JFrame {
     }
 
     private void Ompleix(int fila, int columna) {
-        if (jugaX) {
-            jTable1.setValueAt("X", fila, columna);
-        } else {
-            jTable1.setValueAt("O", fila, columna);
-        }
+        jTable1.setValueAt("X", fila, columna);
+        
         contador++;
     }
 
@@ -240,4 +232,21 @@ public class JUnoContraUno extends javax.swing.JFrame {
             dispose();
         }
     }
+    
+    private void MueveMaquina(){
+        int fila;
+        int columna;
+        int puesta = 0;
+        while (puesta == 0 && contador != 5) {
+            fila = (int) (Math.random()*3);
+            columna = (int) (Math.random()*3);
+            if (jTable1.getValueAt(fila, columna) == null) {
+                jTable1.setValueAt("O", fila, columna);
+                puesta = 1;
+            }
+        }
+        
+        
+    }
+    
 }
