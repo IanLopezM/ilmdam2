@@ -48,6 +48,11 @@ public class JMenu extends javax.swing.JFrame {
         });
 
         btnCargaCualquiera.setText("Carga cualquier partida");
+        btnCargaCualquiera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargaCualquieraActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,6 +92,12 @@ public class JMenu extends javax.swing.JFrame {
         tresenraya.setVisible(true);
         dispose();
     }//GEN-LAST:event_btn1contramaquinaActionPerformed
+
+    private void btnCargaCualquieraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargaCualquieraActionPerformed
+        JRecuperaPartida tresenraya = new JRecuperaPartida();
+        tresenraya.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCargaCualquieraActionPerformed
 
     /**
      * @param args the command line arguments
