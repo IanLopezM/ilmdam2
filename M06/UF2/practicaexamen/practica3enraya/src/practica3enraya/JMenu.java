@@ -64,7 +64,7 @@ public class JMenu extends javax.swing.JFrame {
                     .addComponent(btnCargaCualquiera)
                     .addComponent(btn1contra1)
                     .addComponent(btn1contramaquina))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,7 +75,7 @@ public class JMenu extends javax.swing.JFrame {
                 .addComponent(btn1contramaquina)
                 .addGap(18, 18, 18)
                 .addComponent(btnCargaCualquiera)
-                .addContainerGap(84, Short.MAX_VALUE))
+                .addContainerGap(125, Short.MAX_VALUE))
         );
 
         pack();

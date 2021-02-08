@@ -30,7 +30,7 @@
                   <Component id="btn1contra1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="btn1contramaquina" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="45" max="32767" attributes="0"/>
+              <EmptySpace pref="97" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -43,7 +43,7 @@
               <Component id="btn1contramaquina" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btnCargaCualquiera" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="84" max="32767" attributes="0"/>
+              <EmptySpace pref="125" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
