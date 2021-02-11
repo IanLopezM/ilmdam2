@@ -68,11 +68,12 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             int dY=rand.nextInt(3)+1;
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
             }
-        nauPropia = new Nau(numNaus+9999, 240, 430, 3, 0, rand.nextInt(rand.nextInt(3)+5)*20);
+        nauPropia = new Nau(numNaus+9999, 240, 430, 0, 0, rand.nextInt(rand.nextInt(3)+5)*10);
         Thread n = new Thread(this);
         n.start();
         
         addKeyListener(this);
+        setFocusable(true);
         }
 
     public void run() {
@@ -92,23 +93,33 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        int tecla = e.getKeyCode();
+        
+        if(tecla == 68){
+            nauPropia.moureR();
+        } else{
+            nauPropia.moureL();
+        }
+        
+        
+        
+        
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        nauPropia.moureNull();
     }
     
     public int getNumNaus(){
         return numNaus;
     }
-    
     
     }
 
@@ -166,4 +177,21 @@ class Nau extends Thread {
             moure();
             }
         }
+
+    void moureL() {
+        if(! (x<= 0 - tx)) {
+            this.dsx = -2;
+        }
+        
+    }
+
+    void moureR() {
+        if(!( x>= 420 - tx)) {
+            this.dsx = 2;
+        }
+    }
+
+    void moureNull() {
+        this.dsx = 0;
+    }
     }
