@@ -49,7 +49,7 @@ public class NauEspaial extends javax.swing.JFrame {
 
 
 class PanelNau extends JPanel implements Runnable, KeyListener{
-    private int numNaus=3;    
+    public static int numNaus=3;    
     Nau[] nau;
     Nau nauPropia;
     Random rand;
@@ -122,7 +122,7 @@ class Nau extends Thread {
 
     private String img = "/images/nau.jpg";
     private Image image;
-
+    
     public Nau(int numero, int x, int y, int dsx, int dsy, int v ) {
         this.numero = numero;
         this.x=x;
@@ -130,12 +130,12 @@ class Nau extends Thread {
         this.dsx=dsx;
         this.dsy=dsy;
         this.v=v;
-        PanelNau pnau = new PanelNau();
-        //if (numero == (pnau.getNumNaus()+9999)){
+        
+        if (numero == (PanelNau.numNaus+9999)){
             image = new ImageIcon(Nau.class.getResource("nau.png")).getImage();
-        //} else {
-            //image = new ImageIcon(Nau.class.getResource("enemy.png")).getImage();
-        //}
+        } else {
+            image = new ImageIcon(Nau.class.getResource("enemy.png")).getImage();
+        }
         
         Thread t = new Thread(this);
         t.start();
