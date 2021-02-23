@@ -209,3 +209,8 @@ class Nau extends Thread {
     }
     }
 
+class Shot extends Thread {
+    
+
+    }
+
