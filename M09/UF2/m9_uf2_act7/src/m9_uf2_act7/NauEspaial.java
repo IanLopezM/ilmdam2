@@ -116,7 +116,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         
         if(tecla == 68){
             nauPropia.moureR();
-        } else{
+        } else if (tecla == 65){
             nauPropia.moureL();
         }
         
@@ -193,14 +193,14 @@ class Nau extends Thread {
 
     void moureL() {
         if(! (x<= 0 - tx)) {
-            this.dsx = -2;
+            this.dsx = -5;
         }
         
     }
 
     void moureR() {
         if(!( x>= 420 - tx)) {
-            this.dsx = 2;
+            this.dsx = 5;
         }
     }
 
