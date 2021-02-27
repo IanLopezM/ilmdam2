@@ -1,5 +1,6 @@
 
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -14,7 +15,8 @@ import java.util.Random;
 public class NewJFrame extends javax.swing.JFrame {
     
     String datos[][] = new String[4][4];
-
+    int conta = 0, contaW = 0, contaX = 0;
+    
     /**
      * Creates new form NewJFrame
      */
@@ -22,7 +24,7 @@ public class NewJFrame extends javax.swing.JFrame {
         initComponents();
         ompleInformacio();
         ompleTaula();
-        
+        jTable1.setEnabled(false);
     }
 
     /**
@@ -36,6 +38,13 @@ public class NewJFrame extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabelRecord = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabelPuntos = new javax.swing.JLabel();
+        jButtonSortir = new javax.swing.JButton();
+        jButtonComencar = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,6 +68,11 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
         jTable1.setRowHeight(80);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setResizable(false);
@@ -67,6 +81,30 @@ public class NewJFrame extends javax.swing.JFrame {
             jTable1.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        jLabel1.setText("Record");
+
+        jLabelRecord.setText("0");
+
+        jLabel2.setText("Punts:");
+
+        jLabelPuntos.setBackground(new java.awt.Color(255, 204, 204));
+
+        jButtonSortir.setText("Sortir");
+        jButtonSortir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonSortirActionPerformed(evt);
+            }
+        });
+
+        jButtonComencar.setText("Començar");
+        jButtonComencar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonComencarActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("punts");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -74,18 +112,105 @@ public class NewJFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(438, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel2)
+                    .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonSortir)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonComencar)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabelRecord)
+                            .addComponent(jLabel3))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonSortir)
+                            .addComponent(jButtonComencar))))
                 .addContainerGap(51, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        
+        int fila = filaClicada();
+        int col = columnaClicada();
+        
+        if(jTable1.getValueAt(fila, col) == "?") {
+            jTable1.setValueAt(datos[fila][col], fila, col);
+            if("0".equals(datos[fila][col])) {
+                conta++;
+            } else if ("W".equals(datos[fila][col])) {
+                if (conta != 0) {
+                    conta = conta *2;
+                }
+            } else {
+                if(Integer.valueOf(jLabelRecord.getText()) < conta) {
+                    jLabelRecord.setText(String.valueOf(conta));
+                }
+                JOptionPane.showConfirmDialog(null,
+                "Has fet " + conta + " punts",
+                "The new Game of the year",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+                jTable1.setEnabled(false);
+            }
+        }
+        jLabelPuntos.setText(String.valueOf(conta));
+        System.out.println(conta);
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButtonSortirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSortirActionPerformed
+        JOptionPane.showConfirmDialog(null,
+                "Has fet " + conta + " punts",
+                "The new Game of the year",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE);
+        dispose();
+    }//GEN-LAST:event_jButtonSortirActionPerformed
+
+    private void jButtonComencarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComencarActionPerformed
+        if(jButtonComencar.getText().equalsIgnoreCase("començar")) {
+            jTable1.setEnabled(true);
+            jLabelPuntos.setText(String.valueOf(0));
+            jButtonComencar.setText("Reinicia Pantalla");
+        } else {
+            if(Integer.valueOf(jLabelRecord.getText()) < conta) {
+                jLabelRecord.setText(String.valueOf(conta));
+            }
+            jTable1.setEnabled(false);
+            jButtonComencar.setText("Començar");
+            conta = 0;
+            contaW = 0;
+            contaX = 0;
+            ompleInformacio();
+            ompleTaula();
+        }
+    }//GEN-LAST:event_jButtonComencarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -123,6 +248,13 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonComencar;
+    private javax.swing.JButton jButtonSortir;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelPuntos;
+    private javax.swing.JLabel jLabelRecord;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
@@ -137,9 +269,19 @@ public class NewJFrame extends javax.swing.JFrame {
                 if (rand_int1 == 0) {
                     datos[i][j] = "0";
                 } else if (rand_int1 == 1){
-                    datos[i][j] = "W";
+                    if (contaW != 3) {
+                        datos[i][j] = "W";
+                        contaW++;
+                    } else {
+                        datos[i][j] = "0";
+                    }
                 } else {
-                    datos[i][j] = "X";
+                    if (contaX != 2) {
+                        datos[i][j] = "X";
+                        contaX++;
+                    } else {
+                        datos[i][j] = "0";
+                    }
                 }
             }
         }
@@ -151,6 +293,14 @@ public class NewJFrame extends javax.swing.JFrame {
                 jTable1.setValueAt("?", i, j);
             }
         }
+    }
+
+    private int filaClicada() {
+        return jTable1.getSelectedRow();
+    }
+
+    private int columnaClicada() {
+       return jTable1.getSelectedColumn();
     }
     
 }
