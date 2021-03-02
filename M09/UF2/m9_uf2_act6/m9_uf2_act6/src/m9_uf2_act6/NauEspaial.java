@@ -53,9 +53,6 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
     Nau[] nau;
     Nau nauPropia;
     Random rand;
-    
-    //shot
-    //Y
 
     public PanelNau(){        
         nau = new Nau[numNaus];
@@ -68,7 +65,7 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
             int dY=rand.nextInt(3)+1;
             nau[i]= new Nau(i,posX,posY,dX,dY,velocitat);
             }
-        nauPropia = new Nau(numNaus+9999, 240, 430, 0, 0, rand.nextInt(rand.nextInt(3)+5)*10);
+        nauPropia = new Nau(numNaus+9999, 240, 430, 0, 0, 20);
         Thread n = new Thread(this);
         n.start();
         
@@ -89,6 +86,10 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         super.paintComponent(g);
         for(int i=0; i<nau.length;++i) nau[i].pinta(g);
         nauPropia.pinta(g);
+        for(int i=0; i<nauPropia.shots.size(); ++i){
+            nauPropia.shots.get(i).pinta(g);
+        }
+        
         }
 
     @Override
@@ -101,15 +102,13 @@ class PanelNau extends JPanel implements Runnable, KeyListener{
         
         int tecla = e.getKeyCode();
         
-        if(tecla == 68){
+        if(tecla == 68) {
             nauPropia.moureR();
-        } else{
+        } else if (tecla == 65) {
             nauPropia.moureL();
+        } else if (tecla == 32) {
+            nauPropia.disparar();
         }
-        
-        
-        
-        
     }
 
     @Override
@@ -130,11 +129,12 @@ class Nau extends Thread {
     private int dsx,dsy,v;
     private int tx = 10;
     private int ty = 10;
-
+    ArrayList<Shot> shots;
     private String img = "/images/nau.jpg";
     private Image image;
     
     public Nau(int numero, int x, int y, int dsx, int dsy, int v ) {
+        this.shots = new ArrayList<>();
         this.numero = numero;
         this.x=x;
         this.y=y;
@@ -179,7 +179,7 @@ class Nau extends Thread {
         }
 
     void moureL() {
-        if(! (x<= 0 - tx)) {
+        if(! (x<= 0 - tx + 10)) {
             this.dsx = -2;
         }
         
@@ -194,4 +194,52 @@ class Nau extends Thread {
     void moureNull() {
         this.dsx = 0;
     }
+
+    public int getX() {
+        return x;
     }
+
+    public int getY() {
+        return y;
+    }
+
+    public void disparar() {
+        shots.add(new Shot(this.x, this.y, 10));
+    }
+    
+}
+
+
+class Shot extends Thread {
+    private int x, y, v;
+    private int dsy = 1;
+    private Image image;
+
+    public Shot(int x, int y, int v) {
+        this.x = x+22;
+        this.y = y+10;
+        this.v = v;
+        
+        image = new ImageIcon(Nau.class.getResource("balanau.png")).getImage();
+        Thread t = new Thread(this);
+        this.start();
+        }
+    
+    public void run() {
+        while (true) {
+            System.out.println("Movent balanau numero ");
+            try { Thread.sleep(this.v); } catch (Exception e) {}
+                moure();
+            }
+    }
+
+    private void moure() {
+        y = y - dsy;
+    }
+    
+    public synchronized void pinta (Graphics g) {
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.drawImage(this.image, x, y, null);
+    }
+    
+}
