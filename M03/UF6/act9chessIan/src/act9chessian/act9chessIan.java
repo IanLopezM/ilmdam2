@@ -13,11 +13,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Alumne
  */
 public class act9chessIan extends javax.swing.JFrame {
-    
+
     int fila = -1, col = -1, filadest = -1, coldest = -1, checked = 0;
     Fitxa fitxa, fitxadest;
-    boolean movimentValid;
-    
+    boolean movimentValid, turnoB;
+
     /**
      * Creates new form act9chessIan
      */
@@ -122,15 +122,17 @@ public class act9chessIan extends javax.swing.JFrame {
         System.out.println(filadest);
         System.out.println(coldest + "\n");
         if (checked == 0) {
-            fitxa = new Fitxa(fila, col, jTable1, true);
-            fitxadest = new Fitxa(filadest, coldest, jTable1, true);
-            
-            
-            if (fitxa.movimientoValido(fitxadest, jTable1)){
-                System.out.println("se esta moviendo");
-                jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
-                jTable1.setValueAt('·', fila, col);
-            } 
+            fitxa = new Fitxa(fila, col, jTable1, turnoB);
+            fitxadest = new Fitxa(filadest, coldest, jTable1, turnoB);
+
+            //if ((fila == filadest) && (col == coldest)) {
+                if (fitxa.movimientoValido(fitxadest, jTable1)) {
+                    turnoB = !turnoB;
+                    System.out.println("se esta moviendo");
+                    jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
+                    jTable1.setValueAt("·", fila, col);
+                }
+            //}
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -168,16 +170,17 @@ public class act9chessIan extends javax.swing.JFrame {
             }
         });
     }
-    
+
     public void omplirTaula() {
+        turnoB = true;
         DefaultTableModel model = new DefaultTableModel();
         char c = 65;
-        Object fichasBlancas[] = {'T', 'C', 'A', 'Q', 'K', 'A', 'C', 'T'};
-        Object peonesBlancos[] = {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'};
-        Object filaVacia[] = {'·', '·', '·', '·', '·', '·', '·', '·'}; //x4
-        Object fichasNegras[] = {'t', 'c', 'a', 'q', 'k', 'a', 'c', 't'};
-        Object peonesNegros[] = {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'};
-        
+        Object fichasBlancas[] = {"T", "C", "A", "Q", "K", "A", "C", "T"};
+        Object peonesBlancos[] = {"P", "P", "P", "P", "P", "P", "P", "P"};
+        Object filaVacia[] = {"·", "·", "·", "·", "·", "·", "·", "·"}; //x4
+        Object fichasNegras[] = {"t", "c", "a", "q", "k", "a", "c", "t"};
+        Object peonesNegros[] = {"p", "p", "p", "p", "p", "p", "p", "p",};
+
         for (int i = 0; i < 8; i++) {
             model.addColumn("     " + c);
             c++;
@@ -190,9 +193,7 @@ public class act9chessIan extends javax.swing.JFrame {
         model.addRow(filaVacia);
         model.addRow(peonesBlancos);
         model.addRow(fichasBlancas);
-        
-        
-        
+
         jTable1.setModel(model);
         jTable1.setDefaultEditor(Object.class, null);
         fila = -1;
