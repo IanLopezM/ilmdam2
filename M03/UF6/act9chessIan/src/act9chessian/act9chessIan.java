@@ -5,6 +5,7 @@
  */
 package act9chessian;
 
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -14,8 +15,8 @@ import javax.swing.table.DefaultTableModel;
 public class act9chessIan extends javax.swing.JFrame {
     
     int fila = -1, col = -1, filadest = -1, coldest = -1, checked = 0;
-    Fitxa fitxa;
-    boolean movimentVaild;
+    Fitxa fitxa, fitxadest;
+    boolean movimentValid;
     
     /**
      * Creates new form act9chessIan
@@ -54,7 +55,15 @@ public class act9chessIan extends javax.swing.JFrame {
             new String [] {
                 "A", "B", "C", "D", "E", "F", "G", "H"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTable1.setRowHeight(40);
         jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -113,8 +122,15 @@ public class act9chessIan extends javax.swing.JFrame {
         System.out.println(filadest);
         System.out.println(coldest + "\n");
         if (checked == 0) {
-            fitxa = new Fitxa();
-            //movimentValid = fitxa.MoureFitxa(fila, col, filadest, filadest, jTable1.getValueAt(fila, col), jTable1);
+            fitxa = new Fitxa(fila, col, jTable1, true);
+            fitxadest = new Fitxa(filadest, coldest, jTable1, true);
+            
+            
+            if (fitxa.movimientoValido(fitxadest, jTable1)){
+                System.out.println("se esta moviendo");
+                jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
+                jTable1.setValueAt('·', fila, col);
+            } 
         }
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -156,11 +172,11 @@ public class act9chessIan extends javax.swing.JFrame {
     public void omplirTaula() {
         DefaultTableModel model = new DefaultTableModel();
         char c = 65;
-        Object fichasNegras[] = {'T', 'C', 'A', 'Q', 'K', 'A', 'C', 'T'};
-        Object peonesNegros[] = {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'};
+        Object fichasBlancas[] = {'T', 'C', 'A', 'Q', 'K', 'A', 'C', 'T'};
+        Object peonesBlancos[] = {'P', 'P', 'P', 'P', 'P', 'P', 'P', 'P'};
         Object filaVacia[] = {'·', '·', '·', '·', '·', '·', '·', '·'}; //x4
-        Object fichasBlancas[] = {'t', 'c', 'a', 'q', 'k', 'a', 'c', 't'};
-        Object peonesBlanos[] = {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'};
+        Object fichasNegras[] = {'t', 'c', 'a', 'q', 'k', 'a', 'c', 't'};
+        Object peonesNegros[] = {'p', 'p', 'p', 'p', 'p', 'p', 'p', 'p'};
         
         for (int i = 0; i < 8; i++) {
             model.addColumn("     " + c);
@@ -172,10 +188,17 @@ public class act9chessIan extends javax.swing.JFrame {
         model.addRow(filaVacia);
         model.addRow(filaVacia);
         model.addRow(filaVacia);
-        model.addRow(peonesBlanos);
+        model.addRow(peonesBlancos);
         model.addRow(fichasBlancas);
         
+        
+        
         jTable1.setModel(model);
+        jTable1.setDefaultEditor(Object.class, null);
+        fila = -1;
+        col = -1;
+        filadest = -1;
+        coldest = -1;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
