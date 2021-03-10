@@ -12,7 +12,11 @@ import javax.swing.table.DefaultTableModel;
  * @author Alumne
  */
 public class act9chessIan extends javax.swing.JFrame {
-
+    
+    int fila = -1, col = -1, filadest = -1, coldest = -1, checked = 0;
+    Fitxa fitxa;
+    boolean movimentVaild;
+    
     /**
      * Creates new form act9chessIan
      */
@@ -32,6 +36,7 @@ public class act9chessIan extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        jButtonReiniciar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -51,7 +56,19 @@ public class act9chessIan extends javax.swing.JFrame {
             }
         ));
         jTable1.setRowHeight(40);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+
+        jButtonReiniciar.setText("Reiniciar");
+        jButtonReiniciar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonReiniciarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,18 +77,46 @@ public class act9chessIan extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButtonReiniciar)
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButtonReiniciar)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonReiniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonReiniciarActionPerformed
+        omplirTaula();
+    }//GEN-LAST:event_jButtonReiniciarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        if ((fila == -1 && col == -1) || checked == 0) {
+            fila = filaTabla();
+            col = colTabla();
+            checked = 1;
+        } else {
+            filadest = filaTabla();
+            coldest = colTabla();
+            checked = 0;
+        }
+        System.out.println(fila);
+        System.out.println(col);
+        System.out.println(filadest);
+        System.out.println(coldest + "\n");
+        if (checked == 0) {
+            fitxa = new Fitxa();
+            //movimentValid = fitxa.MoureFitxa(fila, col, filadest, filadest, jTable1.getValueAt(fila, col), jTable1);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -134,7 +179,16 @@ public class act9chessIan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonReiniciar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private int filaTabla() {
+        return jTable1.getSelectedRow();
+    }
+
+    private int colTabla() {
+        return jTable1.getSelectedColumn();
+    }
 }
