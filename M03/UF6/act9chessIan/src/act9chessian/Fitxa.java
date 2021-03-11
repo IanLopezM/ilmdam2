@@ -18,7 +18,6 @@ public class Fitxa {
         this.fila = fila;
         this.columna = columna;
         this.tipo = String.valueOf(tablero.getValueAt(fila, columna));
-        System.out.println("la letra es :" + tipo+":xdxd");
         this.blanca = turno;
     }
     // CONSTRUCTOR ALTERNATIVO PARA REINICIAR COORDENADAS RÁPDIO
@@ -56,6 +55,23 @@ public class Fitxa {
         this.blanca = blanca;
     }
 
+    public boolean perteneceTurno() {
+
+        final String ENUM_FICHAS_BLANCAS = "TCAQKP";
+        final String ENUM_FICHAS_NEGRAS = "tcaqkp";
+        boolean pertenece;
+
+        // COLOR TRUE ES BLANCA
+        if (this.isBlanca())
+            pertenece = ENUM_FICHAS_BLANCAS.contains(this.tipo);
+        // NEGRA
+        else
+            pertenece = ENUM_FICHAS_NEGRAS.contains(this.tipo);
+
+        return pertenece;
+    }
+    
+    
     // METODO QUE PASA DE MAYUSCULAS A MINUSCULAS
     private void mayusMinus() {
         setTipo(tipo.toLowerCase());

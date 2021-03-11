@@ -108,32 +108,33 @@ public class act9chessIan extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonReiniciarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //si la jugada es la primera o checked esta en 0
         if ((fila == -1 && col == -1) || checked == 0) {
             fila = filaTabla();
             col = colTabla();
             checked = 1;
-        } else {
+            fitxa = new Fitxa(fila, col, jTable1, turnoB);
+            System.out.println("origen la letra es :" + fitxa.getTipo()+":xdxd");
+           
+            //en caso contrario
+        } else if(fitxa.perteneceTurno()){
             filadest = filaTabla();
             coldest = colTabla();
             checked = 0;
-        }
-        System.out.println(fila);
-        System.out.println(col);
-        System.out.println(filadest);
-        System.out.println(coldest + "\n");
-        if (checked == 0) {
-            fitxa = new Fitxa(fila, col, jTable1, turnoB);
             fitxadest = new Fitxa(filadest, coldest, jTable1, turnoB);
-
-            //if ((fila == filadest) && (col == coldest)) {
-                if (fitxa.movimientoValido(fitxadest, jTable1)) {
-                    turnoB = !turnoB;
-                    System.out.println("se esta moviendo");
-                    jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
-                    jTable1.setValueAt("·", fila, col);
-                }
-            //}
+            System.out.println("destino la letra es :" + fitxadest.getTipo()+":xdxd");
+            if(!fitxadest.perteneceTurno() && fitxa.movimientoValido(fitxadest, jTable1)) {
+                jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
+                jTable1.setValueAt("·", fila, col);
+                System.out.println("mueve algo");
+                turnoB = !turnoB;
+              
+            }
+        } else {
+            checked = 0;
         }
+        
+       
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
