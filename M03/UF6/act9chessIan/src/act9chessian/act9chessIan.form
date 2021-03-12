@@ -27,8 +27,11 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jButtonReiniciar" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="47" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Component id="jButtonReiniciar" max="32767" attributes="0"/>
+                  <Component id="jTurno" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -37,7 +40,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButtonReiniciar" min="-2" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Component id="jButtonReiniciar" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jTurno" min="-2" pref="16" max="-2" attributes="0"/>
+                  </Group>
                   <Component id="jScrollPane1" min="-2" pref="351" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="38" max="32767" attributes="0"/>
@@ -87,7 +94,7 @@
                   <Data value=""/>
                   <Data value=""/>
                 </Column>
-                <Column editable="true" title="D" type="java.lang.Object">
+                <Column editable="false" title="D" type="java.lang.Object">
                   <Data value=""/>
                   <Data value=""/>
                   <Data value="null"/>
@@ -201,6 +208,8 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonReiniciarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jTurno">
     </Component>
   </SubComponents>
 </Form>

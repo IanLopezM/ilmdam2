@@ -5,8 +5,12 @@
  */
 package act9chessian;
 
+import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -24,6 +28,7 @@ public class act9chessIan extends javax.swing.JFrame {
     public act9chessIan() {
         initComponents();
         omplirTaula();
+        
     }
 
     /**
@@ -38,6 +43,7 @@ public class act9chessIan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButtonReiniciar = new javax.swing.JButton();
+        jTurno = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +63,7 @@ public class act9chessIan extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, false
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -87,15 +93,20 @@ public class act9chessIan extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonReiniciar)
-                .addContainerGap(47, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButtonReiniciar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTurno, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButtonReiniciar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButtonReiniciar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -109,32 +120,42 @@ public class act9chessIan extends javax.swing.JFrame {
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         //si la jugada es la primera o checked esta en 0
-        if ((fila == -1 && col == -1) || checked == 0) {
-            fila = filaTabla();
-            col = colTabla();
-            checked = 1;
-            fitxa = new Fitxa(fila, col, jTable1, turnoB);
-            System.out.println("origen la letra es :" + fitxa.getTipo()+":xdxd");
-           
-            //en caso contrario
-        } else if(fitxa.perteneceTurno()){
-            filadest = filaTabla();
-            coldest = colTabla();
-            checked = 0;
-            fitxadest = new Fitxa(filadest, coldest, jTable1, turnoB);
-            System.out.println("destino la letra es :" + fitxadest.getTipo()+":xdxd");
-            if(!fitxadest.perteneceTurno() && fitxa.movimientoValido(fitxadest, jTable1)) {
-                jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
-                jTable1.setValueAt("·", fila, col);
-                System.out.println("mueve algo");
-                turnoB = !turnoB;
-              
+        if(!finalPartida(jTable1)) {
+            if ((fila == -1 && col == -1) || checked == 0) {
+                fila = filaTabla();
+                col = colTabla();
+                checked = 1;
+                fitxa = new Fitxa(fila, col, jTable1, turnoB);
+                System.out.println("origen la letra es :" + fitxa.getTipo()+":xdxd");
+                //en caso contrario
+            } else if(fitxa.perteneceTurno()){
+                filadest = filaTabla();
+                coldest = colTabla();
+                checked = 0;
+                fitxadest = new Fitxa(filadest, coldest, jTable1, turnoB);
+                System.out.println("destino la letra es :" + fitxadest.getTipo()+":xdxd");
+                if(!fitxadest.perteneceTurno() && fitxa.movimientoValido(fitxadest, jTable1)) {
+                    jTable1.setValueAt(jTable1.getValueAt(fila, col), filadest, coldest);
+                    jTable1.setValueAt("·", fila, col);
+                    System.out.println("mueve algo");
+                    turnoB = !turnoB;
+                    if(finalPartida(jTable1)) {
+                        JOptionPane.showMessageDialog(null, "Partida Finalitzada");
+                        omplirTaula();
+                    } else {
+                        if (jTurno.getText().equals("Turno blancas (Mayusculas)")) {
+                            jTurno.setText("Turno negras (Minusculas)");
+                        } else {
+                            jTurno.setText("Turno blancas (Mayusculas)");
+                }
+                    }
+                }
+            } else {
+                checked = 0;
             }
-        } else {
-            checked = 0;
-        }
-        
-       
+       } else {
+            System.out.println("La partida ya esta acabada :) que coño haces");
+       }
     }//GEN-LAST:event_jTable1MouseClicked
 
     /**
@@ -174,6 +195,7 @@ public class act9chessIan extends javax.swing.JFrame {
 
     public void omplirTaula() {
         turnoB = true;
+        jTurno.setText("Turno blancas (Mayusculas)");
         DefaultTableModel model = new DefaultTableModel();
         char c = 65;
         Object fichasBlancas[] = {"T", "C", "A", "Q", "K", "A", "C", "T"};
@@ -194,9 +216,12 @@ public class act9chessIan extends javax.swing.JFrame {
         model.addRow(filaVacia);
         model.addRow(peonesBlancos);
         model.addRow(fichasBlancas);
-
+        
         jTable1.setModel(model);
+        jTable1.setGridColor(Color.BLACK);
+        jTable1.getTableHeader().setReorderingAllowed(false);
         jTable1.setDefaultEditor(Object.class, null);
+        jTable1.setShowGrid(true);
         fila = -1;
         col = -1;
         filadest = -1;
@@ -207,6 +232,7 @@ public class act9chessIan extends javax.swing.JFrame {
     private javax.swing.JButton jButtonReiniciar;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JLabel jTurno;
     // End of variables declaration//GEN-END:variables
 
     private int filaTabla() {
@@ -216,4 +242,35 @@ public class act9chessIan extends javax.swing.JFrame {
     private int colTabla() {
         return jTable1.getSelectedColumn();
     }
+    
+    public boolean finalPartida(javax.swing.JTable tablero) {
+
+        // VARIABLES
+        boolean reyBlancasVivo = false;
+        boolean reyNegrasVivo = false;
+        boolean encontrados = false;
+
+        int i = 0;
+
+        while (!encontrados && i < 8){
+
+            int j = 0;
+
+            while (!encontrados && j < 8){
+
+                if (tablero.getValueAt(i, j).equals("k"))
+                    reyNegrasVivo = true;
+                else if (tablero.getValueAt(i, j).equals("K"))
+                    reyBlancasVivo = true;
+
+                encontrados = reyBlancasVivo && reyNegrasVivo;
+
+                j++;
+            }
+            i++;
+        }
+        return !encontrados; // si no encuentra los 2 reyes -> final de partida
+    }
+    
+
 }

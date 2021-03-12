@@ -146,6 +146,11 @@ public class Fitxa {
         return valido;
     }
 
+    private boolean esBuida(javax.swing.JTable tablero) 
+    { return tablero.getValueAt(fila - 1, columna)==null;
+    }
+    
+    
     // METODO QUE DEVUELVE SI LA FICHA PEON PUEDE HACER EL MOVIMIENTO INDICADO
     private boolean isPeonValido(Fitxa destino, javax.swing.JTable tablero) {
 
