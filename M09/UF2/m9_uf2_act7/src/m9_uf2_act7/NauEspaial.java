@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -62,11 +63,12 @@ public class NauEspaial extends javax.swing.JFrame {
 
 class PanelNau extends JPanel implements Runnable, KeyListener {
 
-    public static int numNaus = 3;
+    public static int numNaus = 3, numBalas = 5;
     Nau[] nau;
     Nau nauPropia;
     Random rand;
     Shot balas[] = new Shot[5];
+    boolean trigger = false;
 
     public PanelNau() {
         nau = new Nau[numNaus];
@@ -94,20 +96,98 @@ class PanelNau extends JPanel implements Runnable, KeyListener {
                 Thread.sleep(100);
             } catch (Exception e) {
             } // espero 0,1 segons
-            System.out.println("Repintant");
+            //System.out.println("Repintant");
             repaint();
         }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        for (int i = 0; i < nau.length; ++i) {
-            nau[i].pinta(g);
+        double dis = 0, cnt = 10000;
+
+        for (int i = 0; i < nau.length; i++) {
+            if (nau[i] != null) {
+                nau[i].pinta(g);
+                System.out.println("es la " + i);
+                if (nauPropia != null) {
+                    cnt = Math.floor(Math.sqrt(
+                            (nauPropia.getX() - nau[i].getX())
+                            * (nauPropia.getX() - nau[i].getX())
+                            + (nauPropia.getY() - nau[i].getY())
+                            * (nauPropia.getY() - nau[i].getY())));
+                }
+
+            }
+            if (nauPropia != null) {
+                nauPropia.pinta(g);
+                System.out.println(i);
+
+                for (int j = 0; j < nauPropia.shots.size(); j++) {
+                    if ((nauPropia.shots.get(j) != null) && (nau[i] != null)) {
+                        if (nauPropia.shots.get(j).getY() <= 0) {
+                            nauPropia.shots.set(j, null);
+                        } else {
+                            nauPropia.shots.get(j).pinta(g);
+                            dis = Math.floor(Math.sqrt(
+                                    (nauPropia.shots.get(j).getX() - nau[i].getX())
+                                    * (nauPropia.shots.get(j).getX() - nau[i].getX())
+                                    + (nauPropia.shots.get(j).getY() - nau[i].getY())
+                                    * (nauPropia.shots.get(j).getY() - nau[i].getY())));
+                            if (nauPropia != null) {
+                                System.out.println(cnt);
+                                if (cnt < 50) {
+                                    if (!trigger) {
+                                        nauPropia = null;
+                                        JOptionPane.showMessageDialog(null, "Has perdut");
+                                        trigger = true;
+                                        System.exit(0);
+                                    }
+                                }
+                            }
+                            if (dis < 50) {
+                                nau[i] = null;
+                                nauPropia.shots.set(j, null);
+                                numNaus--;
+                                if (numNaus == 0) {
+                                    JOptionPane.showMessageDialog(null, "GG");
+                                    System.exit(0);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (nauPropia != null && cnt < 50) {
+                System.out.println(cnt);
+                if (cnt < 50) {
+                    if (!trigger) {
+                        nauPropia = null;
+                        JOptionPane.showMessageDialog(null, "Has perdut");
+                        trigger = true;
+                        System.exit(0);
+                    }
+                }
+            }
         }
-        nauPropia.pinta(g);
-        for (int i = 0; i < nauPropia.shots.size(); ++i) {
-            nauPropia.shots.get(i).pinta(g);
-        }
+//        for (int i = 0; i < nau.length; i++) {
+//            if (nauPropia != null) {
+//                cnt = Math.floor(Math.sqrt(
+//                        (nauPropia.getX() - nau[i].getX())
+//                        * (nauPropia.getX() - nau[i].getX())
+//                        + (nauPropia.getY() - nau[i].getY())
+//                        * (nauPropia.getY() - nau[i].getY())));
+//                System.out.println(cnt);
+//                if (cnt < 10) {
+//                    if (!trigger) {
+//                        nauPropia = null;
+//                        JOptionPane.showMessageDialog(null, "Has perdut");
+//                        trigger = true;
+//                        System.exit(0);
+//                    }
+//                }
+//            }
+//        }
     }
 
     @Override
@@ -153,6 +233,94 @@ class Nau extends Thread {
     private String img = "/images/nau.jpg";
     private Image image;
 
+    public int getNumero() {
+        return numero;
+    }
+
+    public void setNumero(int numero) {
+        this.numero = numero;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getDsx() {
+        return dsx;
+    }
+
+    public void setDsx(int dsx) {
+        this.dsx = dsx;
+    }
+
+    public int getDsy() {
+        return dsy;
+    }
+
+    public void setDsy(int dsy) {
+        this.dsy = dsy;
+    }
+
+    public int getV() {
+        return v;
+    }
+
+    public void setV(int v) {
+        this.v = v;
+    }
+
+    public int getTx() {
+        return tx;
+    }
+
+    public void setTx(int tx) {
+        this.tx = tx;
+    }
+
+    public int getTy() {
+        return ty;
+    }
+
+    public void setTy(int ty) {
+        this.ty = ty;
+    }
+
+    public ArrayList<Shot> getShots() {
+        return shots;
+    }
+
+    public void setShots(ArrayList<Shot> shots) {
+        this.shots = shots;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
     public Nau(int numero, int x, int y, int dsx, int dsy, int v) {
         this.numero = numero;
         this.x = x;
@@ -182,7 +350,7 @@ class Nau extends Thread {
         if (x >= 420 - tx || x <= tx) {
             dsx = -dsx;
         }
-        if (y >= 325 - ty || y <= ty) {
+        if (y >= 440 - ty || y <= ty) {
             dsy = -dsy;
         }
     }
@@ -194,7 +362,7 @@ class Nau extends Thread {
 
     public void run() {
         while (true) {
-            System.out.println("Movent nau numero " + this.numero);
+            //System.out.println("Movent nau numero " + this.numero);
             try {
                 Thread.sleep(this.v);
             } catch (Exception e) {
@@ -230,6 +398,30 @@ class Shot extends Thread {
     private int x, y, v;
     private int dsy = 1, dsx = 0;
     private Image image;
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public int getV() {
+        return v;
+    }
+
+    public int getDsy() {
+        return dsy;
+    }
+
+    public int getDsx() {
+        return dsx;
+    }
+
+    public Image getImage() {
+        return image;
+    }
 
     public Shot(int x, int y, int v) {
         this.x = x;
