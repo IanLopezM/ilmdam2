@@ -55,6 +55,7 @@ public class UF3ACT3 {
             System.out.println("2. Elimina");
             System.out.println("3. Modifica");
             System.out.println("4. Sortir");
+            posicion = sc.nextInt();
             if (posicion == 1) {
                 insereixDep();
             } else if (posicion == 2) {
