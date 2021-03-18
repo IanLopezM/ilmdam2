@@ -108,14 +108,15 @@ public class UF3ACT3 {
         System.out.println("Escriu un departament: ");
         num = sc.nextInt();
 
-        result = servicio.query("update delete /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "]");
-        ResourceIterator i;
-        i = result.getIterator();
+        result = servicio.query("for $de in /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "] return $de");
+        ResourceIterator j;
+        j = result.getIterator();
 
-        if (!i.hasMoreResources()) {
+        if (j.hasMoreResources()) {
+            result = servicio.query("update delete /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "]");
+        } else {
             System.out.println("No puedes borrar lo que no existe");
         }
-
     }
 
     public static void modificaDep() throws XMLDBException {
@@ -137,15 +138,23 @@ public class UF3ACT3 {
             System.out.println("Error en llegir");
         }
 
-        resultComp = servicio.query("for $de in /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "] return $de");
+        result = servicio.query("for $de in /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "] return $de");
+        ResourceIterator j;
+        j = result.getIterator();
 
-        ResourceIterator i;
-        i = resultComp.getIterator();
+        if (j.hasMoreResources()) {
+            resultComp = servicio.query("for $de in /departamentos/DEP_ROW[DEPT_NO=" + (Integer) num + "] return $de");
 
-        while (i.hasMoreResources()) {
-            Resource r = i.nextResource();
-            result = servicio.query("update value /departamentos/DEP_ROW/DNOMBRE[DEPT_NO=" + (Integer) num + "] with " + nom);
-            result2 = servicio.query("update value /departamentos/DEP_ROW/LOC[DEPT_NO=" + (Integer) num + "] with " + loc);
+            ResourceIterator i;
+            i = resultComp.getIterator();
+
+            while (i.hasMoreResources()) {
+                Resource r = i.nextResource();
+                result = servicio.query("update replace /departamentos/DEP_ROW[DEPT_NO = " + (Integer) num + "]/DNOMBRE with <DNOMBRE>" + nom + "</DNOMBRE>");
+                result2 = servicio.query("update replace /departamentos/DEP_ROW[DEPT_NO =" + (Integer) num + "]/LOC with <LOC>" + loc + "</LOC>");
+            }
+        } else {
+            System.out.println("Te has equivocao");
         }
 
     }
