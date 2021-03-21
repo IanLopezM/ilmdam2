@@ -8,7 +8,6 @@ package uf3act3;
 import java.net.*;
 import java.io.*;
 import java.util.*;
-import java.net.MalformedURLException;
 
 /**
  *
@@ -18,10 +17,10 @@ public class UF3ACT3 {
 
     /**
      * @param args the command line arguments
+     * @throws java.net.MalformedURLException
      */
     public static void main(String[] args) throws MalformedURLException, IOException {
         String cadena;
-        int n = 1;
 
         try {
             URL url = new URL(args[0]);
@@ -34,7 +33,6 @@ public class UF3ACT3 {
                 Map.Entry map = (Map.Entry) iterator.next();
                 System.out.println(map.getKey() + " amb valor "
                         + map.getValue());
-                n++;
             }
 
             for (int i = 1; i <= Integer.valueOf(args[1]); i++) {
@@ -48,8 +46,8 @@ public class UF3ACT3 {
                 if (cadena.contains(args[2])) System.out.println(cadena);
             }
             
-        } catch (Exception e) {
-
+        } catch (IOException | NumberFormatException e) {
+            System.out.println(e);
         }
     }
 
