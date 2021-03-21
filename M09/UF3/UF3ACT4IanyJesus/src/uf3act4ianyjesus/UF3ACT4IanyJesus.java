@@ -12,6 +12,7 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 /**
@@ -24,6 +25,15 @@ public class UF3ACT4IanyJesus {
      * @param args the command line arguments
      * @throws java.net.SocketException
      * @throws java.net.UnknownHostException
+     * 
+     * L'ARXIU
+     * Exemple2URL.java
+     * FA DE
+     * SERVIDOR
+     * PER A 
+     * AQUESTA
+     * ACTIVITAT
+     * 
      */
     public static void main(String[] args) throws SocketException, UnknownHostException, IOException {
         // TODO code application logic here
@@ -52,6 +62,31 @@ public class UF3ACT4IanyJesus {
                     = new DatagramPacket(enviats, enviats.length, IPServidor,
                             port);
             clientSocket.send(enviament);
+
+            System.out.println("Esperant datagrama... ");
+            DatagramPacket paqRebuts = new DatagramPacket(rebuts, rebuts.length);
+
+            clientSocket.setSoTimeout(5000);
+
+            try {
+                clientSocket.receive(paqRebuts);
+            } catch (SocketTimeoutException e) {
+                System.out.println("Massa temps d'espera");
+                mescincsec = false;
+            }
+
+            if (mescincsec == true) {
+
+                String majuscula = new String(paqRebuts.getData());
+                InetAddress IPOrigen = paqRebuts.getAddress();
+                int portOrigen = paqRebuts.getPort();
+                System.out.println("\tProcedent de: " + IPOrigen + ":" + portOrigen);
+                System.out.println("\tDades: " + majuscula.trim());
+            }
+
+            if (mescincsec == false) {
+                clientSocket.close();
+            }
 
         }
 
