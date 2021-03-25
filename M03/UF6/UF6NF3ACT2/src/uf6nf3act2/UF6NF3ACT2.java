@@ -32,11 +32,12 @@ public class UF6NF3ACT2 {
                 num = Integer.valueOf(cadena);
                 cont = cont + num;
             } catch (Exception e) {
-                System.out.println(cadena);
+                
                 if (num != 1234567890) {
                     System.out.println(cont);
                     cont = 0;
                 }
+                System.out.println(cadena);
             }
         }
         System.out.println(cadena);
