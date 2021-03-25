@@ -26,7 +26,7 @@ public class ServidorTCP2 {
         //FLUX D'ENTRADA DEL CLIENT
         BufferedReader fentrada = new BufferedReader(new InputStreamReader(clientConnectat.getInputStream()));
 
-        while (!((cadena = fentrada.readLine()).equals(""))) {
+        while ((cadena = fentrada.readLine()) != null) {
 
             fsortida.println(cadena);
             System.out.println("Rebent: " + cadena);

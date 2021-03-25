@@ -16,7 +16,7 @@ public class ClientTCP2 {
   
         int port = 60000;//Port remot
         Socket client = new Socket(host, port);
-
+        
         //FLUX DE SORTIDA AL SERVIDOR
         PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
