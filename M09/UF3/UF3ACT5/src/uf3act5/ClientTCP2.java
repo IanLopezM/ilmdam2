@@ -13,6 +13,7 @@ public class ClientTCP2 {
     public static void main(String[] args) throws Exception {
 
         String host = "localhost";
+  
         int port = 60000;//Port remot
         Socket client = new Socket(host, port);
 
@@ -30,7 +31,7 @@ public class ClientTCP2 {
         //Lectura teclat
         cadena = in.readLine();
 
-        while (cadena != null) {
+        while (!(cadena.equals(""))) {
 
             //Enviament cadena al servidor
             fsortida.println(cadena);
