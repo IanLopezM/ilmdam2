@@ -40,7 +40,7 @@ public class UF6NF3ACT2 {
                 System.out.println(cadena);
             }
         }
-        System.out.println(cadena);
+        //System.out.println(cadena);
         System.out.println(cont);
         b.close();
     }
