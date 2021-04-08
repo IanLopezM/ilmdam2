@@ -17,27 +17,30 @@ public class HttpURLConnectionExample {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private static int getOpost = 0;
-    private static String url = ""; 
+    private static String url = "";
 
     public static void main(String[] args) throws Exception {
-        
+
         Scanner sc = new Scanner(System.in);
 
         HttpURLConnectionExample http = new HttpURLConnectionExample();
 
         System.out.println("Testing 1 - Send Http GET request");
         System.out.println("\nTesting 2 - Send Http POST request");
-        
+
         getOpost = sc.nextInt();
-        
+
         System.out.println("URL you want to see");
         url = sc.nextLine();
-        
-        if (getOpost == 1) {
-            http.sendGet();
-        } else if (getOpost == 2) {
-            http.sendPost();
+
+        while (!(getOpost == 1) || !(getOpost == 2)) {
+            if (getOpost == 1) {
+                http.sendGet();
+            } else if (getOpost == 2) {
+                http.sendPost();
+            }
         }
+
     }
 
     // HTTP GET request
@@ -73,7 +76,7 @@ public class HttpURLConnectionExample {
 
     // HTTP POST request
     private void sendPost() throws Exception {
-            
+
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
