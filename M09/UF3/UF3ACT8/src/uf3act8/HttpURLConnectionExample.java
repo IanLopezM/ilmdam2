@@ -38,8 +38,9 @@ public class HttpURLConnectionExample {
                 http.sendGet();
             } else if (getOpost == 2) {
                 http.sendPost();
+                
             }
-        }
+        } 
 
     }
 
