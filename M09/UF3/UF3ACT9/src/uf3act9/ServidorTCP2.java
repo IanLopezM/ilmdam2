@@ -22,8 +22,9 @@ public class ServidorTCP2 implements Runnable {
 
     public ServidorTCP2(ServerSocket srv, Socket clnConn) {
         this.cln = clnConn;
-        this.srv = srv;
         this.nCln = this.nCln + 1;
+        this.srv = srv;
+        
     }
 
     public static void main(String[] args) throws Exception {
