@@ -31,6 +31,5 @@ public class M06uf4act1 {
             cont++;
         }
     }
-   
 }
 
