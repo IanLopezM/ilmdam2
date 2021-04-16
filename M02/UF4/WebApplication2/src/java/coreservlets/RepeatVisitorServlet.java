@@ -14,8 +14,8 @@ import java.util.*;
  *  Spring, Hibernate, JPA, and Java</a>.
  */
 
-@WebServlet("/show-session")
-public class ShowSession extends HttpServlet {
+@WebServlet("/repeat-session")
+public class RepeatVisitorServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request,
                     HttpServletResponse response)
@@ -28,7 +28,7 @@ public class ShowSession extends HttpServlet {
         (Integer)session.getAttribute("accessCount");
       if (accessCount == null) {
         accessCount = 0;
-        heading = "Welcome, Newcomer";
+        heading = "Welcome Aboard";
       } else {
         heading = "Welcome Back";
         accessCount = accessCount + 1;
@@ -48,25 +48,6 @@ public class ShowSession extends HttpServlet {
                   "<BODY BGCOLOR=\"#FDF5E6\">\n" +
                   "<CENTER>\n" +
                   "<H1>" + heading + "</H1>\n" +
-                  "<H2>Information on Your Session:</H2>\n" +
-                  "<TABLE BORDER=1>\n" +
-                  "<TR BGCOLOR=\"#FFAD00\">\n" +
-                  "  <TH>Info Type<TH>Value\n" +
-                  "<TR>\n" +
-                  "  <TD>ID\n" +
-                  "  <TD>" + session.getId() + "\n" +
-                  "<TR>\n" +
-                  "  <TD>Creation Time\n" +
-                  "  <TD>" +
-                  new Date(session.getCreationTime()) + "\n" +
-                  "<TR>\n" +
-                  "  <TD>Time of Last Access\n" +
-                  "  <TD>" +
-                  new Date(session.getLastAccessedTime()) + "\n" +
-                  "<TR>\n" +
-                  "  <TD>Number of Previous Accesses\n" +
-                  "  <TD>" + accessCount + "\n" +
-                  "</TABLE>\n" +
                   "</CENTER></BODY></HTML>");
     }
   }
