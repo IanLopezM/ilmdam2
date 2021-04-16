@@ -36,7 +36,7 @@ public class RegistrationForm extends HttpServlet {
             request.getSession().setAttribute("cognom", new String(request.getParameter("cognom")));
             request.getSession().setAttribute("email", new String(request.getParameter("email")));
             
-            response.sendRedirect(null);
+            response.sendRedirect("registrationform.jsp");
         }
     }
 
