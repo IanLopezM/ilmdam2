@@ -30,6 +30,7 @@ public class ServidorTCP2 implements Runnable {
         this.nCln = this.nCln + 1;
         this.srv = srv;
         
+        
     }
 
     public static void main(String[] args) throws Exception {
@@ -42,19 +43,18 @@ public class ServidorTCP2 implements Runnable {
         System.out.println("Quants clients soporta aquest server?");
         int numClnts = sc.nextInt();
 
-        Runnable[] arrayRunnable = new Runnable[numClnts];
+//        Runnable[] arrayRunnable = new Runnable[numClnts];
         Thread[] arrayThread = new Thread[numClnts];
 
         // Determinem les vegades que es conectaran els clients
-        for (int i = 0; i < arrayRunnable.length; i++) {
-
+        for (int i = 0; i < numClnts; i++) {
             Socket clientConnectat = servidor.accept();
 
             // Runnable
-            arrayRunnable[i] = new ServidorTCP2(servidor, clientConnectat);
+            ServidorTCP2 a = new ServidorTCP2(servidor, clientConnectat);
 
             // Thread
-            arrayThread[i] = new Thread(arrayRunnable[i]);
+            arrayThread[i] = new Thread(a);
             arrayThread[i].start();
 
         }
@@ -64,10 +64,10 @@ public class ServidorTCP2 implements Runnable {
     public void run() {
         try {
             //FLUX DE SORTIDA AL CLIENT
-            PrintWriter fsortida = null;
+            PrintWriter fsortida = new PrintWriter(this.cln.getOutputStream(), true);
 
             //FLUX D'ENTRADA DEL CLIENT
-            BufferedReader fentrada = null;
+            BufferedReader fentrada;
 
             System.out.println("Client " + this.nCln + " connectat... ");
 
@@ -80,7 +80,6 @@ public class ServidorTCP2 implements Runnable {
                 if (cadena.equals("*")) {
                     break;
                 }
-
             }
 
             //TANCAR STREAMS I SOCKETS
