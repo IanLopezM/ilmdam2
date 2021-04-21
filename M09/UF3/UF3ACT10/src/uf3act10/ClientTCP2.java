@@ -1,43 +1,46 @@
+package uf3act10;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package uf3act10;
-
 import java.net.*;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class ClientTCP2 implements Runnable {
 
-    public static String cadena = "", eco = "";
-    static PrintWriter fsortida;
+    static String cadena, eco = "";
     static BufferedReader fentrada;
-    static BufferedReader in;
 
     public static void main(String[] args) throws Exception {
 
         String host = "localhost";
         int port = 60000;//Port remot
         Socket client = new Socket(host, port);
+        ClientTCP2 clientR = new ClientTCP2();
+        Thread t1 = new Thread(clientR);
 
         //FLUX DE SORTIDA AL SERVIDOR
-        fsortida = new PrintWriter(client.getOutputStream(), true);
+        PrintWriter fsortida = new PrintWriter(client.getOutputStream(), true);
 
         //FLUX D'ENTRADA AL SERVIDOR
         fentrada = new BufferedReader(new InputStreamReader(client.getInputStream()));
 
         //FLUX PER A ENTRADA ESTÀNDARD
-        in = new BufferedReader(new InputStreamReader(System.in));
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
 
-        //System.out.println("Primer de tot possa el teu nom si us plau: ");
+        System.out.println("Introdueix la cadena: ");
         //Lectura teclat
         cadena = in.readLine();
-
-        while ((cadena = fentrada.readLine()) != null) {
-            //Lectura del teclat
-            
+        
+        while (!cadena.equals("")) {
+            //Enviament cadena al servidor
             fsortida.println(cadena);
+            
+            //Lectura del tecla
             cadena = in.readLine();
         }
 
@@ -52,17 +55,12 @@ public class ClientTCP2 implements Runnable {
     @Override
     public void run() {
         try {
-            while (true) {
-                //Rebuda cadena del servidor
-                eco = fentrada.readLine();
-
-                System.out.println("  =>ECO: " + eco);
-
-            }
-        } catch (Exception e) {
-            System.out.println(e);
+            //Rebuda cadena del servidor
+            eco = fentrada.readLine();
+            System.out.println("  =>ECO: " + eco);
+        } catch (IOException ex) {
+            Logger.getLogger(ClientTCP2.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 
 }
