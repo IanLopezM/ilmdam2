@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <body>
+    <body BGCOLOR="#FDF5E6">
         <% String nom = String.valueOf(session.getAttribute("nom"));%>
         <% String cognom = String.valueOf(session.getAttribute("cognom"));%>
         <% String email = String.valueOf(session.getAttribute("email"));%>
