@@ -71,8 +71,11 @@ public class ServidorTCP2 extends Thread {
                         nombreArray = cadena.split(":");
                         nombre = nombreArray[1];
                         System.out.println(nombre);
-                        cadena = "tu nombre de usuario es " + nombre;
+                        this.setName(nombre);
+                        
+                        cadena = "tu nombre de usuario es " + this.getName();
                         firstTime = false;
+                        
                     } else if (cadena.startsWith("\\login:") && firstTime == false) {
                         System.out.println("Este usuario ya tiene nombre");
                         cadena = "No puedes cambiar el nombre otra vez";
