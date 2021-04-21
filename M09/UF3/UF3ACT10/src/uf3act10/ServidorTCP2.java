@@ -63,10 +63,10 @@ public class ServidorTCP2 extends Thread {
             if (fEntrada != null) {
                 while ((cadena = fEntrada.readLine()) != null) {
 
+                    //apartado para coger el nombre de login
                     if (firstTime && !cadena.startsWith("\\login:")) {
                         cadena = "Tienes que iniciar sesion";
                     }
-
                     if (cadena.startsWith("\\login:") && firstTime) {
                         nombreArray = cadena.split(":");
                         nombre = nombreArray[1];
