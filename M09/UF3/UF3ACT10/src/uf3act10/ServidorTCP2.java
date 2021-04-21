@@ -28,6 +28,12 @@ public class ServidorTCP2 extends Thread {
     private String[] nombreArray;
     private String nombre;
     private boolean firstTime = true;
+    
+    private String[] mensajeArray;
+    private String mensaje;
+    
+    
+    public static ServidorTCP2 clientes[];
 
     // CONSTRUCTOR
     public ServidorTCP2(Socket clienteConectado, int i) {
@@ -66,6 +72,7 @@ public class ServidorTCP2 extends Thread {
                     //apartado para coger el nombre de login
                     if (firstTime && !cadena.startsWith("\\login:")) {
                         cadena = "Tienes que iniciar sesion";
+                        fSalida.println(cadena);
                     }
                     if (cadena.startsWith("\\login:") && firstTime) {
                         nombreArray = cadena.split(":");
@@ -75,13 +82,29 @@ public class ServidorTCP2 extends Thread {
                         
                         cadena = "tu nombre de usuario es " + this.getName();
                         firstTime = false;
-                        
+                        fSalida.println(cadena);
                     } else if (cadena.startsWith("\\login:") && firstTime == false) {
                         System.out.println("Este usuario ya tiene nombre");
                         cadena = "No puedes cambiar el nombre otra vez";
+                        fSalida.println(cadena);
+                    }
+                    
+                    if (cadena.startsWith("\\msg:")) {
+                        mensajeArray = cadena.split(":");
+                        mensaje = mensajeArray[1];
+                        System.out.println(nombre);
+                        
+                        for (int i = 0; i < clientes.length; i++) {
+                            if ((this.getName().equals(clientes[i].getName()))) {
+                                //fSalida.println(cadena);
+                                //clientes[i]
+                                System.out.println(clientes[i].getName());
+                                fSalida.println(cadena);
+                            }
+                        }
                     }
 
-                    fSalida.println(cadena);
+                    
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
                     if (cadena.equals("*")) {
                         break;
@@ -140,7 +163,7 @@ public class ServidorTCP2 extends Thread {
         System.out.println("cuantos clientes soporta el servidor?");
         totalClientes = sc.nextInt();
 
-        ServidorTCP2 clientes[] = new ServidorTCP2[totalClientes];
+        ServidorTCP2.clientes = new ServidorTCP2[totalClientes];
 
         // CONTROLA LA CONEXION DEL SERVIDOR
         try {
