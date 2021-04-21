@@ -27,12 +27,20 @@ public class ShowItems extends HttpServlet {
       @SuppressWarnings("unchecked")
       List<String> previousItems =
         (List<String>)session.getAttribute("previousItems");
+      List<Integer> previousInts = 
+              (List<Integer>)session.getAttribute("previousInts");
       if (previousItems == null) {
         previousItems = new ArrayList<String>();
       }
       String newItem = request.getParameter("newItem");
       if ((newItem != null) &&
           (!newItem.trim().equals(""))) {
+          for (int i = 0; i < previousItems.size(); i++) {
+              if (previousItems.get(i).equalsIgnoreCase(newItem)) {
+                  
+              }
+          }
+          
         previousItems.add(newItem);
       }
       session.setAttribute("previousItems", previousItems);
