@@ -25,6 +25,10 @@ public class ServidorTCP2 extends Thread {
     private final int numCliente;
     private boolean conActiva;
 
+    private String[] nombreArray;
+    private String nombre;
+    private boolean firstTime = true;
+
     // CONSTRUCTOR
     public ServidorTCP2(Socket clienteConectado, int i) {
         this.cliente = clienteConectado;
@@ -58,6 +62,21 @@ public class ServidorTCP2 extends Thread {
             // VA MOSTRANDO LOS MENSAJES DEL CLIENTE HASTA QUE SE DESCONECTE
             if (fEntrada != null) {
                 while ((cadena = fEntrada.readLine()) != null) {
+
+                    if (firstTime && !cadena.startsWith("\\login:")) {
+                        cadena = "Tienes que iniciar sesion";
+                    }
+
+                    if (cadena.startsWith("\\login:") && firstTime) {
+                        nombreArray = cadena.split(":");
+                        nombre = nombreArray[1];
+                        System.out.println(nombre);
+                        cadena = "tu nombre de usuario es " + nombre;
+                        firstTime = false;
+                    } else if (cadena.startsWith("\\login:") && firstTime == false) {
+                        System.out.println("Este usuario ya tiene nombre");
+                        cadena = "No puedes cambiar el nombre otra vez";
+                    }
 
                     fSalida.println(cadena);
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);

@@ -35,11 +35,11 @@ public class ClientTCP2 implements Runnable {
         System.out.println("Introdueix la cadena: ");
         //Lectura teclat
         cadena = in.readLine();
-        
+        t1.start();
         while (!cadena.equals("")) {
             //Enviament cadena al servidor
             fsortida.println(cadena);
-            
+
             //Lectura del tecla
             cadena = in.readLine();
         }
@@ -54,12 +54,14 @@ public class ClientTCP2 implements Runnable {
 
     @Override
     public void run() {
-        try {
-            //Rebuda cadena del servidor
-            eco = fentrada.readLine();
-            System.out.println("  =>ECO: " + eco);
-        } catch (IOException ex) {
-            Logger.getLogger(ClientTCP2.class.getName()).log(Level.SEVERE, null, ex);
+        while (!cadena.equals("")) {
+            try {
+                //Rebuda cadena del servidor
+                eco = fentrada.readLine();
+                System.out.println("  =>ECO: " + eco);
+            } catch (IOException ex) {
+                //Logger.getLogger(ClientTCP2.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
