@@ -32,8 +32,10 @@ public class OmplirVenda {
         int quantitat = -10000;
         Scanner sc = new Scanner(System.in);
 
-        idproducte = Integer.valueOf(args[0]);
-        quantitat = Integer.valueOf(args[1]);
+        if (args.length > 0) {
+            idproducte = Integer.valueOf(args[0]);
+            quantitat = Integer.valueOf(args[1]);
+        }
 
         if (idproducte == -10000 && quantitat == -10000) {
             System.out.println("Id del producte?");
