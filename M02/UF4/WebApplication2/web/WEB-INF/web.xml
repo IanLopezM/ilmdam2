@@ -4,9 +4,17 @@
         <servlet-name>RegistrationForm</servlet-name>
         <servlet-class>coreservlets.RegistrationForm</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShowReferers</servlet-name>
+        <servlet-class>coreservlets.ShowReferers</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationForm</servlet-name>
         <url-pattern>/RegistrationForm</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ShowReferers</servlet-name>
+        <url-pattern>/ShowReferers</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
