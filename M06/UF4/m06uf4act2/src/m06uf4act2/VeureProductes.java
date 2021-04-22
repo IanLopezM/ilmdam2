@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package act02_omplirvenda;
+package m06uf4act2;
 
 import ElsMeusBeans.Producte;
 import org.neodatis.odb.ODB;
