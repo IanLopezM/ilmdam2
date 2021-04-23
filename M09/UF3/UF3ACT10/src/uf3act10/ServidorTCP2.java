@@ -28,11 +28,11 @@ public class ServidorTCP2 extends Thread {
     private String[] nombreArray;
     private String nombre;
     private boolean firstTime = true;
-    
+
     private String[] mensajeArray;
     private String mensaje;
-    
-    
+
+    public static PrintWriter fSalidas[];
     public static ServidorTCP2 clientes[];
 
     // CONSTRUCTOR
@@ -49,7 +49,8 @@ public class ServidorTCP2 extends Thread {
 
     // RUN
     public void run() {
-
+        nombre = "";
+        this.setName("\\asdf\\");
         // VARIABLES
         String cadena;
 
@@ -79,7 +80,7 @@ public class ServidorTCP2 extends Thread {
                         nombre = nombreArray[1];
                         System.out.println(nombre);
                         this.setName(nombre);
-                        
+
                         cadena = "tu nombre de usuario es " + this.getName();
                         firstTime = false;
                         fSalida.println(cadena);
@@ -88,23 +89,24 @@ public class ServidorTCP2 extends Thread {
                         cadena = "No puedes cambiar el nombre otra vez";
                         fSalida.println(cadena);
                     }
-                    
+
+                    //apartado para enviar mensaje a todos menos a el mismo
                     if (cadena.startsWith("\\msg:")) {
                         mensajeArray = cadena.split(":");
                         mensaje = mensajeArray[1];
                         System.out.println(nombre);
-                        
+
                         for (int i = 0; i < clientes.length; i++) {
-                            if ((this.getName().equals(clientes[i].getName()))) {
+                            if (!(this.getName().equals(clientes[i].getName()))
+                                    && !(clientes[i].getName().equalsIgnoreCase("\\asdf\\"))) {
                                 //fSalida.println(cadena);
                                 //clientes[i]
-                                System.out.println(clientes[i].getName());
-                                fSalida.println(cadena);
+                                System.out.println("nombre del cliente" + clientes[i].getName());
+                                fSalidas[i].println(mensaje);
                             }
                         }
                     }
 
-                    
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
                     if (cadena.equals("*")) {
                         break;
@@ -164,6 +166,7 @@ public class ServidorTCP2 extends Thread {
         totalClientes = sc.nextInt();
 
         ServidorTCP2.clientes = new ServidorTCP2[totalClientes];
+        ServidorTCP2.fSalidas = new PrintWriter[totalClientes];
 
         // CONTROLA LA CONEXION DEL SERVIDOR
         try {
@@ -191,6 +194,7 @@ public class ServidorTCP2 extends Thread {
 
                     // LANZA UN HILO CON UN NUEVO CLIENTE
                     clientes[i] = new ServidorTCP2(clienteConectado, i);
+                    fSalidas[i] = new PrintWriter(clientes[i].cliente.getOutputStream(), true);
                     clientes[i].start();
                 }
             }
