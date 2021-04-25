@@ -31,7 +31,7 @@ public class ServidorTCP2 extends Thread {
 
     private String[] mensajeArray;
     private String mensaje;
-    
+
     private String quienEnvia;
 
     public static PrintWriter fSalidas[];
@@ -100,23 +100,25 @@ public class ServidorTCP2 extends Thread {
                         System.out.println(nombre);
 
                         for (int i = 0; i < clientes.length; i++) {
-                            if (!(this.getName().equals(clientes[i].getName()))
-                                    && !(clientes[i].getName().equalsIgnoreCase("\\asdf\\"))) {
+                            if (clientes[i] != null) {
+                                if (!(this.getName().equals(clientes[i].getName()))
+                                        && !(clientes[i].getName().equalsIgnoreCase("\\asdf\\"))) {
                                 //fSalida.println(cadena);
-                                //clientes[i]
-                                System.out.println("nombre del cliente" + clientes[i].getName());
-                                fSalidas[i].println(mensaje);
+                                    //clientes[i]
+                                    System.out.println("nombre del cliente" + clientes[i].getName());
+                                    fSalidas[i].println(mensaje);
+                                }
                             }
                         }
                     }
                     //ACABA apartado para enviar mensaje a todos menos a el mismo
-                    
+
                     //apartado para enviar mensaje a una persona especifica
                     if (cadena.startsWith("\\msgto:")) {
                         mensajeArray = cadena.split(":");
                         quienEnvia = mensajeArray[1];
                         mensaje = mensajeArray[2];
-                        
+
                         for (int i = 0; i < clientes.length; i++) {
                             if (clientes[i].getName().equalsIgnoreCase(quienEnvia)) {
                                 fSalidas[i].println(this.getName() + ":" + mensaje);
@@ -124,16 +126,14 @@ public class ServidorTCP2 extends Thread {
                         }
                     }
                     //ACABA apartado para enviar mensaje a una persona especifica
-                    
+
                     //apartado para saber quien hay conectado
                     if (cadena.startsWith("\\users")) {
-                        for(int i = 0; i < clientes.length; i++) {
+                        for (int i = 0; i < clientes.length; i++) {
                             fSalida.println(clientes[i].getName());
-                        
+
                         }
                     }
-                    
-                    
 
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
                     if (cadena.equals("\\logout")) {
