@@ -125,6 +125,14 @@ public class ServidorTCP2 extends Thread {
                     }
                     //ACABA apartado para enviar mensaje a una persona especifica
                     
+                    //apartado para saber quien hay conectado
+                    if (cadena.startsWith("\\users")) {
+                        for(int i = 0; i < clientes.length; i++) {
+                            fSalida.println(clientes[i].getName());
+                        
+                        }
+                    }
+                    
                     
 
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
