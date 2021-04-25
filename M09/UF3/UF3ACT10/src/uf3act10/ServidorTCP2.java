@@ -31,6 +31,8 @@ public class ServidorTCP2 extends Thread {
 
     private String[] mensajeArray;
     private String mensaje;
+    
+    private String quienEnvia;
 
     public static PrintWriter fSalidas[];
     public static ServidorTCP2 clientes[];
@@ -89,6 +91,7 @@ public class ServidorTCP2 extends Thread {
                         cadena = "No puedes cambiar el nombre otra vez";
                         fSalida.println(cadena);
                     }
+                    //ACABA apartado para coger el nombre de login
 
                     //apartado para enviar mensaje a todos menos a el mismo
                     if (cadena.startsWith("\\msg:")) {
@@ -106,9 +109,26 @@ public class ServidorTCP2 extends Thread {
                             }
                         }
                     }
+                    //ACABA apartado para enviar mensaje a todos menos a el mismo
+                    
+                    //apartado para enviar mensaje a una persona especifica
+                    if (cadena.startsWith("\\msgto:")) {
+                        mensajeArray = cadena.split(":");
+                        quienEnvia = mensajeArray[1];
+                        mensaje = mensajeArray[2];
+                        
+                        for (int i = 0; i < clientes.length; i++) {
+                            if (clientes[i].getName().equalsIgnoreCase(quienEnvia)) {
+                                fSalidas[i].println(this.getName() + ":" + mensaje);
+                            }
+                        }
+                    }
+                    //ACABA apartado para enviar mensaje a una persona especifica
+                    
+                    
 
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
-                    if (cadena.equals("*")) {
+                    if (cadena.equals("\\logout")) {
                         break;
                     }
                 }

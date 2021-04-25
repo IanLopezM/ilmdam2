@@ -36,7 +36,7 @@ public class ClientTCP2 implements Runnable {
         //Lectura teclat
         cadena = in.readLine();
         t1.start();
-        while (!cadena.equals("")) {
+        while (!cadena.equals("\\logout")) {
             //Enviament cadena al servidor
             fsortida.println(cadena);
 
@@ -54,7 +54,7 @@ public class ClientTCP2 implements Runnable {
 
     @Override
     public void run() {
-        while (!cadena.equals("")) {
+        while (!cadena.equals("\\logout")) {
             try {
                 //Rebuda cadena del servidor
                 eco = fentrada.readLine();
