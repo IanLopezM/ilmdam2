@@ -11,7 +11,7 @@ import org.neodatis.odb.ODBFactory;
 
 /**
  *
- * @author maria
+ * @author ianlo
  */
 public class OmplirProductes {
     public static void main(String[] args) {
