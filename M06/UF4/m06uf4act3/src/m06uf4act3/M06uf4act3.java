@@ -110,4 +110,36 @@ public class M06uf4act3 {
         }
     }//Fi CrearVenda
 
-}
+    private static void VeureComandes(BaseDades bd) {
+        ArrayList<Comanda> llista = new ArrayList<Comanda>();
+        llista = bd.consultaCom("SELECT * FROM COMANDES");
+        if (llista != null) {
+            for (int i = 0; i < llista.size(); i++) {
+                Comanda c = (Comanda) llista.get(i);
+                Producte prod = bd.consultarUnProducte(c.getIdproducte());
+                System.out.println("ID Comanda=>" + c.getNumcomanda()
+                        + "* Producte:" + prod.getDescripcio() + "* Quantitat: "
+                        + c.getQuantitat() + "* Data: " + c.getData());
+            }
+        }
+    }//Fi VeureComandes
+
+    private static void VeureVendes(BaseDades bd) {
+        ArrayList<Venda> llista = new ArrayList<Venda>();
+        llista = bd.consultaVen("SELECT * FROM VENDES");
+        for (int i = 0; i < llista.size(); i++) {
+            Venda c = (Venda) llista.get(i);
+            Producte prod = bd.consultarUnProducte(c.getIdproducte());
+            System.out.println("ID Comanda=>" + c.getNumvenda()
+                    + "* Producte:" + prod.getDescripcio() + "* Quantitat: "
+                    + c.getQuantitat() + "* Data: " + c.getDatavenda());
+        }
+    }//Fi VeureVendes
+
+    //Obté la data actual
+    private static java.sql.Date getCurrentDate() {
+        java.util.Date avui = new java.util.Date();
+        return new java.sql.Date(avui.getTime());
+    }//Fi getCurrentDate
+
+}//Fi Exemple
