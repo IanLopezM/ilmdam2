@@ -12,7 +12,7 @@ import org.neodatis.odb.Objects;
 
 /**
  *
- * @author maria
+ * @author ianlo
  */
 public class VeureProductes {
     public static void main(String[] args) {
