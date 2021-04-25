@@ -75,4 +75,16 @@ public class M06uf4act3 {
         
     }//Fi main
     
+    private static void VeureProductes(BaseDades bd) {
+        ArrayList <Producte> llista = new ArrayList <Producte>();
+        llista = bd.consultaPro("SELECT * FROM PRODUCTE");
+        if (llista != null)
+            for (int i = 0; i<llista.size(); i++) {
+                Producte p = (Producte) llista.get(i);
+                System.out.println((i++) + "ID=>  " + p.getDescripcio()
+                    + " *ESTOC.ACT: " + p.getStockactual() + " *PVP: " + p.getPvp() +
+                    " *ESTOC.MIN: " + p.getStockminim());
+            }
+    }//Fi VeureProductes
+    
 }
