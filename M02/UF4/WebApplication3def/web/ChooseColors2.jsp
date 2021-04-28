@@ -1,0 +1,27 @@
+<%-- 
+    Document   : newjsp
+    Created on : 29/04/2021, 00:27:40
+    Author     : ianlo
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>JSP Page</title>
+    </head>
+    <style>
+        body{
+            <jsp:useBean id="color" class="coreservlets.ColorBean" scope="session"/>
+            <jsp:setProperty name="color" property="*"/>
+
+            background: <jsp:getProperty name="color" property="backgroundC"/>;
+            color: <jsp:getProperty name="color" property="foregroundC"/>;
+        }
+
+    </style>
+    <body>
+        <h1>Hello World!</h1>
+    </body>
+</html>

@@ -11,13 +11,14 @@ and open the template in the editor.
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
-        <h1>Exercices: Beans</h1>
-        <ul>
-            <li><p><a href="ChooseColors1.jsp">ChooseColors1.jsp</a></p></li>
-            <li><p><a href="formap2.html">ChooseColors2.jsp</a></p></li>    
-            <li><p><a href="formap3.html">ChooseColors3.jsp</a></p></li>
-        </ul>
-        
+        <FORM ACTION="ChooseColors3.jsp" METHOD="POST">
+            <label>Foreground Color</label>
+            <input type="text" name="foreground"/>
+            <br>
+            <label>Background Color</label>
+            <input type="text" name="background"/>
+            <br>
+            <input value="showcolor" type="submit"/>
+        </FORM>
     </body>
 </html>
