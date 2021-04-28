@@ -11,24 +11,26 @@ package coreservlets;
  */
 public class ColorBean {
     
-    private String foregroundColor = "black";
-    private String backgroundColor = "white";
+    private String foreground = "black";
+    private String background = "white";
 
-    public String getForegroundColor() {
-        return foregroundColor;
+    public ColorBean() {
     }
 
-    public void setForegroundColor(String foregroundColor) {
-        this.foregroundColor = foregroundColor;
+    public String getForeground() {
+        return foreground;
     }
 
-    public String getBackgroundColor() {
-        return backgroundColor;
+    public void setForeground(String foreground) {
+        this.foreground = foreground;
     }
 
-    public void setBackgroundColor(String backgroundColor) {
-        this.backgroundColor = backgroundColor;
+    public String getBackground() {
+        return background;
     }
-    
-    
+
+    public void setBackground(String background) {
+        this.background = background;
+    }
+
 }

@@ -16,8 +16,8 @@
             <jsp:useBean id="color" class="coreservlets.ColorBean" scope="session"/>
             <jsp:setProperty name="color" property="*"/>
 
-            background: <jsp:getProperty name="color" property="backgroundC"/>;
-            color: <jsp:getProperty name="color" property="foregroundC"/>;
+            background: <jsp:getProperty name="color" property="background"/>;
+            color: <jsp:getProperty name="color" property="foreground"/>;
         }
 
     </style>
