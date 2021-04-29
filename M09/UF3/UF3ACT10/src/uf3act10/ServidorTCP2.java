@@ -139,16 +139,17 @@ public class ServidorTCP2 extends Thread {
 
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
                     if (cadena.equals("\\logout")) {
-                        for (int i = 0; i < clientes.length; i++) {
-                            if (this.getName().equals(clientes[i].getName())) {
-                                clientes[i] = null;
-                                fSalidas[i] = null;
-                            }
-                        }
-
                         break;
                     }
                 }
+                for (int i = 0; i < clientes.length; i++) {
+                    if (this.getName().equals(clientes[i].getName())) {
+                        clientes[i] = null;
+                        clientes[i].setName("");
+                        fSalidas[i] = null;
+                    }
+                }
+
             }
         } catch (IOException e) {
             System.out.println("Error en la conexion del cliente " + numCliente);
