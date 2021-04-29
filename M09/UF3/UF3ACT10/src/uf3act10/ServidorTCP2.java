@@ -103,7 +103,7 @@ public class ServidorTCP2 extends Thread {
                             if (clientes[i] != null) {
                                 if (!(this.getName().equals(clientes[i].getName()))
                                         && !(clientes[i].getName().equalsIgnoreCase("\\asdf\\"))) {
-                                //fSalida.println(cadena);
+                                    //fSalida.println(cadena);
                                     //clientes[i]
                                     System.out.println("nombre del cliente" + clientes[i].getName());
                                     fSalidas[i].println(mensaje);
@@ -130,13 +130,22 @@ public class ServidorTCP2 extends Thread {
                     //apartado para saber quien hay conectado
                     if (cadena.startsWith("\\users")) {
                         for (int i = 0; i < clientes.length; i++) {
-                            fSalida.println(clientes[i].getName());
+                            if (clientes[i] != null) {
+                                fSalida.println(clientes[i].getName());
+                            }
 
                         }
                     }
 
                     System.out.println("Cliente " + numCliente + " - Recibiendo: " + cadena);
                     if (cadena.equals("\\logout")) {
+                        for (int i = 0; i < clientes.length; i++) {
+                            if (this.getName().equals(clientes[i].getName())) {
+                                clientes[i] = null;
+                                fSalidas[i] = null;
+                            }
+                        }
+
                         break;
                     }
                 }

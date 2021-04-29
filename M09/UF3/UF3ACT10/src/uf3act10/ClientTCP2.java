@@ -7,8 +7,8 @@ package uf3act10;
  */
 import java.net.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+//import java.util.logging.Level;
+//import java.util.logging.Logger;
 
 public class ClientTCP2 implements Runnable {
 
