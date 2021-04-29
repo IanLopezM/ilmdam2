@@ -143,11 +143,16 @@ public class ServidorTCP2 extends Thread {
                     }
                 }
                 for (int i = 0; i < clientes.length; i++) {
-                    if (this.getName().equals(clientes[i].getName())) {
-                        clientes[i] = null;
-                        clientes[i].setName("");
-                        fSalidas[i] = null;
+                    try {
+                        if (this.getName().equals(clientes[i].getName())) {
+                            clientes[i] = null;
+                            clientes[i].setName("");
+                            fSalidas[i] = null;
+                        }
+                    } catch (Exception e) {
+
                     }
+
                 }
 
             }
